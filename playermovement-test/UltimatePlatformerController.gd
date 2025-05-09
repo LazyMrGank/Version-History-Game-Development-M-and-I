@@ -99,8 +99,6 @@ class_name PlatformerController2D
 @export var jump: bool
 ##Animations must be named "idle" all lowercase as the check box says
 @export var idle: bool
-##Animations must be named "walk" all lowercase as the check box says
-@export var walk: bool
 ##Animations must be named "slide" all lowercase as the check box says
 @export var slide: bool
 ##Animations must be named "latch" all lowercase as the check box says
@@ -197,7 +195,7 @@ func _updateData():
 	dashCount = dashes
 	
 	maxSpeedLock = maxSpeed
-	
+
 	animScaleLock = abs(anim.scale)
 	colliderScaleLockY = col.scale.y
 	colliderPosLockY = col.position.y
@@ -272,13 +270,9 @@ func _process(_delta):
 		elif abs(velocity.x) < 0.1 and is_on_floor():
 			anim.speed_scale = 1
 			anim.play("idle")
-	elif run and idle and walk and !dashing and !crouching:
+	elif run and idle and !dashing and !crouching:
 		if abs(velocity.x) > 0.1 and is_on_floor() and !is_on_wall():
 			anim.speed_scale = abs(velocity.x / 150)
-			if abs(velocity.x) < (maxSpeedLock):
-				anim.play("walk")
-			else:
-				anim.play("run")
 		elif abs(velocity.x) < 0.1 and is_on_floor():
 			anim.speed_scale = 1
 			anim.play("idle")
