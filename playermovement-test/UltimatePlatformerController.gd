@@ -8,7 +8,7 @@ class_name PlatformerController2D
 #Usage tips. 
 #1. Hover over each toggle and variable to read what it does and to make sure nothing bugs. 
 #2. Animations are very primitive. To make full use of your custom art, you may want to slightly change the code for the animations
-
+@onready var hit_detector = $Area2D
 @export_category("Necesary Child Nodes")
 @export var PlayerSprite: AnimatedSprite2D
 @export var PlayerCollider: CollisionShape2D
@@ -256,7 +256,9 @@ func _process(_delta):
 		latched = false
 		wasLatched = true
 		_setLatch(0.2, false)
-
+	
+	
+	
 	if rightHold and !latched:
 		anim.scale.x = animScaleLock.x
 	if leftHold and !latched:
@@ -321,6 +323,7 @@ func _physics_process(delta):
 		gdelta = delta
 		dset = true
 	#INFO Input Detectio. Define your inputs from the project settings here.
+	
 	leftHold = Input.is_action_pressed("left")
 	rightHold = Input.is_action_pressed("right")
 	upHold = Input.is_action_pressed("up")
@@ -338,7 +341,9 @@ func _physics_process(delta):
 	downTap = Input.is_action_just_pressed("down")
 	twirlTap = Input.is_action_just_pressed("twirl")
 	
-	
+	if Input.is_action_just_pressed("attack"):
+		$AnimatedSprite2D.play("attack")
+		$AnimationPlayer.play("attack")
 	#INFO Left and Right Movement
 	
 	if rightHold and leftHold and movementInputMonitoring:
@@ -657,3 +662,18 @@ func _endGroundPound():
 
 func _placeHolder():
 	print("")
+
+
+func _on_area_2d_area_entered(area:CollisionShape2D) -> void:
+	print("Turned on")
+	
+	
+
+
+	
+func _detect_hit():
+	var collisions = hit_detector.get_overlapping_bodies()
+	if collisions:
+		for body in collisions:
+			print(body.name)
+	

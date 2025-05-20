@@ -15,6 +15,7 @@ shape = SubResource("RectangleShape2D_fj7yv")
 
 [node name="Player" parent="." instance=ExtResource("1_f3sb7")]
 position = Vector2(455, 370)
+gravityScale = 10.0
 wallKickAngle = 70.0
 wallSliding = 1.362
 
