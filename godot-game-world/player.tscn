@@ -287,4 +287,4 @@ sprite_frames = SubResource("SpriteFrames_b26j0")
 animation = &"slide"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+zoom = Vector2(2, 2)
