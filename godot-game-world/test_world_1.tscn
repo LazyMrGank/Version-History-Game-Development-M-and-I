@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=4 uid="uid://b6fkjevngidsu"]
+[gd_scene load_steps=16 format=4 uid="uid://b6fkjevngidsu"]
 
 [ext_resource type="Texture2D" uid="uid://bbp2cabq5m67b" path="res://caveWalls/caveWall9.png" id="1_pegva"]
 [ext_resource type="Texture2D" uid="uid://cnkt1y0euanjs" path="res://s4m_ur4i_dark_metroidvania_tileset.png" id="1_qain5"]
 [ext_resource type="PackedScene" uid="uid://dawkaniot6rn7" path="res://player.tscn" id="2_gk67l"]
 [ext_resource type="PackedScene" uid="uid://b30jrvvj1w0ue" path="res://moving_platform.tscn" id="3_bscdu"]
 [ext_resource type="Texture2D" uid="uid://c3p4aom2l5hyj" path="res://Simple Torch/Simple Torch/Torch No Light Circle/Torch No Light Circle3.png" id="5_1j5fa"]
+[ext_resource type="PackedScene" uid="uid://dc4yxytc1ioxl" path="res://hinge_platform.tscn" id="5_uom6k"]
 [ext_resource type="PackedScene" uid="uid://c0h30pgt33upq" path="res://falling_platform.tscn" id="6_1lwfg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1j5fa"]
@@ -3273,7 +3274,7 @@ tile_set = SubResource("TileSet_bscdu")
 position = Vector2(236, 308)
 
 [node name="Player" parent="." instance=ExtResource("2_gk67l")]
-position = Vector2(115, 547)
+position = Vector2(114, 515)
 scale = Vector2(0.75, 0.75)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
@@ -3287,27 +3288,45 @@ shadow_filter_smooth = 64.0
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.24371, 0.2795, 0.39755, 1)
 
+[node name="Falling Platform" parent="." instance=ExtResource("6_1lwfg")]
+position = Vector2(449, 565)
+
 [node name="Light Torch" type="Node2D" parent="."]
 
-[node name="PointLight2D" type="PointLight2D" parent="Light Torch"]
-position = Vector2(218, 279)
+[node name="touch sprite" type="PointLight2D" parent="Light Torch"]
+position = Vector2(234, 272)
 scale = Vector2(0.5, 0.5)
 energy = 14.0
 blend_mode = 2
 shadow_enabled = true
 texture = ExtResource("5_1j5fa")
 
-[node name="PointLight2D2" type="PointLight2D" parent="Light Torch"]
-position = Vector2(218, 278)
+[node name="touch sprite2" type="PointLight2D" parent="Light Torch"]
+position = Vector2(175, 515)
+scale = Vector2(0.5, 0.5)
+energy = 14.0
+blend_mode = 2
+shadow_enabled = true
+texture = ExtResource("5_1j5fa")
+
+[node name="Light for touch" type="PointLight2D" parent="Light Torch"]
+position = Vector2(235, 271)
 energy = 2.0
 texture = SubResource("GradientTexture2D_1lwfg")
 texture_scale = 1.5
 
-[node name="PointLight2D3" type="PointLight2D" parent="Light Torch"]
-position = Vector2(175, 529)
+[node name="Light for touch2" type="PointLight2D" parent="Light Torch"]
+position = Vector2(175, 513)
 energy = 2.0
 texture = SubResource("GradientTexture2D_1lwfg")
 texture_scale = 1.5
 
-[node name="Falling Platform" parent="Light Torch" instance=ExtResource("6_1lwfg")]
-position = Vector2(177, 554)
+[node name="scene light for test" type="PointLight2D" parent="Light Torch"]
+position = Vector2(365.5, 534)
+scale = Vector2(8.30208, 3.0625)
+energy = 2.0
+texture = SubResource("GradientTexture2D_1lwfg")
+texture_scale = 1.5
+
+[node name="Seesaw" parent="." instance=ExtResource("5_uom6k")]
+position = Vector2(181, 566)

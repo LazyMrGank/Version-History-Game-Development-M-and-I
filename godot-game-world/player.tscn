@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dawkaniot6rn7"]
+[gd_scene load_steps=42 format=3 uid="uid://dawkaniot6rn7"]
 
 [ext_resource type="Script" uid="uid://chb0lxvnpiq2i" path="res://UltimatePlatformerController.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://bdq3gmhgajr" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_idle.png" id="2_i3pqv"]
@@ -266,6 +266,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hs0m"]
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("PlayerSprite", "PlayerCollider") groups=["Player"]]
 collision_mask = 1537
 script = ExtResource("1_4flbx")
@@ -282,6 +284,10 @@ falling = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_sh265")
 
+[node name="PinJoint2D" type="PinJoint2D" parent="CollisionShape2D"]
+node_a = NodePath("../../RigidBody2D")
+node_b = NodePath("../..")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -21)
 sprite_frames = SubResource("SpriteFrames_b26j0")
@@ -289,3 +295,9 @@ animation = &"slide"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+mass = 1000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CapsuleShape2D_2hs0m")

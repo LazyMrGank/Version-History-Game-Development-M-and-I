@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dc4yxytc1ioxl"]
+
+[ext_resource type="Script" uid="uid://bi36ibk28sct4" path="res://seesaw.gd" id="1_xyyoc"]
+[ext_resource type="Texture2D" uid="uid://bnh5ir5qyw5qw" path="res://Legacy_Adventure_Pack/Assets/Assets.png" id="2_vtahb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c50uh"]
+size = Vector2(2, 2)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xyyoc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtahb"]
+size = Vector2(46, 7)
+
+[node name="Seesaw" type="Node2D"]
+
+[node name="Fulcrum" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fulcrum"]
+shape = SubResource("RectangleShape2D_c50uh")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Fulcrum"]
+node_a = NodePath("..")
+node_b = NodePath("../../Seesaw")
+
+[node name="Seesaw" type="RigidBody2D" parent="." groups=["Player"]]
+collision_layer = 3
+collision_mask = 3
+mass = 500.0
+physics_material_override = SubResource("PhysicsMaterial_xyyoc")
+can_sleep = false
+script = ExtResource("1_xyyoc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_vtahb")
+
+[node name="Sprite2D" type="Sprite2D" parent="Seesaw"]
+texture = ExtResource("2_vtahb")
+region_enabled = true
+region_rect = Rect2(240, 256, 48, 8)
