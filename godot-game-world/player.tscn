@@ -297,7 +297,7 @@ animation = &"slide"
 zoom = Vector2(3, 3)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-mass = 1000.0
+mass = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 shape = SubResource("CapsuleShape2D_2hs0m")
