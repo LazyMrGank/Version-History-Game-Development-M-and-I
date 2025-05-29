@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 class_name PlatformerController2D
+@onready var mana_bar = $Control/Control/Manabar1
 
 @export var README: String = "IMPORTANT: MAKE SURE TO ASSIGN 'left' 'right' 'jump' 'dash' 'up' 'down' in the project settings input map. Usage tips. 1. Hover over each toggle and variable to read what it does and to make sure nothing bugs. 2. Animations are very primitive. To make full use of your custom art, you may want to slightly change the code for the animations"
 #INFO READEME 
@@ -8,7 +9,7 @@ class_name PlatformerController2D
 #Usage tips. 
 #1. Hover over each toggle and variable to read what it does and to make sure nothing bugs. 
 #2. Animations are very primitive. To make full use of your custom art, you may want to slightly change the code for the animations
-@onready var hit_detector = $Area2D
+@onready var hit_detector = $HitDetector
 @export_category("Necesary Child Nodes")
 @export var PlayerSprite: AnimatedSprite2D
 @export var PlayerCollider: CollisionShape2D
@@ -112,7 +113,8 @@ class_name PlatformerController2D
 ##Animations must be named "roll" all lowercase as the check box says
 @export var roll: bool
 
-
+@export var attacking = false
+var is_attacking = false
 
 #Variables determined by the developer set ones.
 var appliedGravity: float
@@ -182,6 +184,8 @@ func _ready():
 	anim = PlayerSprite
 	col = PlayerCollider
 	
+
+	
 	_updateData()
 	
 func _updateData():
@@ -250,13 +254,17 @@ func _updateData():
 func _process(_delta):
 	#INFO animations
 	#directions
+
+	
 	if is_on_wall() and !is_on_floor() and latch and wallLatching and ((wallLatchingModifer and latchHold) or !wallLatchingModifer):
 		latched = true
 	else:
 		latched = false
 		wasLatched = true
 		_setLatch(0.2, false)
-	
+		
+
+
 	
 	
 	if rightHold and !latched:
@@ -319,6 +327,18 @@ func _process(_delta):
 		
 
 func _physics_process(delta):
+	
+	_detect_hit()
+	# Example: Toggle attack state (e.g., when pressing a key)
+		# Enable collision shape if disabled
+	if Input.is_action_just_pressed("attack"):
+		is_attacking = true
+		$HitDetector/CollisionShape2D.disabled = false
+	if Input.is_action_just_released("attack"):
+		is_attacking = false
+	# Disable collision shape when attack ends
+		$HitDetector/CollisionShape2D.disabled = true
+	
 	if !dset:
 		gdelta = delta
 		dset = true
@@ -344,6 +364,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("attack"):
 		$AnimatedSprite2D.play("attack")
 		$AnimationPlayer.play("attack")
+
 	#INFO Left and Right Movement
 	
 	if rightHold and leftHold and movementInputMonitoring:
@@ -663,17 +684,19 @@ func _endGroundPound():
 func _placeHolder():
 	print("")
 
-
-func _on_area_2d_area_entered(area:CollisionShape2D) -> void:
-	print("Turned on")
-	
-	
-
-
-	
 func _detect_hit():
-	var collisions = hit_detector.get_overlapping_bodies()
-	if collisions:
-		for body in collisions:
-			print(body.name)
-	
+	if is_attacking:
+		var collisions = hit_detector.get_overlapping_bodies()
+		print("collisions")
+		if collisions:
+			for body in collisions:
+				if body.is_in_group("Hit"):
+					mana_bar.value += 10
+
+
+func _on_hit_detector_body_entered(body: Node2D) -> void:
+
+		print("Body Entered")
+		print(body.name)
+		if body.is_in_group("Hit"):
+			mana_bar.value += 10

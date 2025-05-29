@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5iwo24vfprw"
-path="res://.godot/imported/32x32 circle bar progress green-1.png.png-7e51ac6f6c57c0e774ae2ac9096fa16d.ctex"
+uid="uid://cfccssduh8mjh"
+path="res://.godot/imported/Mana Progress 2.png-460dd87dcd54c935f007f2232d86b39a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://32x32 circle bar progress green-1.png.png"
-dest_files=["res://.godot/imported/32x32 circle bar progress green-1.png.png-7e51ac6f6c57c0e774ae2ac9096fa16d.ctex"]
+source_file="res://Mana Progress 2.png"
+dest_files=["res://.godot/imported/Mana Progress 2.png-460dd87dcd54c935f007f2232d86b39a.ctex"]
 
 [params]
 

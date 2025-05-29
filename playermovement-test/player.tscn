@@ -1,6 +1,7 @@
-[gd_scene load_steps=72 format=3 uid="uid://b6c1e44urb6x5"]
+[gd_scene load_steps=95 format=3 uid="uid://b6c1e44urb6x5"]
 
 [ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://UltimatePlatformerController.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://dc8rxs8qupdqj" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_attack.png" id="2_b26j0"]
 [ext_resource type="Texture2D" uid="uid://44fcqcmy8s1b" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_rest.png" id="2_dw050"]
 [ext_resource type="Texture2D" uid="uid://bdq3gmhgajr" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_idle.png" id="2_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://b2syom6meawdt" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_run.png" id="2_onrkg"]
@@ -8,9 +9,48 @@
 [ext_resource type="Texture2D" uid="uid://cqu4ag3yu3bqk" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_jump_land.png" id="4_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://bhs126ctg1afl" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_parry.png" id="6_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://0u60sguekji2" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_jump_start.png" id="6_b26j0"]
+[ext_resource type="Script" uid="uid://bp13i5nin6um3" path="res://healthbar.gd" id="10_dx0e4"]
+[ext_resource type="Texture2D" uid="uid://ciy2smylb0yal" path="res://32x32 circle bar under-1.png.png" id="11_jm5j8"]
+[ext_resource type="Texture2D" uid="uid://lijf5imq5um6" path="res://32x32 circle bar progress green-1.png-1.png.png" id="12_7hik5"]
+[ext_resource type="Texture2D" uid="uid://cwghkl0u6oukb" path="res://progress bar medium rounded under-1.png.png" id="13_qtqh7"]
+[ext_resource type="Texture2D" uid="uid://dkbs5i7ahppkj" path="res://progress bar medium rounded over-1.png (2).png" id="14_2wuci"]
+[ext_resource type="Texture2D" uid="uid://cmrt3bedufxhu" path="res://progress bar medium rounded progress green-1.png (1).png" id="15_iruf7"]
+[ext_resource type="Texture2D" uid="uid://b8qiln10760jb" path="res://progress bar medium rounded over-1.png.png" id="16_j5n4i"]
+[ext_resource type="Texture2D" uid="uid://c6m8v20g4yvmh" path="res://progress bar medium rounded progress green-1.png (2).png" id="17_634y6"]
+[ext_resource type="Texture2D" uid="uid://bgn2qcvlxcq77" path="res://progress bar medium rounded progress green-1.png (3).png" id="18_efrwb"]
+[ext_resource type="Script" uid="uid://cpy2pvnr8frw2" path="res://control.gd" id="19_hiqhm"]
+[ext_resource type="Texture2D" uid="uid://chxr5ahi8r34k" path="res://Mana under 2.png" id="20_tkwlq"]
+[ext_resource type="Texture2D" uid="uid://cfccssduh8mjh" path="res://Mana Progress 2.png" id="21_hl5qd"]
+[ext_resource type="Texture2D" uid="uid://dw3d5diy2ug3w" path="res://Mana under 1.png" id="22_ek41f"]
+[ext_resource type="Texture2D" uid="uid://dsgn7xaju57jb" path="res://progress bar medium rounded over-1.png (4).png" id="23_khis8"]
+[ext_resource type="Texture2D" uid="uid://cq6o7p3xmpxtc" path="res://Mana Progress 1.png" id="24_b88wv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ny14h"]
+atlas = ExtResource("2_b26j0")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibah8"]
+atlas = ExtResource("2_b26j0")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3iwfv"]
+atlas = ExtResource("2_b26j0")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwsg1"]
+atlas = ExtResource("2_b26j0")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xqrm"]
+atlas = ExtResource("2_b26j0")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfour"]
+atlas = ExtResource("2_b26j0")
+region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5tmop"]
 atlas = ExtResource("2_dw050")
@@ -214,7 +254,40 @@ region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b26j0"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ny14h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibah8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3iwfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwsg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xqrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfour")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xqrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwsg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3iwfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibah8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ny14h")
+}],
 "loop": false,
 "name": &"attack",
 "speed": 12.0
@@ -410,7 +483,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/0/path = NodePath("HitDetector/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -422,7 +495,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Area2D/CollisionShape2D2:disabled")
+tracks/1/path = NodePath("HitDetector/CollisionShape2D2:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -437,7 +510,7 @@ length = 0.916667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/0/path = NodePath("HitDetector/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -449,7 +522,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Area2D/CollisionShape2D2:disabled")
+tracks/1/path = NodePath("HitDetector/CollisionShape2D2:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -457,6 +530,17 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
 }
 
 [sub_resource type="Animation" id="Animation_n7ghd"]
@@ -671,6 +755,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivps1"]
 size = Vector2(16.5, 11.5)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_waa4j"]
+load_path = "res://.godot/imported/32x32 circle bar over-1.png.png-fdcf03df266bd6fefc1a2838774ca276.ctex"
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("PlayerSprite", "PlayerCollider")]
 script = ExtResource("1_4flbx")
 PlayerSprite = NodePath("AnimatedSprite2D")
@@ -696,9 +783,8 @@ shape = SubResource("CapsuleShape2D_sh265")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_b26j0")
-animation = &"run"
+animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.30855
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -708,17 +794,131 @@ libraries = {
 &"": SubResource("AnimationLibrary_q13i1")
 }
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="HitDetector" type="Area2D" parent="."]
 position = Vector2(33, -3)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetector"]
 position = Vector2(-17, 9)
 shape = SubResource("RectangleShape2D_ivps1")
 disabled = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-48, 8)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitDetector"]
+position = Vector2(-49, 9)
 shape = SubResource("RectangleShape2D_ivps1")
 disabled = true
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_dx0e4")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = -181.0
+offset_top = -99.0
+offset_right = -148.0
+offset_bottom = -66.0
+max_value = 40.0
+fill_mode = 4
+radial_initial_angle = 90.0
+radial_fill_degrees = 270.0
+texture_under = ExtResource("11_jm5j8")
+texture_over = SubResource("CompressedTexture2D_waa4j")
+texture_progress = ExtResource("12_7hik5")
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = -166.0
+offset_top = -99.0
+offset_right = -126.0
+offset_bottom = -59.0
+min_value = 40.0
+max_value = 60.0
+value = 40.0
+texture_under = ExtResource("13_qtqh7")
+texture_over = ExtResource("14_2wuci")
+texture_progress = ExtResource("15_iruf7")
+
+[node name="HSlider" type="HSlider" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.012
+anchor_top = 0.012
+anchor_right = -0.012
+anchor_bottom = 0.012
+offset_left = -178.176
+offset_top = -47.776
+offset_right = -60.176
+offset_bottom = -31.776
+
+[node name="TextureProgressBar3" type="TextureProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = -106.0
+offset_top = -99.0
+offset_right = -66.0
+offset_bottom = -59.0
+min_value = 80.0
+value = 80.0
+texture_under = ExtResource("13_qtqh7")
+texture_over = ExtResource("16_j5n4i")
+texture_progress = ExtResource("17_634y6")
+
+[node name="TextureProgressBar4" type="TextureProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = -136.0
+offset_top = -99.0
+offset_right = -96.0
+offset_bottom = -59.0
+min_value = 60.0
+max_value = 80.0
+value = 60.0
+texture_under = ExtResource("13_qtqh7")
+texture_over = ExtResource("14_2wuci")
+texture_progress = ExtResource("18_efrwb")
+
+[node name="Control" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 257.0
+offset_top = 72.0
+offset_right = 297.0
+offset_bottom = 112.0
+script = ExtResource("19_hiqhm")
+
+[node name="Manabar2" type="TextureProgressBar" parent="Control/Control"]
+layout_mode = 0
+offset_left = -373.0
+offset_top = -159.0
+offset_right = -333.0
+offset_bottom = -119.0
+min_value = 50.0
+value = 50.0
+texture_under = ExtResource("20_tkwlq")
+texture_over = ExtResource("16_j5n4i")
+texture_progress = ExtResource("21_hl5qd")
+
+[node name="Manabar1" type="TextureProgressBar" parent="Control/Control"]
+layout_mode = 0
+offset_left = -402.0
+offset_top = -159.0
+offset_right = -362.0
+offset_bottom = -119.0
+max_value = 50.0
+texture_under = ExtResource("22_ek41f")
+texture_over = ExtResource("23_khis8")
+texture_progress = ExtResource("24_b88wv")
+
+[node name="HSlider" type="HSlider" parent="Control/Control"]
+layout_mode = 0
+offset_left = -445.0
+offset_top = -89.0
+offset_right = -314.0
+offset_bottom = -73.0
+
+[connection signal="area_entered" from="HitDetector" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]
+[connection signal="value_changed" from="Control/HSlider" to="Control" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="Control/Control/HSlider" to="Control/Control" method="_on_h_slider_value_changed"]

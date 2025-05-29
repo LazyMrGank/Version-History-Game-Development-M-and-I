@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bteaq4dlynd42"
-path="res://.godot/imported/progress bar medium rounded under-1.png (1).png-5b582fad2db377b5445f3d5c694ec0ea.ctex"
+uid="uid://dgbr1vbfm2vte"
+path="res://.godot/imported/32x32 circle bar over-1.png-1.png.png-94908ad2f42e97bfd758600b1a2634e8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://progress bar medium rounded under-1.png (1).png"
-dest_files=["res://.godot/imported/progress bar medium rounded under-1.png (1).png-5b582fad2db377b5445f3d5c694ec0ea.ctex"]
+source_file="res://32x32 circle bar over-1.png-1.png.png"
+dest_files=["res://.godot/imported/32x32 circle bar over-1.png-1.png.png-94908ad2f42e97bfd758600b1a2634e8.ctex"]
 
 [params]
 
