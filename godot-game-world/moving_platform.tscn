@@ -61,3 +61,4 @@ libraries = {
 &"": SubResource("AnimationLibrary_f8lbu")
 }
 autoplay = "Move-Loop"
+speed_scale = 0.5
