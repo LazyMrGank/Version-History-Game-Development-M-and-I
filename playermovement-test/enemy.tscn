@@ -4,7 +4,7 @@
 
 [node name="Enemy" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["Hit"]]
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" groups=["Hit"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Hit"]]
 shape = SubResource("RectangleShape2D_7xaro")
