@@ -10,11 +10,13 @@ extends CharacterBody2D
 @export var attack_duration: float = 0.5
 @onready var coyote_timer = $CoyoteTime
 @onready var jump_buffer_timer = $JumpBufferTimer
+@onready var jump_height_timer = $JumpHeightTimer
 const jump_power = -300.0
 const wall_jump_pushback = 100
 const wall_slide_gravity = 100
 var is_wall_sliding = false
 var can_coyote_jump = false
+var jump_buffered = false
 # Get the gravity from the project settings
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction: float = 0.0
@@ -45,10 +47,14 @@ func _physics_process(delta: float) -> void:
 		# Apply gravity if not on floor or dashing
 		if not is_on_floor() && (can_coyote_jump == false):
 			velocity.y += gravity * delta
+			if velocity.y > 1000:
+				velocity.y = 1000
 		
 		# Handle jump
 		if Input.is_action_just_pressed("jump") and is_on_floor() and not is_attacking:
 			velocity.y = jump_velocity
+			jump_height_timer.start()
+			jump()
 		
 		# Handle dash (only in air, not during attack)
 		if Input.is_action_just_pressed("dash") and not is_on_floor() and not is_dashing and not is_attacking:
@@ -87,6 +93,12 @@ func _physics_process(delta: float) -> void:
 	if was_on_floor && !is_on_floor() && velocity.y >= 0:
 		can_coyote_jump = true
 		coyote_timer.start()
+	
+	if !was_on_floor && is_on_floor():
+		if jump_buffered:
+			jump_buffered = false
+			print("buffered jump")
+			jump()
 	attack()
 	wall_slide(delta)
 
@@ -94,8 +106,16 @@ func _on_coyote_time_timeout() -> void:
 	can_coyote_jump = false
 
 func _on_jump_buffer_timer_timeout() -> void:
-	pass
+	jump_buffered = false
+	print("Jump buffered false")
 
+func _on_jump_height_timer_timeout() -> void:
+	if !Input.is_action_pressed("jump"):
+		if velocity.y < -100:
+			velocity.y = -100
+	else:
+		print("high jump")
+		
 func update_animations() -> void:
 	if is_attacking and is_on_floor():
 		animation_player.play("attack")
@@ -131,6 +151,11 @@ func jump():
 				velocity.y = jump_velocity
 				can_coyote_jump = false
 				print("coyote")
+		else:
+			if !jump_buffered:
+				jump_buffered = true
+				jump_buffer_timer.start()
+				print("Jump buffered true")
 			
 func wall_slide(delta):
 	if is_on_wall() and !is_on_floor():
