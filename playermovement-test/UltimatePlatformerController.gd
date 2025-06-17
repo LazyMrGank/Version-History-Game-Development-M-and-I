@@ -1,10 +1,9 @@
 extends CharacterBody2D
-
 # Movement parameters
 @export var move_speed: float = 200.0
 @export var acceleration: float = 1500.0
 @export var deceleration: float = 1000.0
-@export var jump_velocity: float = -300.0
+@export var jump_velocity: float = 300.0
 @export var dash_speed: float = 400.0
 @export var dash_duration: float = 0.2
 @export var attack_duration: float = 0.5
@@ -17,6 +16,9 @@ const wall_slide_gravity = 100
 var is_wall_sliding = false
 var can_coyote_jump = false
 var jump_buffered = false
+const jump_height: float = -180
+const max_speed: float = 60
+const friction: float = 10
 # Get the gravity from the project settings
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction: float = 0.0
@@ -30,6 +32,7 @@ var attack_timer: float = 0.0
 
 func _physics_process(delta: float) -> void:
 
+	
 	var was_on_floor = is_on_floor()
 	# Handle timers
 	if is_dashing:
@@ -47,12 +50,12 @@ func _physics_process(delta: float) -> void:
 		# Apply gravity if not on floor or dashing
 		if not is_on_floor() && (can_coyote_jump == false):
 			velocity.y += gravity * delta
-			if velocity.y > 1000:
-				velocity.y = 1000
-		
+			if velocity.y > 500:
+				velocity.y = 500
 		# Handle jump
+		
 		if Input.is_action_just_pressed("jump") and is_on_floor() and not is_attacking:
-			velocity.y = jump_velocity
+			velocity.y = -jump_velocity
 			jump_height_timer.start()
 			jump()
 		
@@ -105,6 +108,11 @@ func _physics_process(delta: float) -> void:
 func _on_coyote_time_timeout() -> void:
 	can_coyote_jump = false
 
+func _input(event):
+	if event.is_action_released("jump"):
+		if velocity.y < 0.0:
+			velocity.y *= 0.5
+					
 func _on_jump_buffer_timer_timeout() -> void:
 	jump_buffered = false
 	print("Jump buffered false")
@@ -112,10 +120,11 @@ func _on_jump_buffer_timer_timeout() -> void:
 func _on_jump_height_timer_timeout() -> void:
 	if !Input.is_action_pressed("jump"):
 		if velocity.y < -100:
-			velocity.y = -100
+			velocity.y = 0
+			print("Cow")
 	else:
 		print("high jump")
-		
+
 func update_animations() -> void:
 	if is_attacking and is_on_floor():
 		animation_player.play("attack")

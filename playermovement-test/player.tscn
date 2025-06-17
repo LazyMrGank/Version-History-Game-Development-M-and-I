@@ -959,7 +959,7 @@ offset_right = -314.0
 offset_bottom = -73.0
 
 [node name="CoyoteTime" type="Timer" parent="."]
-wait_time = 0.15
+wait_time = 3.0
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
