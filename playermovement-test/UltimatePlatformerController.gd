@@ -27,12 +27,12 @@ var is_dashing: bool = false
 var dash_timer: float = 0.0
 var is_attacking: bool = false
 var attack_timer: float = 0.0
+var jump_count = 0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D  # Adjust to your node name
 
 func _physics_process(delta: float) -> void:
 
-	
 	var was_on_floor = is_on_floor()
 	# Handle timers
 	if is_dashing:
@@ -52,13 +52,18 @@ func _physics_process(delta: float) -> void:
 			velocity.y += gravity * delta
 			if velocity.y > 500:
 				velocity.y = 500
+		else:
+			jump_count = 0
 		# Handle jump
 		
 		if Input.is_action_just_pressed("jump") and is_on_floor() and not is_attacking:
 			velocity.y = -jump_velocity
 			jump_height_timer.start()
 			jump()
-		
+		if Input.is_action_just_pressed("jump") and jump_count < 2:
+			jump_count += 1
+			velocity.y = -jump_velocity
+				
 		# Handle dash (only in air, not during attack)
 		if Input.is_action_just_pressed("dash") and not is_on_floor() and not is_dashing and not is_attacking:
 			is_dashing = true
