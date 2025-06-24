@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://b6fkjevngidsu"]
+[gd_scene load_steps=15 format=4 uid="uid://b6fkjevngidsu"]
 
 [ext_resource type="Texture2D" uid="uid://c3p4aom2l5hyj" path="res://Asset Packs/Simple Torch/Simple Torch/Torch No Light Circle/Torch No Light Circle3.png" id="1_kjjgl"]
 [ext_resource type="Texture2D" uid="uid://bbp2cabq5m67b" path="res://Asset Packs/caveWalls/caveWall9.png" id="2_fi2fo"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dawkaniot6rn7" path="res://Scenes/player.tscn" id="5_41r3s"]
 [ext_resource type="PackedScene" uid="uid://c0h30pgt33upq" path="res://Scenes/falling_platform.tscn" id="6_xqohd"]
 [ext_resource type="PackedScene" uid="uid://dc4yxytc1ioxl" path="res://Scenes/hinge_platform.tscn" id="7_rdxh8"]
+[ext_resource type="Script" uid="uid://tlchkhu8yplp" path="res://Scenes/control.gd" id="8_fi2fo"]
 
 [sub_resource type="Gradient" id="Gradient_1j5fa"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -3182,6 +3183,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ooi53")
 
 [node name="Test World 1" type="Node2D"]
+process_mode = 1
 
 [node name="Light Torch" type="Node2D" parent="."]
 
@@ -3279,3 +3281,23 @@ position = Vector2(1000, 560)
 
 [node name="Seesaw6" parent="Seesaws" instance=ExtResource("7_rdxh8")]
 position = Vector2(1140, 560)
+
+[node name="pause" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1153.0
+offset_bottom = 647.0
+script = ExtResource("8_fi2fo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause"]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 253.0
+offset_right = 664.0
+offset_bottom = 293.0
+
+[node name="Button" type="Button" parent="pause/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[connection signal="pressed" from="pause/VBoxContainer/Button" to="pause" method="pause_or_unpause"]
