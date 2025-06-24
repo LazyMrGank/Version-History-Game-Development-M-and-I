@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bd83jts7yjijh"]
+[gd_scene load_steps=3 format=3 uid="uid://bd83jts7yjijh"]
+
+[ext_resource type="Script" uid="uid://cg55cx22nx0if" path="res://components/health.gd" id="1_7k104"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7xaro"]
 
@@ -8,3 +10,7 @@
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Hit"]]
 shape = SubResource("RectangleShape2D_7xaro")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("1_7k104")
+metadata/_custom_type_script = "uid://cg55cx22nx0if"
