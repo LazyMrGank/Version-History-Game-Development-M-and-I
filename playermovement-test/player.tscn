@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://b6c1e44urb6x5"]
+[gd_scene load_steps=97 format=3 uid="uid://b6c1e44urb6x5"]
 
 [ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://UltimatePlatformerController.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dc8rxs8qupdqj" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_attack.png" id="2_b26j0"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://dsgn7xaju57jb" path="res://progress bar medium rounded over-1.png (4).png" id="23_khis8"]
 [ext_resource type="Texture2D" uid="uid://cq6o7p3xmpxtc" path="res://Mana Progress 1.png" id="24_b88wv"]
 [ext_resource type="Script" uid="uid://cg55cx22nx0if" path="res://components/health.gd" id="25_jm5j8"]
+[ext_resource type="Script" uid="uid://cdwgwlkkr3bk8" path="res://components/hitbox.gd" id="26_7hik5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 7.0
@@ -974,6 +975,14 @@ one_shot = true
 [node name="Health" type="Node" parent="."]
 script = ExtResource("25_jm5j8")
 metadata/_custom_type_script = "uid://cg55cx22nx0if"
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 0
+script = ExtResource("26_7hik5")
+metadata/_custom_type_script = "uid://cdwgwlkkr3bk8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CapsuleShape2D_sh265")
 
 [connection signal="area_entered" from="HitDetector" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]
