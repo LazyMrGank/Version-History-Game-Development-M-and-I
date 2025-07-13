@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://b6c1e44urb6x5"]
+[gd_scene load_steps=98 format=3 uid="uid://b6c1e44urb6x5"]
 
 [ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://UltimatePlatformerController.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dc8rxs8qupdqj" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_attack.png" id="2_b26j0"]
@@ -814,6 +814,9 @@ size = Vector2(16.5, 11.5)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_waa4j"]
 load_path = "res://.godot/imported/32x32 circle bar over-1.png.png-fdcf03df266bd6fefc1a2838774ca276.ctex"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7hik5"]
+size = Vector2(20, 4.8)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_4flbx")
 
@@ -864,7 +867,8 @@ offset_left = -181.0
 offset_top = -99.0
 offset_right = -148.0
 offset_bottom = -66.0
-max_value = 40.0
+max_value = 4.0
+value = 2.0
 fill_mode = 4
 radial_initial_angle = 90.0
 radial_fill_degrees = 270.0
@@ -878,24 +882,12 @@ offset_left = -166.0
 offset_top = -99.0
 offset_right = -126.0
 offset_bottom = -59.0
-min_value = 40.0
-max_value = 60.0
-value = 40.0
+min_value = 4.0
+max_value = 6.0
+value = 4.0
 texture_under = ExtResource("13_qtqh7")
 texture_over = ExtResource("14_2wuci")
 texture_progress = ExtResource("15_iruf7")
-
-[node name="HSlider" type="HSlider" parent="Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.012
-anchor_top = 0.012
-anchor_right = -0.012
-anchor_bottom = 0.012
-offset_left = -178.176
-offset_top = -47.776
-offset_right = -60.176
-offset_bottom = -31.776
 
 [node name="TextureProgressBar3" type="TextureProgressBar" parent="Control"]
 layout_mode = 0
@@ -903,8 +895,9 @@ offset_left = -106.0
 offset_top = -99.0
 offset_right = -66.0
 offset_bottom = -59.0
-min_value = 80.0
-value = 80.0
+min_value = 8.0
+max_value = 10.0
+value = 8.0
 texture_under = ExtResource("13_qtqh7")
 texture_over = ExtResource("16_j5n4i")
 texture_progress = ExtResource("17_634y6")
@@ -915,9 +908,9 @@ offset_left = -136.0
 offset_top = -99.0
 offset_right = -96.0
 offset_bottom = -59.0
-min_value = 60.0
-max_value = 80.0
-value = 60.0
+min_value = 6.0
+max_value = 8.0
+value = 6.0
 texture_under = ExtResource("13_qtqh7")
 texture_over = ExtResource("14_2wuci")
 texture_progress = ExtResource("18_efrwb")
@@ -953,13 +946,6 @@ texture_under = ExtResource("22_ek41f")
 texture_over = ExtResource("23_khis8")
 texture_progress = ExtResource("24_b88wv")
 
-[node name="HSlider" type="HSlider" parent="Control/Control"]
-layout_mode = 0
-offset_left = -445.0
-offset_top = -89.0
-offset_right = -314.0
-offset_bottom = -73.0
-
 [node name="CoyoteTime" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
@@ -974,6 +960,7 @@ one_shot = true
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("25_jm5j8")
+max_health = 10
 metadata/_custom_type_script = "uid://cg55cx22nx0if"
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -982,12 +969,14 @@ script = ExtResource("26_7hik5")
 metadata/_custom_type_script = "uid://cdwgwlkkr3bk8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-shape = SubResource("CapsuleShape2D_sh265")
+position = Vector2(0, 3)
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_7hik5")
 
 [connection signal="area_entered" from="HitDetector" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]
-[connection signal="value_changed" from="Control/HSlider" to="Control" method="_on_h_slider_value_changed"]
-[connection signal="value_changed" from="Control/Control/HSlider" to="Control/Control" method="_on_h_slider_value_changed"]
 [connection signal="timeout" from="CoyoteTime" to="." method="_on_coyote_time_timeout"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
 [connection signal="timeout" from="JumpHeightTimer" to="." method="_on_jump_height_timer_timeout"]
+[connection signal="health_changed" from="Health" to="Control" method="_on_health_health_changed"]
+[connection signal="max_health_changed" from="Health" to="Control" method="_on_health_max_health_changed"]
