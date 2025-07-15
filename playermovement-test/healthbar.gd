@@ -1,27 +1,84 @@
 extends Control
 
-@onready var health = $"../Health"
-@onready var health_bar = $TextureProgressBar
+@export var max_health: float = 100.0  # Maximum health value
+@export var health: float = 100.0  # Current health
+@export var max_mana: float = 100.0  # Maximum mana value
+@export var mana: float = 100.0  # Current mana
+@export var mana_drain_rate: float = 20.0  # Mana decrease per second when holding C
+@export var health_gain_rate: float = 10.0  # Health increase per second after 2s hold
 
+@onready var health_bar1 = $TextureProgressBar  # Health: 0–30
+@onready var health_bar2 = $TextureProgressBar2  # Health: 30–50
+@onready var health_bar3 = $TextureProgressBar3  # Health: 50–80
+@onready var health_bar4 = $TextureProgressBar4  # Health: 80–100
+@onready var mana_bar1 = $Manabar1  # Mana: 0–50
+@onready var mana_bar2 = $Manabar2  # Mana: 50–100
 
-func _on_health_depleted():
-	health_bar.value = 0
-	
-func _on_health_health_changed(diff: int) -> void:
-	health_bar.value = health.get_health()
-	pass # Replace with function body.
+var is_holding_c: bool = false  # Tracks if C key is held
+var c_hold_time: float = 0.0  # Duration C has been held
+var is_healing: bool = false  # Tracks if healing is active (after 2s)
 
-
-func _on_health_max_health_changed(diff: int) -> void:
-	health_bar.max_value = health.get_max_health()
-	pass # Replace with function body.
-	
 func _ready():
-	# Connect signals
-	health.health_changed.connect(_on_health_health_changed)
-	health.max_health_changed.connect(_on_health_max_health_changed)
-	health.health_depleted.connect(_on_health_depleted)
+	# Initialize health bar ranges
+	health_bar1.min_value = 0
+	health_bar1.max_value = 40
+	health_bar2.min_value = 40
+	health_bar2.max_value = 60
+	health_bar3.min_value = 60
+	health_bar3.max_value = 80
+	health_bar4.min_value = 80
+	health_bar4.max_value = 100
 	
-	# Initialize health bar
-	health_bar.max_value = health.get_max_health()
-	health_bar.value = health.get_health()
+	# Initialize mana bar ranges
+	mana_bar1.min_value = 0
+	mana_bar1.max_value = 50
+	mana_bar2.min_value = 50
+	mana_bar2.max_value = 100
+	
+	update_bars()  # Initialize bars
+
+func _process(delta):
+	# Handle C key input
+	if Input.is_action_just_pressed("Charge"):
+		is_holding_c = true
+		c_hold_time = 0.0
+		is_healing = false
+	if Input.is_action_just_released("Charge"):
+		is_holding_c = false
+		is_healing = false
+		c_hold_time = 0.0
+	if Input.is_action_just_pressed("Decrease"):  # E.g., Spacebar
+		change_health(-10)
+	if is_holding_c:
+		# Track hold time
+		c_hold_time += delta
+		
+		# Decrease mana gradually
+		mana = clamp(mana - mana_drain_rate * delta, 0, max_mana)
+		
+		# Start healing after 2 seconds
+		if c_hold_time >= 2.0 and mana > 0:
+			is_healing = true
+			health = clamp(health + health_gain_rate * delta, 0, max_health)
+		
+		update_bars()
+
+func update_bars():
+	# Update health bars
+	health_bar1.value = clamp(health, health_bar1.min_value, health_bar1.max_value)
+	health_bar2.value = clamp(health, health_bar2.min_value, health_bar2.max_value) if health > health_bar2.min_value else health_bar2.min_value
+	health_bar3.value = clamp(health, health_bar3.min_value, health_bar3.max_value) if health > health_bar3.min_value else health_bar3.min_value
+	health_bar4.value = clamp(health, health_bar4.min_value, health_bar4.max_value) if health > health_bar4.min_value else health_bar4.min_value
+	
+	# Update mana bars
+	mana_bar1.value = clamp(mana, mana_bar1.min_value, mana_bar1.max_value)
+	mana_bar2.value = clamp(mana, mana_bar2.min_value, mana_bar2.max_value) if mana > mana_bar2.min_value else mana_bar2.min_value
+
+# Optional: Example function for external damage/healing
+func change_health(amount: float):
+	health = clamp(health + amount, 0, max_health)
+	update_bars()
+
+func change_mana(amount: float):
+	mana = clamp(mana + amount, 0, max_mana)
+	update_bars()
