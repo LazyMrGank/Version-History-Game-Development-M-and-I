@@ -94,10 +94,10 @@ script = ExtResource("1_e3tp1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8mug2")
 animation = &"Firebolt"
-frame_progress = 0.110005
+frame_progress = 0.764971
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(11, 7)
+position = Vector2(12, 6)
 shape = SubResource("CircleShape2D_llehy")
