@@ -1,17 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfmrs6ln2gkia"]
+[gd_scene load_steps=4 format=3 uid="uid://dfmrs6ln2gkia"]
 
 [ext_resource type="PackedScene" uid="uid://b6c1e44urb6x5" path="res://player.tscn" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://bd83jts7yjijh" path="res://enemy.tscn" id="2_fj7yv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fj7yv"]
-size = Vector2(973, 178)
+size = Vector2(375.5, 178)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(501, 527)
+position = Vector2(558, 527)
 shape = SubResource("RectangleShape2D_fj7yv")
 
 [node name="Player" parent="." instance=ExtResource("1_f3sb7")]
-position = Vector2(118, 369)
+position = Vector2(455, 370)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(864, 351)
+shape = SubResource("RectangleShape2D_fj7yv")
+
+[node name="Enemy" parent="." groups=["Hit"] instance=ExtResource("2_fj7yv")]
+position = Vector2(588, 418)
