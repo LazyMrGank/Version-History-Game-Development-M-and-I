@@ -26,5 +26,3 @@ metadata/_custom_type_script = "uid://by6tp0ohclrr3"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_7xaro")
-
-[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
