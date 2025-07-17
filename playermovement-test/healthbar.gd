@@ -50,14 +50,12 @@ func _process(delta):
 		c_hold_time = 0.0
 	
 	if is_holding_c and health < max_health:
-		# Track hold time
 		c_hold_time += delta
 		
-		# Decrease mana gradually
 		mana = clamp(mana - mana_drain_rate * delta, 0, max_mana)
 		
 		# Start healing after 2 seconds
-		if c_hold_time >= 2.0 and mana > 0:
+		if c_hold_time >= 1.5 and mana > 0:
 			is_healing = true
 			health = clamp(health + health_gain_rate * delta, 0, max_health)
 	

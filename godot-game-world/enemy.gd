@@ -3,7 +3,7 @@ extends CharacterBody2D
 class_name FrogEnemy
 
 const speed = 10
-var is_frog_chase: bool
+var is_frog_chase: bool = true
 
 var gravity = 900
 var health = 80
@@ -19,17 +19,47 @@ var dir: Vector2
 var knockback_force = 200
 var is_roaming: bool = true
 
+var player: CharacterBody2D
+var player_in_area = false
+
+
 func _process(delta):
 	if !is_on_floor():
 		velocity.y += gravity * delta
 		velocity.x = 0
-	move(delta)
-	move_and_slide()
 	
+	move(delta)
+	handle_animation()
+	move_and_slide()
+
+func handle_animation():
+	var anim_sprite = $AnimatedSprite2D
+	if !dead and !taking_damage and !is_dealing_damage:
+		anim_sprite.play("Walk")
+		if dir.x == -1:
+			anim_sprite.flip_h = true
+		elif dir.x == 1:
+			anim_sprite.flip_h = false
+	elif !dead and taking_damage and !is_dealing_damage:
+		anim_sprite.play("Hit")
+		await get_tree().create_timer(0.8).timeout
+		taking_damage = false
+	elif dead and is_roaming:
+		is_roaming = false
+		anim_sprite.play("Death")
+		await get_tree().create_timer(1.0).timeout
+		handle_death()
+
+func handle_death():
+	self.queue_free()
+
 func move(delta):
 	if !dead:
 		if !is_frog_chase:
 			velocity += dir * speed * delta
+		elif is_frog_chase and !taking_damage:
+			var dir_to_player = position.direction_to(player.position) * speed
+			velocity.x = dir_to_player.x
 		is_roaming = true
 	elif dead:
 		velocity.x = 0
