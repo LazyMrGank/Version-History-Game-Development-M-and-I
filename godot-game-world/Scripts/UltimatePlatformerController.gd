@@ -178,6 +178,7 @@ var downTap
 var twirlTap
 
 func _ready():
+	Global.playerBody = self
 	wasMovingR = true
 	anim = PlayerSprite
 	col = PlayerCollider

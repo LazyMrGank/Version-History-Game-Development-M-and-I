@@ -14,6 +14,10 @@ config/name="Godot Game World"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://Scenes/Global.gd"
+
 [global_group]
 
 Player=""
