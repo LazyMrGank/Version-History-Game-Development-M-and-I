@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://b6c1e44urb6x5"]
+[gd_scene load_steps=94 format=3 uid="uid://b6c1e44urb6x5"]
 
 [ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://UltimatePlatformerController.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dc8rxs8qupdqj" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_attack.png" id="2_b26j0"]
@@ -23,7 +23,6 @@
 [ext_resource type="Texture2D" uid="uid://dw3d5diy2ug3w" path="res://Mana under 1.png" id="22_ek41f"]
 [ext_resource type="Texture2D" uid="uid://dsgn7xaju57jb" path="res://progress bar medium rounded over-1.png (4).png" id="23_khis8"]
 [ext_resource type="Texture2D" uid="uid://cq6o7p3xmpxtc" path="res://Mana Progress 1.png" id="24_b88wv"]
-[ext_resource type="Script" uid="uid://dv5pdl3c23uh0" path="res://player_use_ability.gd" id="24_dx0e4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 7.0
@@ -521,18 +520,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("HitDetector/CollisionShape2D2:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_b26j0"]
 length = 1.5
@@ -572,25 +559,13 @@ tracks/2/keys = {
 "update": 1,
 "values": [true, false, true]
 }
-tracks/3/type = "value"
+tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("HitDetector/CollisionShape2D2:disabled")
+tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.32, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(),
 "transitions": PackedFloat32Array(),
 "values": []
@@ -833,15 +808,9 @@ libraries = {
 }
 
 [node name="HitDetector" type="Area2D" parent="."]
-position = Vector2(33, -3)
+position = Vector2(16, 4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetector"]
-position = Vector2(-17, 9)
-shape = SubResource("RectangleShape2D_ivps1")
-disabled = true
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitDetector"]
-position = Vector2(-49, 9)
 shape = SubResource("RectangleShape2D_ivps1")
 disabled = true
 
@@ -942,9 +911,6 @@ one_shot = true
 [node name="JumpHeightTimer" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
-
-[node name="PlayerUseAbilityComponent" type="Node" parent="."]
-script = ExtResource("24_dx0e4")
 
 [connection signal="area_entered" from="HitDetector" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]

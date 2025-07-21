@@ -4,9 +4,10 @@ extends CharacterBody2D
 @export var acceleration: float = 1500.0
 @export var deceleration: float = 1000.0
 @export var jump_velocity: float = 300.0
+@onready var deal_damage_zone = $HitDetector
 @export var dash_speed: float = 400.0
 @export var dash_duration: float = 0.2
-@export var attack_duration: float = 0.5
+@export var attack_duration: float = 1
 @onready var coyote_timer = $CoyoteTime
 @onready var jump_buffer_timer = $JumpBufferTimer
 @onready var jump_height_timer = $JumpHeightTimer
@@ -90,7 +91,7 @@ func _physics_process(delta: float) -> void:
 				velocity.x = move_toward(velocity.x, 0, deceleration * delta)
 	# Update sprite facing
 	sprite.scale.x = last_direction
-	
+	deal_damage_zone.position.x = abs(deal_damage_zone.position.x) * last_direction
 	# Update animations
 	update_animations()
 	
