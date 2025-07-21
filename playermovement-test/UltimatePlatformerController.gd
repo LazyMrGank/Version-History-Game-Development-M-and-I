@@ -1,12 +1,15 @@
 extends CharacterBody2D
+
+
 # Movement parameters
 @export var move_speed: float = 200.0
+@onready var deal_damage_zone = $HitDetector
 @export var acceleration: float = 1500.0
 @export var deceleration: float = 1000.0
 @export var jump_velocity: float = 300.0
 @export var dash_speed: float = 400.0
 @export var dash_duration: float = 0.2
-@export var attack_duration: float = 0.5
+@export var attack_duration: float = 0.8
 @onready var coyote_timer = $CoyoteTime
 @onready var jump_buffer_timer = $JumpBufferTimer
 @onready var jump_height_timer = $JumpHeightTimer
@@ -30,6 +33,10 @@ var attack_timer: float = 0.0
 var jump_count = 0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D  # Adjust to your node name
+
+
+func _ready():
+	Global.playerBody = self
 
 func _physics_process(delta: float) -> void:
 
@@ -88,9 +95,11 @@ func _physics_process(delta: float) -> void:
 				velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
 			else:
 				velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+				
 		
 	# Update sprite facing
 	sprite.scale.x = last_direction
+	deal_damage_zone.position.x = abs(deal_damage_zone.position.x) * last_direction
 	
 	# Update animations
 	update_animations()
@@ -132,7 +141,7 @@ func _on_jump_height_timer_timeout() -> void:
 
 func update_animations() -> void:
 	if is_attacking and is_on_floor():
-		animation_player.play("attack")
+		$AnimationPlayer.play("attack")
 	elif is_dashing:
 		animation_player.play("dash")
 	elif not is_on_floor():
