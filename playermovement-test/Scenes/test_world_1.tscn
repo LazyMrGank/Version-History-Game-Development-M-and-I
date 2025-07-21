@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://bbp2cabq5m67b" path="res://Asset Packs/caveWalls/caveWall9.png" id="2_fi2fo"]
 [ext_resource type="Texture2D" uid="uid://cnkt1y0euanjs" path="res://Asset Packs/s4m_ur4i_dark_metroidvania_tileset.png" id="3_hte5h"]
 [ext_resource type="PackedScene" uid="uid://b30jrvvj1w0ue" path="res://Scenes/moving_platform.tscn" id="4_rpo8j"]
-[ext_resource type="PackedScene" uid="uid://dawkaniot6rn7" path="res://Scenes/player.tscn" id="5_41r3s"]
 [ext_resource type="PackedScene" uid="uid://c0h30pgt33upq" path="res://Scenes/falling_platform.tscn" id="6_xqohd"]
 [ext_resource type="PackedScene" uid="uid://dc4yxytc1ioxl" path="res://Scenes/hinge_platform.tscn" id="7_rdxh8"]
 [ext_resource type="PackedScene" uid="uid://iqgaesrkljbm" path="res://Skeleton.tscn" id="8_fi2fo"]
+[ext_resource type="PackedScene" uid="uid://b6c1e44urb6x5" path="res://player.tscn" id="8_hte5h"]
 
 [sub_resource type="Gradient" id="Gradient_1j5fa"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -3380,10 +3380,6 @@ tile_set = SubResource("TileSet_0qlbc")
 [node name="Moving Platform" parent="." instance=ExtResource("4_rpo8j")]
 position = Vector2(301, 309)
 
-[node name="Player" parent="." instance=ExtResource("5_41r3s")]
-position = Vector2(1866, 550)
-scale = Vector2(0.75, 0.75)
-
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 rotation = -0.174533
 enabled = false
@@ -3421,3 +3417,6 @@ position = Vector2(1140, 560)
 
 [node name="Enemy" parent="." instance=ExtResource("8_fi2fo")]
 position = Vector2(1778, 536)
+
+[node name="Player" parent="." instance=ExtResource("8_hte5h")]
+position = Vector2(-66, 483)
