@@ -767,6 +767,7 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_b26j0")
 animation = &"attack"
 autoplay = "idle"
+frame = 9
 speed_scale = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="."]

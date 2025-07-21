@@ -83,6 +83,5 @@ func choose(array):
 	
 
 
-#func _on_skeleton_hitbox_area_entered(area: Area2D) -> void:
-	#var damage = Global.playerDamageAmount
+
 	
