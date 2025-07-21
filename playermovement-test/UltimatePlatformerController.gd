@@ -89,6 +89,11 @@ func _physics_process(delta: float) -> void:
 				velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
 			else:
 				velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+<<<<<<< Updated upstream
+=======
+				
+		
+>>>>>>> Stashed changes
 	# Update sprite facing
 	sprite.scale.x = last_direction
 	deal_damage_zone.position.x = abs(deal_damage_zone.position.x) * last_direction
