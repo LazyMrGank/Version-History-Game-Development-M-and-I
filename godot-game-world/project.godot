@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Godot Game World"
+run/main_scene="uid://tv5k1ddy61hf"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://Scenes/Global.gd"
 
 [global_group]
 
