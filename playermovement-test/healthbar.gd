@@ -48,7 +48,6 @@ func _process(delta):
 		is_holding_c = false
 		is_healing = false
 		c_hold_time = 0.0
-	
 	if is_holding_c and health < max_health:
 		c_hold_time += delta
 		
@@ -60,8 +59,9 @@ func _process(delta):
 			health = clamp(health + health_gain_rate * delta, 0, max_health)
 	
 	# Handle D key input (health drain for testing)
-	if Input.is_action_just_pressed("Decrease"):  # E.g., Spacebar
-		change_health(-10)
+	if Input.is_action_just_pressed("Fireball"):  # E.g., Spacebar
+		change_mana(-10)
+
 	
 	update_bars()
 

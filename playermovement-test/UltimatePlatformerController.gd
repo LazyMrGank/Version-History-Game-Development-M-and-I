@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
-
+@onready var fireball_timer = $FireballTimer
+var fireball_scene = preload("res://Fireball.tscn")
+var can_shoot = true
 # Movement parameters
 @export var move_speed: float = 200.0
 @onready var deal_damage_zone = $HitDetector
@@ -34,12 +36,16 @@ var jump_count = 0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D  # Adjust to your node name
 
-
 func _ready():
 	Global.playerBody = self
+	fireball_timer.wait_time = 3.0
+	fireball_timer.one_shot = true
+	fireball_timer.connect("timeout", _on_fireball_timer_timeout)
+
 
 func _physics_process(delta: float) -> void:
-
+	if Input.is_action_just_pressed("Fireball") and can_shoot:
+		shoot_fireball()
 	var was_on_floor = is_on_floor()
 	# Handle timers
 	if is_dashing:
@@ -193,3 +199,13 @@ func wall_slide(delta):
 		velocity.y += (wall_slide_gravity * delta)
 		velocity.y = min(velocity.y, wall_slide_gravity)
 		
+func shoot_fireball():
+	var fireball = fireball_scene.instantiate()
+	fireball.position = position + Vector2(20 * last_direction, 0)
+	fireball.direction = last_direction
+	get_tree().current_scene.add_child(fireball)
+	can_shoot = false
+	fireball_timer.start()
+
+func _on_fireball_timer_timeout() -> void:
+	can_shoot = true
