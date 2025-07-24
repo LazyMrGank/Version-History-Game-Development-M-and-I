@@ -203,7 +203,7 @@ height = 34.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3yqyl"]
 radius = 21.5217
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_3yqyl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -219,7 +219,7 @@ shape = SubResource("CapsuleShape2D_qskgw")
 [node name="DirectionTimer" type="Timer" parent="."]
 autostart = true
 
-[node name="SkeletonHitbox" type="Area2D" parent="."]
+[node name="SkeletonHitbox" type="Area2D" parent="." groups=["enemies"]]
 position = Vector2(3, 3)
 scale = Vector2(0.466667, 0.5)
 
