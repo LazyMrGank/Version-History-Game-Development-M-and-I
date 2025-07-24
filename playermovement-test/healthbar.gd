@@ -60,8 +60,8 @@ func _process(delta):
 			health = clamp(health + health_gain_rate * delta, 0, max_health)
 	
 	# Handle D key input (health drain for testing)
-	if Input.is_action_just_pressed("Decrease"):  # E.g., Spacebar
-		change_health(-10)
+	#if Input.is_action_just_pressed("Decrease"):  # E.g., Spacebar
+		#change_health(-10)
 	
 	update_bars()
 
