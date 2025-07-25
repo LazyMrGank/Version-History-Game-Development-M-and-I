@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://iqgaesrkljbm"]
+[gd_scene load_steps=34 format=3 uid="uid://iqgaesrkljbm"]
 
 [ext_resource type="Script" uid="uid://clgdh6a4edash" path="res://Skeleton.gd" id="1_3yqyl"]
 [ext_resource type="Texture2D" uid="uid://b8opmckbrgppu" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Skeleton/Attack.png" id="1_epg4t"]
@@ -156,10 +156,16 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jpbtr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdav3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epc7x")
 }],
 "loop": true,
 "name": &"Hit",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -203,6 +209,9 @@ height = 34.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3yqyl"]
 radius = 21.5217
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dfc0f"]
+radius = 155.003
+
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_3yqyl")
 
@@ -210,7 +219,8 @@ script = ExtResource("1_3yqyl")
 position = Vector2(3, 3)
 scale = Vector2(0.466667, 0.5)
 sprite_frames = SubResource("SpriteFrames_6wg26")
-animation = &"Death"
+animation = &"Hit"
+frame_progress = 0.631149
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 4)
@@ -227,5 +237,13 @@ scale = Vector2(0.466667, 0.5)
 position = Vector2(12.8571, 0)
 shape = SubResource("CircleShape2D_3yqyl")
 
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(3, 2)
+shape = SubResource("CircleShape2D_dfc0f")
+
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="area_entered" from="SkeletonHitbox" to="." method="_on_skeleton_hitbox_area_entered"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]

@@ -35,6 +35,8 @@ var attack_timer: float = 0.0
 var jump_count = 0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D  # Adjust to your node name
+var knockback_velocity = Vector2.ZERO
+var knockback_friction = 500.0  # How quickly knockback fades
 
 func _ready():
 	Global.playerBody = self
@@ -44,6 +46,10 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
+	
+	velocity += knockback_velocity
+	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_friction * delta)
+	
 	if Input.is_action_just_pressed("Fireball") and can_shoot:
 		shoot_fireball()
 	var was_on_floor = is_on_floor()
@@ -124,6 +130,9 @@ func _physics_process(delta: float) -> void:
 			jump()
 	attack()
 	wall_slide(delta)
+
+func apply_knockback(knockback):
+	knockback_velocity = knockback
 
 func _on_coyote_time_timeout() -> void:
 	can_coyote_jump = false

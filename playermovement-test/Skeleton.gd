@@ -21,9 +21,20 @@ var is_roaming: bool = true
 
 var player: CharacterBody2D
 var player_in_area = false
+var attack_cooldown: float = 1.0  # Time between attacks in seconds
+var attack_timer: float = 0.0
 
+
+func _ready():
+	# Connect Area2D signals
+	$AttackArea.body_entered.connect(_on_attack_area_body_entered)
+	$AttackArea.body_exited.connect(_on_attack_area_body_exited)
 
 func _process(delta):
+	if attack_timer > 0:
+		attack_timer -= delta
+	if player_in_area and !dead and !taking_damage and attack_timer <= 0:
+		attack_player()
 	if !is_on_floor():
 		velocity.y += gravity * delta
 		velocity.x = 0
@@ -44,11 +55,23 @@ func handle_animation():
 		anim_sprite.play("Hit")
 		await get_tree().create_timer(0.8).timeout
 		taking_damage = false
+	elif !dead and taking_damage and !is_dealing_damage:
+		anim_sprite.play("Hit")
+		await get_tree().create_timer(0.8).timeout
+		taking_damage = false
 	elif dead and is_roaming:
 		is_roaming = false
 		anim_sprite.play("Death")
 		await get_tree().create_timer(1.0).timeout
 		handle_death()
+
+func attack_player():
+	if player and !is_dealing_damage:
+		is_dealing_damage = true
+		attack_timer = attack_cooldown
+		# Call the player's health reduction function
+		if Global.playerHealth:
+			Global.playerHealth.change_health(-damage_to_deal)
 
 func handle_death():
 	self.queue_free()
@@ -79,9 +102,15 @@ func choose(array):
 	array.shuffle()
 	return array.front()
 	
-	
-	
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	if body == player:
+		player_in_area = true
 
 
+func _on_Attack_Area_exited(body: Node2D) -> void:
+	if body == player:
+		player_in_area = false
 
-	
+
+func _on_attack_area_body_exited(body: Node2D) -> void:
+	pass # Replace with function body.
