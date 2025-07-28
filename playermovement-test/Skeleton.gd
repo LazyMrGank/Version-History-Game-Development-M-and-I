@@ -1,15 +1,15 @@
 extends CharacterBody2D
 
 class_name SkeletonEnemy
-
+@onready var animation_player = $AnimationPlayer
+@onready var hitbox = $SkeletonHitbox
 const speed = 10
 var is_chase: bool = true
-
+var last_direction: float = 1.0
 var gravity = 900
 var health = 80
 var health_max = 80
 var health_min = 0
-
 var dead:bool = false
 var taking_damage: bool = false
 var damage_to_deal = 20
@@ -26,10 +26,7 @@ var attack_timer: float = 0.0
 
 
 func _ready():
-	# Connect Area2D signals
-	$AttackArea.body_entered.connect(_on_attack_area_body_entered)
-	$AttackArea.body_exited.connect(_on_attack_area_body_exited)
-
+	pass
 func _process(delta):
 	if attack_timer > 0:
 		attack_timer -= delta
@@ -42,6 +39,9 @@ func _process(delta):
 	move(delta)
 	handle_animation()
 	move_and_slide()
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):  # Add player to "player" group in editor
+		animation_player.play("Attack")
 
 func handle_animation():
 	var anim_sprite = $AnimatedSprite2D
@@ -59,7 +59,7 @@ func handle_animation():
 		anim_sprite.play("Hit")
 		await get_tree().create_timer(0.8).timeout
 		taking_damage = false
-	elif dead and is_roaming:
+	elif dead and is_roaming and health <= 0:
 		is_roaming = false
 		anim_sprite.play("Death")
 		await get_tree().create_timer(1.0).timeout
@@ -102,15 +102,3 @@ func choose(array):
 	array.shuffle()
 	return array.front()
 	
-func _on_attack_area_body_entered(body: Node2D) -> void:
-	if body == player:
-		player_in_area = true
-
-
-func _on_Attack_Area_exited(body: Node2D) -> void:
-	if body == player:
-		player_in_area = false
-
-
-func _on_attack_area_body_exited(body: Node2D) -> void:
-	pass # Replace with function body.

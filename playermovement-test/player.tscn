@@ -756,7 +756,7 @@ load_path = "res://.godot/imported/32x32 circle bar over-1.png.png-fdcf03df266bd
 
 [sub_resource type="GDScript" id="GDScript_7lmhl"]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_4flbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -767,7 +767,6 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_b26j0")
 animation = &"attack"
 autoplay = "idle"
-frame = 9
 speed_scale = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
