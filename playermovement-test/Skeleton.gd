@@ -39,9 +39,10 @@ func _process(delta):
 	move(delta)
 	handle_animation()
 	move_and_slide()
+	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):  # Add player to "player" group in editor
-		animation_player.play("Attack")
+		$AnimationPlayer.play("Attack")
 
 func handle_animation():
 	var anim_sprite = $AnimatedSprite2D
