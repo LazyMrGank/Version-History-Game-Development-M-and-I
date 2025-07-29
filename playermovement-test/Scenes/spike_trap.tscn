@@ -113,3 +113,6 @@ shape = SubResource("RectangleShape2D_u4nx7")
 sprite_frames = SubResource("SpriteFrames_8s55m")
 animation = &"new_animation"
 frame_progress = 0.29445
+
+[connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
+[connection signal="timeout" from="SpikeTimer" to="." method="_on_spike_timer_timeout"]
