@@ -757,6 +757,7 @@ load_path = "res://.godot/imported/32x32 circle bar over-1.png.png-fdcf03df266bd
 [sub_resource type="GDScript" id="GDScript_7lmhl"]
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 3
 script = ExtResource("1_4flbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
