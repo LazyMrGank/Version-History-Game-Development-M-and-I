@@ -101,6 +101,7 @@ animation = &"Explosion"
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+light_mask = 1023
 position = Vector2(46, 1)
 shape = SubResource("CircleShape2D_llehy")
 
