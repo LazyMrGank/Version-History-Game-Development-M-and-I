@@ -254,7 +254,7 @@ libraries = {
 position = Vector2(-14.5, -7.5)
 sprite_frames = SubResource("SpriteFrames_opsqu")
 animation = &"Attack"
-frame_progress = 0.0450892
+frame_progress = 0.353159
 
 [node name="RayCast2D" type="RayCast2D" parent="Visuals"]
 position = Vector2(15.5, -23.5)
