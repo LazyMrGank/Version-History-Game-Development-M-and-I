@@ -34,19 +34,18 @@ var is_attacking: bool = false
 var attack_timer: float = 0.0
 var jump_count = 0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D  # Adjust to your node name
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var knockback_velocity = Vector2.ZERO
-var knockback_friction = 500.0  # How quickly knockback fades
+var knockback_friction = 500.0
 
 func _ready():
 	Global.playerBody = self
 	fireball_timer.wait_time = 3.0
 	fireball_timer.one_shot = true
 	fireball_timer.connect("timeout", _on_fireball_timer_timeout)
-
+	$HitDetector.body_entered.connect(_on_hit_detector_body_entered)
 
 func _physics_process(delta: float) -> void:
-	
 	velocity += knockback_velocity
 	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_friction * delta)
 	
@@ -66,15 +65,12 @@ func _physics_process(delta: float) -> void:
 	
 	# Handle input and movement
 	if not is_dashing:  # Normal movement (not dashing)
-		# Apply gravity if not on floor or dashing
 		if not is_on_floor() && (can_coyote_jump == false):
 			velocity.y += gravity * delta
 			if velocity.y > 500:
 				velocity.y = 500
 		else:
 			jump_count = 0
-		# Handle jump
-		
 		if Input.is_action_just_pressed("jump") and is_on_floor() and not is_attacking:
 			velocity.y = -jump_velocity
 			jump_height_timer.start()
@@ -83,40 +79,32 @@ func _physics_process(delta: float) -> void:
 			jump_count += 1
 			velocity.y = -jump_velocity
 				
-		# Handle dash (only in air, not during attack)
 		if Input.is_action_just_pressed("dash") and not is_on_floor() and not is_dashing and not is_attacking:
 			is_dashing = true
 			dash_timer = dash_duration
-			velocity.y = 0  # Dash is unaffected by gravity
+			velocity.y = 0
 			velocity.x = last_direction * dash_speed
 		
-		# Handle attack (only on ground)
 		if Input.is_action_just_pressed("attack") and is_on_floor() and not is_dashing:
 			is_attacking = true
 			attack_timer = attack_duration
-			if abs(velocity.x) < 10:  # If nearly stopped, stop immediately
+			if abs(velocity.x) < 10:
 				velocity.x = 0
-			# Else, let deceleration handle slowdown during attack
 		
-		# Handle horizontal movement (not during dash or attack)
 		if not is_attacking and not is_dashing:
 			direction = Input.get_axis("move_left", "move_right")
 		if not is_dashing:
 			if direction != 0 and not is_attacking:
-				last_direction = direction  # Update facing direction
+				last_direction = direction
 				velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
 			else:
 				velocity.x = move_toward(velocity.x, 0, deceleration * delta)
-				
 		
-	# Update sprite facing
 	sprite.scale.x = last_direction
 	deal_damage_zone.position.x = abs(deal_damage_zone.position.x) * last_direction
 	
-	# Update animations
 	update_animations()
 	
-	# Move the character
 	jump()
 	move_and_slide()
 	if was_on_floor && !is_on_floor() && velocity.y >= 0:
@@ -128,7 +116,6 @@ func _physics_process(delta: float) -> void:
 			jump_buffered = false
 			print("buffered jump")
 			jump()
-	attack()
 	wall_slide(delta)
 
 func apply_knockback(knockback):
@@ -141,7 +128,7 @@ func _input(event):
 	if event.is_action_released("jump"):
 		if velocity.y < 0.0:
 			velocity.y *= 0.5
-					
+
 func _on_jump_buffer_timer_timeout() -> void:
 	jump_buffered = false
 	print("Jump buffered false")
@@ -164,26 +151,18 @@ func update_animations() -> void:
 			animation_player.play("jump")
 		else:
 			animation_player.play("falling")
-	elif abs(velocity.x) > 10:  # Threshold to prevent jittery transitions
+	elif abs(velocity.x) > 10:
 		animation_player.play("run")
 	else:
 		animation_player.play("idle")
-		
-	
-func attack():
-	var overlapping_objects = $HitDetector.get_overlapping_areas()
-	
-	for area in overlapping_objects:
-		var parent = area.get_parent()
-		print(parent.name)
-		
+
 func jump():
 	if Input.is_action_just_pressed("jump"):
 		if is_on_wall() and Input.is_action_pressed("move_right"):
-				velocity.y = jump_power
-				velocity.x = -wall_jump_pushback
+			velocity.y = jump_power
+			velocity.x = -wall_jump_pushback
 		if is_on_wall() and Input.is_action_pressed("move_left"):
-				velocity.y = jump_power
+			velocity.y = jump_power
 		if is_on_floor() || can_coyote_jump:
 			if can_coyote_jump:
 				velocity.y = jump_velocity
@@ -194,7 +173,7 @@ func jump():
 				jump_buffered = true
 				jump_buffer_timer.start()
 				print("Jump buffered true")
-			
+
 func wall_slide(delta):
 	if is_on_wall() and !is_on_floor():
 		if Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left"):
@@ -203,11 +182,11 @@ func wall_slide(delta):
 			is_wall_sliding = false
 	else:
 		is_wall_sliding = false
-		
+	
 	if is_wall_sliding:
 		velocity.y += (wall_slide_gravity * delta)
 		velocity.y = min(velocity.y, wall_slide_gravity)
-		
+
 func shoot_fireball():
 	var fireball = fireball_scene.instantiate()
 	fireball.position = position + Vector2(20 * last_direction, 0)
@@ -218,3 +197,10 @@ func shoot_fireball():
 
 func _on_fireball_timer_timeout() -> void:
 	can_shoot = true
+
+func _on_hit_detector_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Enemy") and is_attacking:
+		if body.has_method("take_damage"):
+			body.take_damage(10, -last_direction)
+		  # Pass opposite of player's facing direction
+		print("Hit enemy: ", body.name)

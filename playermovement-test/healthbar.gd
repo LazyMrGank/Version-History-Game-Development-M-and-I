@@ -62,6 +62,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("Fireball"):  # E.g., Spacebar
 		change_mana(-10)
 
+
 	
 	update_bars()
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfmrs6ln2gkia"]
+[gd_scene load_steps=5 format=3 uid="uid://dfmrs6ln2gkia"]
 
 [ext_resource type="PackedScene" uid="uid://b6c1e44urb6x5" path="res://player.tscn" id="1_f3sb7"]
 [ext_resource type="PackedScene" uid="uid://bd83jts7yjijh" path="res://enemy.tscn" id="2_fj7yv"]
-[ext_resource type="PackedScene" uid="uid://iqgaesrkljbm" path="res://Skeleton.tscn" id="3_tlwt5"]
 [ext_resource type="PackedScene" uid="uid://g8emckfudhmx" path="res://goblin.tscn" id="4_aqk2v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fj7yv"]
@@ -28,8 +27,7 @@ shape = SubResource("RectangleShape2D_fj7yv")
 [node name="Enemy" parent="." groups=["Hit"] instance=ExtResource("2_fj7yv")]
 position = Vector2(588, 418)
 
-[node name="Enemy2" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(1001, 206)
-
 [node name="Goblin" parent="." instance=ExtResource("4_aqk2v")]
-position = Vector2(521, 384)
+position = Vector2(498, 426)
+
+[editable path="Player"]
