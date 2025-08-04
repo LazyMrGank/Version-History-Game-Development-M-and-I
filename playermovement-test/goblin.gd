@@ -35,6 +35,8 @@ func start_walk():
 	
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	$Visuals/AnimationPlayer.play("Attack")
-	
+	print("Did it")
+"""
 func _on_attack_detector_body_entered(body: Node2D) -> void:
 	get_tree().reload_current_scene()
+"""

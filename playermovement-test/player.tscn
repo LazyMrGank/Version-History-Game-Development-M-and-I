@@ -757,11 +757,9 @@ load_path = "res://.godot/imported/32x32 circle bar over-1.png.png-fdcf03df266bd
 [sub_resource type="GDScript" id="GDScript_7lmhl"]
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_mask = 3
 script = ExtResource("1_4flbx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-light_mask = 3
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 shape = SubResource("CapsuleShape2D_sh265")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -796,6 +794,7 @@ grow_vertical = 2
 script = ExtResource("10_dx0e4")
 
 [node name="HealthBar1" type="TextureProgressBar" parent="Control"]
+layout_mode = 0
 offset_left = -181.0
 offset_top = -99.0
 offset_right = -148.0

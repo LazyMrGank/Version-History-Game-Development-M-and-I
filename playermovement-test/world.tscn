@@ -22,7 +22,7 @@ position = Vector2(455, 370)
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(864, 351)
+position = Vector2(959, 350)
 shape = SubResource("RectangleShape2D_fj7yv")
 
 [node name="Enemy" parent="." groups=["Hit"] instance=ExtResource("2_fj7yv")]
