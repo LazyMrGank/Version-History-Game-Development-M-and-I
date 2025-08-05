@@ -203,4 +203,5 @@ func _on_hit_detector_body_entered(body: Node2D) -> void:
 			body.take_damage(10, -last_direction)
 		  # Pass opposite of player's facing direction
 		print("Hit enemy: ", body.name)
+		body.play_hit_animation()
 		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://b6c1e44urb6x5"]
+[gd_scene load_steps=104 format=3 uid="uid://b6c1e44urb6x5"]
 
 [ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://UltimatePlatformerController.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dc8rxs8qupdqj" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_attack.png" id="2_b26j0"]
@@ -522,21 +522,6 @@ animations = [{
 "speed": 16.0
 }]
 
-[sub_resource type="Animation" id="Animation_op7ga"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HitDetector/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="Animation" id="Animation_dx0e4"]
 length = 0.6
 loop_mode = 1
@@ -563,6 +548,21 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["Hit"]
+}
+
+[sub_resource type="Animation" id="Animation_op7ga"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitDetector/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_b26j0"]
@@ -699,6 +699,33 @@ tracks/1/keys = {
 "values": ["falling"]
 }
 
+[sub_resource type="Animation" id="Animation_jm5j8"]
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["hit"]
+}
+
 [sub_resource type="Animation" id="Animation_urp6f"]
 length = 1.2
 loop_mode = 1
@@ -819,6 +846,7 @@ _data = {
 &"crouch": SubResource("Animation_n7ghd"),
 &"dash": SubResource("Animation_nvl01"),
 &"falling": SubResource("Animation_ivps1"),
+&"hit": SubResource("Animation_jm5j8"),
 &"idle": SubResource("Animation_urp6f"),
 &"jump": SubResource("Animation_bwjto"),
 &"run": SubResource("Animation_606se"),
@@ -835,6 +863,7 @@ load_path = "res://.godot/imported/32x32 circle bar over-1.png.png-fdcf03df266bd
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_4flbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
@@ -857,7 +886,8 @@ libraries = {
 
 [node name="HitDetector" type="Area2D" parent="."]
 position = Vector2(16, 5)
-collision_layer = 3
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetector"]
 shape = SubResource("RectangleShape2D_ivps1")
