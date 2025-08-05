@@ -64,6 +64,9 @@ func _process(delta):
 	
 	update_bars()
 
+func take_damage():
+	change_health(-10)
+
 func update_bars():
 	# Update health bars
 	health_bar1.value = clamp(health, health_bar1.min_value, health_bar1.max_value)
