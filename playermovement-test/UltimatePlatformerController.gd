@@ -39,7 +39,6 @@ var knockback_velocity = Vector2.ZERO
 var knockback_friction = 500.0
 
 func _ready():
-	Global.playerBody = self
 	fireball_timer.wait_time = 3.0
 	fireball_timer.one_shot = true
 	fireball_timer.connect("timeout", _on_fireball_timer_timeout)
@@ -204,3 +203,4 @@ func _on_hit_detector_body_entered(body: Node2D) -> void:
 			body.take_damage(10, -last_direction)
 		  # Pass opposite of player's facing direction
 		print("Hit enemy: ", body.name)
+		
