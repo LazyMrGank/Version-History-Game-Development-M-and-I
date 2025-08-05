@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://g8emckfudhmx"]
+[gd_scene load_steps=40 format=3 uid="uid://g8emckfudhmx"]
 
 [ext_resource type="Script" uid="uid://dvyj7xm8q2elw" path="res://goblin.gd" id="1_vu5tg"]
 [ext_resource type="Texture2D" uid="uid://n8tlbbt8265h" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Attack.png" id="2_macxp"]
@@ -412,9 +412,6 @@ radius = 11.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_macxp"]
 size = Vector2(23.75, 6.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_utad2"]
-size = Vector2(574, 20)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eyhpr"]
 size = Vector2(20, 43.5)
 
@@ -459,13 +456,6 @@ light_mask = 3
 position = Vector2(20.125, 2.75)
 shape = SubResource("RectangleShape2D_macxp")
 
-[node name="ChaseDetector" type="Area2D" parent="Visuals"]
-position = Vector2(-20.5, -3.5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/ChaseDetector"]
-position = Vector2(6, 0)
-shape = SubResource("RectangleShape2D_utad2")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, 2)
 shape = SubResource("RectangleShape2D_eyhpr")
@@ -475,5 +465,3 @@ shape = SubResource("RectangleShape2D_eyhpr")
 [connection signal="body_entered" from="Visuals/AttackDetector" to="." method="_on_attack_detector_body_entered"]
 [connection signal="body_entered" from="Visuals/PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="Visuals/PlayerDetector" to="." method="_on_player_detector_body_exited"]
-[connection signal="body_entered" from="Visuals/ChaseDetector" to="." method="_on_chase_detector_body_entered"]
-[connection signal="body_exited" from="Visuals/ChaseDetector" to="." method="_on_chase_detector_body_exited"]
