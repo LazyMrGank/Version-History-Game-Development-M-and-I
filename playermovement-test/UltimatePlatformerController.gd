@@ -1,20 +1,23 @@
 extends CharacterBody2D
 
 @onready var fireball_timer = $FireballTimer
+@onready var hit_detector = $HitDetector
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var coyote_timer = $CoyoteTime
+@onready var jump_buffer_timer = $JumpBufferTimer
+@onready var jump_height_timer = $JumpHeightTimer
 var fireball_scene = preload("res://Fireball.tscn")
 var can_shoot = true
-# Movement parameters
+
 @export var move_speed: float = 200.0
-@onready var deal_damage_zone = $HitDetector
 @export var acceleration: float = 1500.0
 @export var deceleration: float = 1000.0
 @export var jump_velocity: float = 300.0
 @export var dash_speed: float = 400.0
 @export var dash_duration: float = 0.2
 @export var attack_duration: float = 0.5
-@onready var coyote_timer = $CoyoteTime
-@onready var jump_buffer_timer = $JumpBufferTimer
-@onready var jump_height_timer = $JumpHeightTimer
+@export var hit_duration: float = 0.5
 const jump_power = -300.0
 const wall_jump_pushback = 100
 const wall_slide_gravity = 100
@@ -24,7 +27,7 @@ var jump_buffered = false
 const jump_height: float = -180
 const max_speed: float = 60
 const friction: float = 10
-# Get the gravity from the project settings
+
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction: float = 0.0
 var last_direction: float = 1.0  # Default facing right
@@ -32,17 +35,50 @@ var is_dashing: bool = false
 var dash_timer: float = 0.0
 var is_attacking: bool = false
 var attack_timer: float = 0.0
+var is_hit: bool = false
+var hit_timer: float = 0.0
 var jump_count = 0
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var knockback_velocity = Vector2.ZERO
 var knockback_friction = 500.0
+
+@export var max_health: float = 100.0  
+@export var health: float = 100.0  # Current health
+@export var max_mana: float = 100.0  
+@export var mana: float = 100.0  # Current mana
+@export var mana_drain_rate: float = 15.0  # Mana decrease per second when holding C
+@export var health_gain_rate: float = 10.0  # Health increase per second after 2s hold
+
+@onready var health_bar1 = $HealthBar1 
+@onready var health_bar2 = $HealthBar2 
+@onready var health_bar3 = $HealthBar3
+@onready var health_bar4 = $HealthBar4 
+@onready var mana_bar1 = $Manabar1 
+@onready var mana_bar2 = $Manabar2  
+
+var is_holding_c: bool = false  # Tracks if  chanrge key is held
+var c_hold_time: float = 0.0  # Duration C has been held
+var is_healing: bool = false  # Tracks if healing is active (after 2s)
+var is_holding_d: bool = false  # Tracks if D key is held
 
 func _ready():
 	fireball_timer.wait_time = 3.0
 	fireball_timer.one_shot = true
 	fireball_timer.connect("timeout", _on_fireball_timer_timeout)
-	$HitDetector.body_entered.connect(_on_hit_detector_body_entered)
+	hit_detector.body_entered.connect(_on_hit_detector_body_entered)
+	health_bar1.min_value = 0
+	health_bar1.max_value = 30
+	health_bar2.min_value = 30
+	health_bar2.max_value = 50
+	health_bar3.min_value = 50
+	health_bar3.max_value = 80
+	health_bar4.min_value = 80
+	health_bar4.max_value = 100
+	# Initialize mana bar ranges
+	mana_bar1.min_value = 0
+	mana_bar1.max_value = 50
+	mana_bar2.min_value = 50
+	mana_bar2.max_value = 100
+	update_bars()  # Initialize bars
 
 func _physics_process(delta: float) -> void:
 	velocity += knockback_velocity
@@ -62,8 +98,13 @@ func _physics_process(delta: float) -> void:
 		if attack_timer <= 0:
 			is_attacking = false
 	
+	if is_hit:
+		hit_timer -= delta
+		if hit_timer <= 0:
+			is_hit = false
+	
 	# Handle input and movement
-	if not is_dashing:  # Normal movement (not dashing)
+	if not is_dashing and not is_hit:
 		if not is_on_floor() && (can_coyote_jump == false):
 			velocity.y += gravity * delta
 			if velocity.y > 500:
@@ -98,9 +139,12 @@ func _physics_process(delta: float) -> void:
 				velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
 			else:
 				velocity.x = move_toward(velocity.x, 0, deceleration * delta)
-		
+	else:
+		if is_hit:
+			velocity.x = 0
+	
 	sprite.scale.x = last_direction
-	deal_damage_zone.position.x = abs(deal_damage_zone.position.x) * last_direction
+	hit_detector.position.x = abs(hit_detector.position.x) * last_direction
 	
 	update_animations()
 	
@@ -141,8 +185,10 @@ func _on_jump_height_timer_timeout() -> void:
 		print("high jump")
 
 func update_animations() -> void:
-	if is_attacking and is_on_floor():
-		$AnimationPlayer.play("attack")
+	if is_hit:
+		animation_player.play("hit")
+	elif is_attacking and is_on_floor():
+		animation_player.play("attack")
 	elif is_dashing:
 		animation_player.play("dash")
 	elif not is_on_floor():
@@ -201,7 +247,57 @@ func _on_hit_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy") and is_attacking:
 		if body.has_method("take_damage"):
 			body.take_damage(10, -last_direction)
-		  # Pass opposite of player's facing direction
 		print("Hit enemy: ", body.name)
 		body.play_hit_animation()
+
+func play_hit_animation():
+	if animation_player.has_animation("hit") and not is_hit and not is_dashing:
+		is_hit = true
+		hit_timer = hit_duration
+		velocity.x = 0
+		change_health(-10)
+	else:
+		print("Error: 'hit' animation not found, already playing, or dashing")
+
+func _process(delta):
+	#Charges mana
+	if Input.is_action_just_pressed("Charge"):
+		is_holding_c = true
+		c_hold_time = 0.0
+		is_healing = false
+	if Input.is_action_just_released("Charge"):
+		is_holding_c = false
+		is_healing = false
+		c_hold_time = 0.0
+	if is_holding_c and health < max_health:
+		c_hold_time += delta
 		
+		mana = clamp(mana - mana_drain_rate * delta, 0, max_mana)
+		
+		if c_hold_time >= 1.5 and mana > 0:
+			is_healing = true
+			health = clamp(health + health_gain_rate * delta, 0, max_health)
+	
+	# Handle D key input (health drain for testing)
+	if Input.is_action_just_pressed("Fireball"): 
+		change_mana(-10)
+		change_health(-10)
+	update_bars()
+
+func update_bars():
+	# Update health bars
+	health_bar1.value = clamp(health, health_bar1.min_value, health_bar1.max_value)
+	health_bar2.value = clamp(health, health_bar2.min_value, health_bar2.max_value) if health > health_bar2.min_value else health_bar2.min_value
+	health_bar3.value = clamp(health, health_bar3.min_value, health_bar3.max_value) if health > health_bar3.min_value else health_bar3.min_value
+	health_bar4.value = clamp(health, health_bar4.min_value, health_bar4.max_value) if health > health_bar4.min_value else health_bar4.min_value
+	# Update mana bars
+	mana_bar1.value = clamp(mana, mana_bar1.min_value, mana_bar1.max_value)
+	mana_bar2.value = clamp(mana, mana_bar2.min_value, mana_bar2.max_value) if mana > mana_bar2.min_value else mana_bar2.min_value
+	#Changes mana and health bars visually
+func change_health(amount: float):
+	health = clamp(health + amount, 0, max_health)
+	update_bars()
+
+func change_mana(amount: float):
+	mana = clamp(mana + amount, 0, max_mana)
+	update_bars()

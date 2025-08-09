@@ -23,9 +23,13 @@ func _on_body_entered(body):
 		animated_sprite.play("Explosion")
 		# Stop movement
 		speed = 0
-		# Optionally disable collision to prevent multiple hits
+		# Disable collision to prevent multiple hits
 		area_2d.set_deferred("monitoring", false)
 		area_2d.set_deferred("monitorable", false)
+		# Trigger enemy's hit animation and damage
+		if body.has_method("play_hit_animation"):
+			body.play_hit_animation()
+			print("Fireball hit enemy: ", body.name)
 
 func _on_animation_finished():
 	if is_exploding and animated_sprite.animation == "Explosion":
