@@ -423,6 +423,7 @@ libraries = {
 }
 
 [node name="AttackArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(-30, 49)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
@@ -445,6 +446,10 @@ scale = Vector2(0.466667, 0.5)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(34.6428, 0)
 shape = SubResource("RectangleShape2D_dfc0f")
+
+[node name="EdgeDetector" type="RayCast2D" parent="."]
+position = Vector2(14, -9)
+target_position = Vector2(0, 29)
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]

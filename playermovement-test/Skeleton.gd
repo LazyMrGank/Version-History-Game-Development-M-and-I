@@ -1,105 +1,56 @@
 extends CharacterBody2D
 
 class_name SkeletonEnemy
-@onready var animation_player = $AnimationPlayer
-@onready var hitbox = $SkeletonHitbox
-const speed = 10
-var is_chase: bool = true
-var last_direction: float = 1.0
-var gravity = 900
-var health = 80
-var health_max = 80
-var health_min = 0
-var dead:bool = false
-var taking_damage: bool = false
-var damage_to_deal = 20
-var is_dealing_damage : bool = false
 
-var dir: Vector2
-var knockback_force = -200
-var is_roaming: bool = true
+# Movement variables
+var is_moving_left: bool = true
+@export var speed: float = 10.0
+@export var gravity: float = 900.0
+var dir: Vector2 = Vector2.RIGHT  # Default direction
+var is_attacking: bool = false
+var is_hit: bool = false
+var health: int = 3
+var player: Node2D = null
+var chase_speed: float = 48.0
+# Nodes
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-var player: CharacterBody2D
-var player_in_area = false
-var attack_cooldown: float = 1.0  # Time between attacks in seconds
-var attack_timer: float = 0.0
+func _ready() -> void:
+	# Start with walk animation
+	animated_sprite.play("Walk")
+	# Start direction timer
+	$DirectionTimer.timeout.connect(_on_direction_timer_timeout)
 
+func edge_detection():
+	if not $EdgeDetector.is_colliding() and is_on_floor():
+		is_moving_left = !is_moving_left
+		scale.x = -scale.x
 
-func _ready():
-	pass
-func _process(delta):
-	if attack_timer > 0:
-		attack_timer -= delta
-	if player_in_area and !dead and !taking_damage and attack_timer <= 0:
-		attack_player()
-	if !is_on_floor():
+func _physics_process(delta: float) -> void:
+	# Apply gravity for platformer
+	if not is_on_floor():
 		velocity.y += gravity * delta
-		velocity.x = 0
-	player = Global.playerBody
-	move(delta)
+	else:
+		velocity.y = 0
+	
+	# Handle random movement
+	velocity.x = dir.x * speed
 	handle_animation()
+	
 	move_and_slide()
-	
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):  # Add player to "player" group in editor
-		$AnimationPlayer.play("Attack")
 
-func handle_animation():
-	var anim_sprite = $AnimatedSprite2D
-	if !dead and !taking_damage and !is_dealing_damage:
-		anim_sprite.play("Walk")
-		if dir.x == -1:
-			anim_sprite.flip_h = true
-		elif dir.x == 1:
-			anim_sprite.flip_h = false
-	elif !dead and taking_damage and !is_dealing_damage:
-		anim_sprite.play("Hit")
-		await get_tree().create_timer(0.8).timeout
-		taking_damage = false
-	elif !dead and taking_damage and !is_dealing_damage:
-		anim_sprite.play("Hit")
-		await get_tree().create_timer(0.8).timeout
-		taking_damage = false
-	elif dead and is_roaming and health <= 0:
-		is_roaming = false
-		anim_sprite.play("Death")
-		await get_tree().create_timer(1.0).timeout
-		handle_death()
+func handle_animation() -> void:
+	# Update sprite direction based on movement
+	if dir.x == -1:
+		animated_sprite.flip_h = true
+	elif dir.x == 1:
+		animated_sprite.flip_h = false
+	animated_sprite.play("Walk")
 
-func attack_player():
-	if player and !is_dealing_damage:
-		is_dealing_damage = true
-		attack_timer = attack_cooldown
-		# Call the player's health reduction function
-		if Global.playerHealth:
-			Global.playerHealth.change_health(-damage_to_deal)
-
-func handle_death():
-	self.queue_free()
-
-func move(delta):
-	if !dead:
-		if !is_chase:
-			velocity += dir * speed * delta
-		elif is_chase and !taking_damage:
-			var dir_to_player = position.direction_to(player.position) * speed
-			velocity.x = dir_to_player.x
-			dir.x = abs(velocity.x) / velocity.x
-		elif taking_damage:
-			var knockback_dir = position.direction_to(player.position) * knockback_force
-			velocity.x = knockback_dir.x
-		is_roaming = true
-	elif dead:
-		velocity.x = 0
-	
-	
 func _on_direction_timer_timeout() -> void:
 	$DirectionTimer.wait_time = choose([1.5, 2.0, 2.5])
-	if !is_chase:
-		dir = choose([Vector2.RIGHT, Vector2.LEFT])
-		velocity.x = 0
+	dir = choose([Vector2.RIGHT, Vector2.LEFT])
 
 func choose(array):
 	array.shuffle()
 	return array.front()
-	
