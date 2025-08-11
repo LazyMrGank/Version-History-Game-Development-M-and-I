@@ -70,3 +70,7 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 
 func reset_level():
 	get_tree().reload_current_scene()
+
+
+func _on_thorns_barrier_2_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
