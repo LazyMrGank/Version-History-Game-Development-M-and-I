@@ -435,16 +435,16 @@ position = Vector2(3, 3)
 scale = Vector2(0.466667, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SkeletonHitbox"]
-position = Vector2(38.5714, -2)
+position = Vector2(36.4285, 0)
 shape = SubResource("CircleShape2D_3yqyl")
 disabled = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="PlayerDetector" type="Area2D" parent="." groups=["Enemy"]]
 position = Vector2(3, 3)
 scale = Vector2(0.466667, 0.5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(34.6428, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(36.4285, 0)
 shape = SubResource("RectangleShape2D_dfc0f")
 
 [node name="EdgeDetector" type="RayCast2D" parent="."]
@@ -454,5 +454,6 @@ target_position = Vector2(0, 29)
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
-[connection signal="area_entered" from="SkeletonHitbox" to="." method="_on_skeleton_hitbox_area_entered"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="SkeletonHitbox" to="." method="_on_skeleton_hitbox_body_entered"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

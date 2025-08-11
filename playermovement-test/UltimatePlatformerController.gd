@@ -9,17 +9,16 @@ extends CharacterBody2D
 @onready var jump_height_timer = $JumpHeightTimer
 var fireball_scene = preload("res://Fireball.tscn")
 var can_shoot = true
-
 @export var move_speed: float = 200.0
 @export var acceleration: float = 1500.0
-@export var deceleration: float = 1000.0
+@export var deceleration: float = 4000.0
 @export var jump_velocity: float = 300.0
 @export var dash_speed: float = 400.0
 @export var dash_duration: float = 0.2
 @export var attack_duration: float = 0.5
 @export var hit_duration: float = 0.5
 const jump_power = -300.0
-const wall_jump_pushback = 100
+const wall_jump_pushback = 200
 const wall_slide_gravity = 100
 var is_wall_sliding = false
 var can_coyote_jump = false
@@ -142,18 +141,17 @@ func _physics_process(delta: float) -> void:
 	else:
 		if is_hit:
 			velocity.x = 0
-	
 	sprite.scale.x = last_direction
 	hit_detector.position.x = abs(hit_detector.position.x) * last_direction
 	
 	update_animations()
-	
+
 	jump()
 	move_and_slide()
 	if was_on_floor && !is_on_floor() && velocity.y >= 0:
 		can_coyote_jump = true
 		coyote_timer.start()
-	
+
 	if !was_on_floor && is_on_floor():
 		if jump_buffered:
 			jump_buffered = false
@@ -249,6 +247,7 @@ func _on_hit_detector_body_entered(body: Node2D) -> void:
 			body.take_damage(10, -last_direction)
 		print("Hit enemy: ", body.name)
 		body.play_hit_animation()
+		change_mana(+10)
 
 func play_hit_animation():
 	if animation_player.has_animation("hit") and not is_hit and not is_dashing:

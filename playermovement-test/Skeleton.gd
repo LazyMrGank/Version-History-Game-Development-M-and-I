@@ -9,7 +9,7 @@ var is_moving_left: bool = true
 var dir: Vector2 = Vector2.RIGHT  # Default direction
 var is_attacking: bool = false
 var is_hit: bool = false
-var health: int = 3
+var health: int = 4
 var player: Node2D = null
 var chase_speed: float = 48.0
 # Nodes
@@ -54,3 +54,23 @@ func _on_direction_timer_timeout() -> void:
 func choose(array):
 	array.shuffle()
 	return array.front()
+
+
+func _on_skeleton_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player") and is_attacking:
+		if body.has_method("play_hit_animation"):
+			body.play_hit_animation()
+			print("Enemy hit player: ", body.name)
+
+
+func _on_attack_range_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player") and not is_attacking and not is_hit and health > 0:
+		is_attacking = true
+		$AnimationPlayer.play("Attack")
+		$PlayerDetector.monitoring = true
+
+func _on_player_detector_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player") and is_attacking and not is_hit and health > 0:
+		is_attacking = false
+		$AnimationPlayer.play("Walk")
+		$PlayerDetector.monitoring = false
