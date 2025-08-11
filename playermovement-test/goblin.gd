@@ -64,14 +64,6 @@ func _on_attack_detector_body_entered(body: Node2D) -> void:
 			body.play_hit_animation()
 			print("Enemy hit player: ", body.name)
 
-func _on_chase_detector_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player") and health > 0:
-		player = body
-
-func _on_chase_detector_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		player = null
-
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name == "Attack" and not is_hit and health > 0:
 		is_attacking = false

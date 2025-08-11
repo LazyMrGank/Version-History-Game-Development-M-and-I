@@ -12,6 +12,7 @@ var is_hit: bool = false
 var health: int = 4
 var player: Node2D = null
 var chase_speed: float = 48.0
+@onready var animation_player = $AnimationPlayer
 # Nodes
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -74,3 +75,18 @@ func _on_player_detector_body_exited(body: Node2D) -> void:
 		is_attacking = false
 		$AnimationPlayer.play("Walk")
 		$PlayerDetector.monitoring = false
+
+func play_hit_animation():
+	if animation_player.has_animation("Hit") and not is_hit and health > 0:
+		is_hit = true
+		is_attacking = false
+		$PlayerDetector.monitoring = false
+		health -= 1
+		velocity.x = 0
+		if health <= 0:
+			animation_player.play("Death")
+		else:
+			animation_player.play("hit")
+		print("Enemy hit, health reduced to: ", health)
+	else:
+		print("Error: 'hit' animation not found or already playing or enemy is dead")

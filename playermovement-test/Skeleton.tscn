@@ -268,7 +268,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_0rk3j"]
-length = 0.6
+length = 1.2
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -407,7 +407,7 @@ script = ExtResource("1_3yqyl")
 position = Vector2(3, 3)
 scale = Vector2(0.466667, 0.5)
 sprite_frames = SubResource("SpriteFrames_6wg26")
-animation = &"Attack"
+animation = &"Hit"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 4)
