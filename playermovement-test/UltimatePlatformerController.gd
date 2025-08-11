@@ -7,8 +7,10 @@ extends CharacterBody2D
 @onready var coyote_timer = $CoyoteTime
 @onready var jump_buffer_timer = $JumpBufferTimer
 @onready var jump_height_timer = $JumpHeightTimer
+@onready var attack_cooldown_timer = $AttackCooldownTimer
 var fireball_scene = preload("res://Fireball.tscn")
 var can_shoot = true
+var can_attack = true
 @export var move_speed: float = 200.0
 @export var acceleration: float = 1500.0
 @export var deceleration: float = 4000.0
@@ -54,7 +56,7 @@ var knockback_friction = 500.0
 @onready var mana_bar1 = $Manabar1 
 @onready var mana_bar2 = $Manabar2  
 
-var is_holding_c: bool = false  # Tracks if  chanrge key is held
+var is_holding_c: bool = false  # Tracks if charge key is held
 var c_hold_time: float = 0.0  # Duration C has been held
 var is_healing: bool = false  # Tracks if healing is active (after 2s)
 var is_holding_d: bool = false  # Tracks if D key is held
@@ -63,6 +65,9 @@ func _ready():
 	fireball_timer.wait_time = 3.0
 	fireball_timer.one_shot = true
 	fireball_timer.connect("timeout", _on_fireball_timer_timeout)
+	attack_cooldown_timer.wait_time = 1.0
+	attack_cooldown_timer.one_shot = true
+	attack_cooldown_timer.connect("timeout", _on_attack_cooldown_timer_timeout)
 	hit_detector.body_entered.connect(_on_hit_detector_body_entered)
 	health_bar1.min_value = 0
 	health_bar1.max_value = 30
@@ -124,9 +129,11 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0
 			velocity.x = last_direction * dash_speed
 		
-		if Input.is_action_just_pressed("attack") and is_on_floor() and not is_dashing:
+		if Input.is_action_just_pressed("attack") and is_on_floor() and not is_dashing and can_attack:
 			is_attacking = true
 			attack_timer = attack_duration
+			can_attack = false
+			attack_cooldown_timer.start()
 			if abs(velocity.x) < 10:
 				velocity.x = 0
 		
@@ -181,6 +188,9 @@ func _on_jump_height_timer_timeout() -> void:
 			print("Cow")
 	else:
 		print("high jump")
+
+func _on_attack_cooldown_timer_timeout() -> void:
+	can_attack = true
 
 func update_animations() -> void:
 	if is_hit:
@@ -259,7 +269,7 @@ func play_hit_animation():
 		print("Error: 'hit' animation not found, already playing, or dashing")
 
 func _process(delta):
-	#Charges mana
+	# Charges mana
 	if Input.is_action_just_pressed("Charge"):
 		is_holding_c = true
 		c_hold_time = 0.0
@@ -292,7 +302,7 @@ func update_bars():
 	# Update mana bars
 	mana_bar1.value = clamp(mana, mana_bar1.min_value, mana_bar1.max_value)
 	mana_bar2.value = clamp(mana, mana_bar2.min_value, mana_bar2.max_value) if mana > mana_bar2.min_value else mana_bar2.min_value
-	#Changes mana and health bars visually
+	# Changes mana and health bars visually
 func change_health(amount: float):
 	health = clamp(health + amount, 0, max_health)
 	update_bars()

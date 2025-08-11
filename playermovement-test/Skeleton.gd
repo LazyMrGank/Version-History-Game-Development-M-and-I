@@ -1,86 +1,87 @@
 extends CharacterBody2D
 
-class_name SkeletonEnemy
-
-# Movement variables
+@onready var animation_player = $Visuals/AnimationPlayer
+@onready var chase_detector = $Visuals/ChaseDetector
 var is_moving_left: bool = true
-@export var speed: float = 10.0
-@export var gravity: float = 900.0
-var dir: Vector2 = Vector2.RIGHT  # Default direction
+var gravity: float = 10.0
+var speed: float = 32.0
 var is_attacking: bool = false
 var is_hit: bool = false
-var health: int = 4
+var health: int = 3
 var player: Node2D = null
 var chase_speed: float = 48.0
-@onready var animation_player = $AnimationPlayer
-# Nodes
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
-	# Start with walk animation
-	animated_sprite.play("Walk")
-	# Start direction timer
-	$DirectionTimer.timeout.connect(_on_direction_timer_timeout)
+	$Visuals/AnimationPlayer.play("Walk")
+	$Visuals/PlayerDetector.body_entered.connect(_on_player_detector_body_entered)
+	$Visuals/PlayerDetector.body_exited.connect(_on_player_detector_body_exited)
+	$Visuals/AttackDetector.body_entered.connect(_on_attack_detector_body_entered)
+	$Visuals/AnimationPlayer.animation_finished.connect(_on_animation_finished)
+	add_to_group("enemies")
 
-func edge_detection():
-	if not $EdgeDetector.is_colliding() and is_on_floor():
+func _physics_process(_delta: float) -> void:
+	if is_hit or is_attacking or health <= 0:
+		velocity.x = 0
+	else:
+		if player:
+			move_toward_player()
+		else:
+			move_character()
+			detect_turn_around()
+	velocity.y += gravity
+	move_and_slide()
+
+func move_character() -> void:
+	velocity.x = speed if is_moving_left else -speed
+
+func move_toward_player() -> void:
+	if player and is_on_floor():
+		var direction = sign(player.global_position.x - global_position.x)
+		velocity.x = direction * chase_speed
+		if direction != 0:
+			scale.x = -1 if direction < 0 else 1
+
+func detect_turn_around() -> void:
+	if not $Visuals/RayCast2D.is_colliding() and is_on_floor():
 		is_moving_left = !is_moving_left
 		scale.x = -scale.x
 
-func _physics_process(delta: float) -> void:
-	# Apply gravity for platformer
-	if not is_on_floor():
-		velocity.y += gravity * delta
-	else:
-		velocity.y = 0
-	
-	# Handle random movement
-	velocity.x = dir.x * speed
-	handle_animation()
-	
-	move_and_slide()
+func _on_player_detector_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player") and not is_attacking and not is_hit and health > 0:
+		is_attacking = true
+		$Visuals/AnimationPlayer.play("Attack")
+		$Visuals/AttackDetector.monitoring = true
 
-func handle_animation() -> void:
-	# Update sprite direction based on movement
-	if dir.x == -1:
-		animated_sprite.flip_h = true
-	elif dir.x == 1:
-		animated_sprite.flip_h = false
-	animated_sprite.play("Walk")
+func _on_player_detector_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player") and is_attacking and not is_hit and health > 0:
+		is_attacking = false
+		$Visuals/AnimationPlayer.play("Walk")
+		$Visuals/AttackDetector.monitoring = false
 
-func _on_direction_timer_timeout() -> void:
-	$DirectionTimer.wait_time = choose([1.5, 2.0, 2.5])
-	dir = choose([Vector2.RIGHT, Vector2.LEFT])
-
-func choose(array):
-	array.shuffle()
-	return array.front()
-
-
-func _on_skeleton_hitbox_body_entered(body: Node2D) -> void:
+func _on_attack_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player") and is_attacking:
 		if body.has_method("play_hit_animation"):
 			body.play_hit_animation()
 			print("Enemy hit player: ", body.name)
 
-
-func _on_attack_range_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player") and not is_attacking and not is_hit and health > 0:
-		is_attacking = true
-		$AnimationPlayer.play("Attack")
-		$PlayerDetector.monitoring = true
-
-func _on_player_detector_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Player") and is_attacking and not is_hit and health > 0:
+func _on_animation_finished(anim_name: String) -> void:
+	if anim_name == "Attack" and not is_hit and health > 0:
 		is_attacking = false
-		$AnimationPlayer.play("Walk")
-		$PlayerDetector.monitoring = false
+		$Visuals/AnimationPlayer.play("Walk")
+		$Visuals/AttackDetector.monitoring = false
+	elif anim_name == "hit" and health > 0:
+		is_hit = false
+		is_attacking = false
+		$Visuals/AnimationPlayer.play("Walk")
+		$Visuals/AttackDetector.monitoring = false
+	elif anim_name == "Death":
+		queue_free()
 
 func play_hit_animation():
-	if animation_player.has_animation("Hit") and not is_hit and health > 0:
+	if animation_player.has_animation("hit") and not is_hit and health > 0:
 		is_hit = true
 		is_attacking = false
-		$PlayerDetector.monitoring = false
+		$Visuals/AttackDetector.monitoring = false
 		health -= 1
 		velocity.x = 0
 		if health <= 0:

@@ -1,10 +1,69 @@
-[gd_scene load_steps=40 format=3 uid="uid://g8emckfudhmx"]
+[gd_scene load_steps=46 format=3 uid="uid://g8emckfudhmx"]
 
 [ext_resource type="Script" uid="uid://dvyj7xm8q2elw" path="res://goblin.gd" id="1_vu5tg"]
 [ext_resource type="Texture2D" uid="uid://n8tlbbt8265h" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Attack.png" id="2_macxp"]
 [ext_resource type="Texture2D" uid="uid://copls0xd07yao" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Run.png" id="3_eyhpr"]
 [ext_resource type="Texture2D" uid="uid://78pbhq4n0ro7" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Take Hit.png" id="3_macxp"]
 [ext_resource type="Texture2D" uid="uid://pcfc4r166iut" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Death.png" id="3_utad2"]
+[ext_resource type="Texture2D" uid="uid://ccb7yltidvy4t" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Skeleton/Idle.png" id="4_utad2"]
+
+[sub_resource type="Animation" id="Animation_macxp"]
+resource_name = "Cow"
+
+[sub_resource type="Animation" id="Animation_vu5tg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/AttackDetector/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Attack"]
+}
+
+[sub_resource type="Animation" id="Animation_3s2j4"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["new_animation"]
+}
 
 [sub_resource type="Animation" id="Animation_utad2"]
 resource_name = "Attack"
@@ -40,18 +99,9 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.4, 0.433333, 0.450565),
-"transitions": PackedFloat32Array(1, 1, 1),
-"values": [{
-"args": [],
-"method": &"hit"
-}, {
-"args": [],
-"method": &"end_of_hit"
-}, {
-"args": [],
-"method": &"start_walk"
-}]
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -65,9 +115,6 @@ tracks/3/keys = {
 "update": 1,
 "values": [true, false, false, true]
 }
-
-[sub_resource type="Animation" id="Animation_macxp"]
-resource_name = "Cow"
 
 [sub_resource type="Animation" id="Animation_ixvp6"]
 length = 0.8
@@ -96,19 +143,20 @@ tracks/1/keys = {
 "values": ["Death"]
 }
 
-[sub_resource type="Animation" id="Animation_vu5tg"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_mq4fs"]
+length = 0.8
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Visuals/AttackDetector/CollisionShape2D:disabled")
+tracks/0/path = NodePath("Visuals/AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [true]
+"values": [0, 1, 2, 3]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -120,7 +168,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"Attack"]
+"values": ["Idle"]
 }
 
 [sub_resource type="Animation" id="Animation_u6mjv"]
@@ -190,39 +238,12 @@ tracks/2/keys = {
 "values": []
 }
 
-[sub_resource type="Animation" id="Animation_3s2j4"]
-length = 0.001
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Visuals/AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Visuals/AnimatedSprite2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["new_animation"]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_macxp"]
 _data = {
 &"Attack": SubResource("Animation_utad2"),
 &"Cow": SubResource("Animation_macxp"),
 &"Death": SubResource("Animation_ixvp6"),
+&"Idle": SubResource("Animation_mq4fs"),
 &"RESET": SubResource("Animation_vu5tg"),
 &"Walk": SubResource("Animation_u6mjv"),
 &"hit": SubResource("Animation_6nebt"),
@@ -271,6 +292,22 @@ region = Rect2(300, 0, 150, 150)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lvoik"]
 atlas = ExtResource("3_utad2")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kwv6"]
+atlas = ExtResource("4_utad2")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45rck"]
+atlas = ExtResource("4_utad2")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcisk"]
+atlas = ExtResource("4_utad2")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrdj1"]
+atlas = ExtResource("4_utad2")
 region = Rect2(450, 0, 150, 150)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vqqyg"]
@@ -360,6 +397,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kwv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45rck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcisk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrdj1")
+}],
+"loop": true,
+"name": &"Idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -461,6 +515,8 @@ position = Vector2(6, 2)
 shape = SubResource("RectangleShape2D_eyhpr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CooldownTimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="Visuals/AttackDetector" to="." method="_on_attack_detector_body_entered"]
 [connection signal="body_entered" from="Visuals/PlayerDetector" to="." method="_on_player_detector_body_entered"]
