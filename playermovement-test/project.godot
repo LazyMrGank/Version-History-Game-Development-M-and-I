@@ -27,6 +27,7 @@ enabled=PackedStringArray("res://addons/AS2P/plugin.cfg")
 
 Hit=""
 Enemy=""
+Player=""
 
 [input]
 

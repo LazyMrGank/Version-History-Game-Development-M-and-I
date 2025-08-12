@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://iqgaesrkljbm"]
 
-[ext_resource type="Script" uid="uid://j2sc3rwf4tcl" path="res://skeleton.gd" id="1_uaaco"]
+[ext_resource type="Script" uid="uid://j2sc3rwf4tcl" path="res://Skeleton.gd" id="1_uaaco"]
 [ext_resource type="Texture2D" uid="uid://b8opmckbrgppu" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Skeleton/Attack.png" id="2_uaaco"]
 [ext_resource type="Texture2D" uid="uid://o3ls6nku5a17" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Skeleton/Death.png" id="3_ymvsc"]
 [ext_resource type="Texture2D" uid="uid://d3gjdm5f5amje" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Skeleton/Walk.png" id="4_rwpf0"]
@@ -91,6 +91,21 @@ tracks/1/keys = {
 "values": ["Death"]
 }
 
+[sub_resource type="Animation" id="Animation_ft6oh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/AttackDetector/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_ew5mc"]
 length = 0.8
 loop_mode = 1
@@ -145,21 +160,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["hit"]
-}
-
-[sub_resource type="Animation" id="Animation_ft6oh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Visuals/AttackDetector/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x6jny"]
@@ -374,7 +374,6 @@ position = Vector2(0, 10)
 scale = Vector2(0.48, 0.48)
 sprite_frames = SubResource("SpriteFrames_s0cfw")
 animation = &"Attack"
-frame_progress = 0.957649
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 8.875)
