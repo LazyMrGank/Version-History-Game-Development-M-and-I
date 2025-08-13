@@ -64,7 +64,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aciy7")
 }],
-"loop": true,
+"loop": false,
 "name": &"Explosion",
 "speed": 10.0
 }, {
@@ -87,17 +87,22 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_llehy"]
+radius = 11.0
 
 [node name="FireProjectile" type="Node2D"]
 script = ExtResource("1_e3tp1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(7, -6)
+scale = Vector2(2.36458, 1.21875)
 sprite_frames = SubResource("SpriteFrames_8mug2")
-animation = &"Firebolt"
-frame_progress = 0.764971
+animation = &"Explosion"
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(12, 6)
+light_mask = 1023
+position = Vector2(46, 1)
 shape = SubResource("CircleShape2D_llehy")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
