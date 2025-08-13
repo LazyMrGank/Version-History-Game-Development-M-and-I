@@ -1,8 +1,9 @@
-[gd_scene load_steps=95 format=3 uid="uid://b6c1e44urb6x5"]
+[gd_scene load_steps=104 format=3 uid="uid://b6c1e44urb6x5"]
 
 [ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://UltimatePlatformerController.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dc8rxs8qupdqj" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_attack.png" id="2_b26j0"]
 [ext_resource type="Texture2D" uid="uid://44fcqcmy8s1b" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_rest.png" id="2_dw050"]
+[ext_resource type="Texture2D" uid="uid://prembyavqvgq" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_hit.png" id="2_dx0e4"]
 [ext_resource type="Texture2D" uid="uid://bdq3gmhgajr" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_idle.png" id="2_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://b2syom6meawdt" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_run.png" id="2_onrkg"]
 [ext_resource type="Texture2D" uid="uid://d2vxcy8f5lmfa" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_jump_midair.png" id="2_sweqy"]
@@ -105,6 +106,30 @@ region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbfsw"]
 atlas = ExtResource("2_sweqy")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2t6f"]
+atlas = ExtResource("2_dx0e4")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3lcn"]
+atlas = ExtResource("2_dx0e4")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xry5e"]
+atlas = ExtResource("2_dx0e4")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6w8y"]
+atlas = ExtResource("2_dx0e4")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yem3p"]
+atlas = ExtResource("2_dx0e4")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86rna"]
+atlas = ExtResource("2_dx0e4")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b26j0"]
@@ -286,7 +311,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
-"speed": 10.0
+"speed": 25.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -344,6 +369,29 @@ animations = [{
 "loop": true,
 "name": &"falling",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2t6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3lcn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xry5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6w8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yem3p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86rna")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -474,6 +522,34 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="Animation" id="Animation_dx0e4"]
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Hit"]
+}
+
 [sub_resource type="Animation" id="Animation_op7ga"]
 length = 0.001
 tracks/0/type = "value"
@@ -490,7 +566,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_b26j0"]
-length = 1.2
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -498,10 +574,10 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333, 0.666667, 0.75, 0.833333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32, 0.36),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -522,7 +598,7 @@ tracks/2/path = NodePath("HitDetector/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.68),
+"times": PackedFloat32Array(0, 0.166667, 0.366667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -621,6 +697,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["falling"]
+}
+
+[sub_resource type="Animation" id="Animation_jm5j8"]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["hit"]
 }
 
 [sub_resource type="Animation" id="Animation_urp6f"]
@@ -737,11 +840,13 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q13i1"]
 _data = {
+&"Hit": SubResource("Animation_dx0e4"),
 &"RESET": SubResource("Animation_op7ga"),
 &"attack": SubResource("Animation_b26j0"),
 &"crouch": SubResource("Animation_n7ghd"),
 &"dash": SubResource("Animation_nvl01"),
 &"falling": SubResource("Animation_ivps1"),
+&"hit": SubResource("Animation_jm5j8"),
 &"idle": SubResource("Animation_urp6f"),
 &"jump": SubResource("Animation_bwjto"),
 &"run": SubResource("Animation_606se"),
@@ -751,22 +856,25 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivps1"]
 size = Vector2(16.5, 11.5)
 
+[sub_resource type="GDScript" id="GDScript_7lmhl"]
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_waa4j"]
 load_path = "res://.godot/imported/32x32 circle bar over-1.png.png-fdcf03df266bd6fefc1a2838774ca276.ctex"
 
-[sub_resource type="GDScript" id="GDScript_7lmhl"]
-
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_4flbx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 shape = SubResource("CapsuleShape2D_sh265")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_b26j0")
-animation = &"attack"
+animation = &"hit"
 autoplay = "idle"
+frame = 5
 speed_scale = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -779,6 +887,8 @@ libraries = {
 
 [node name="HitDetector" type="Area2D" parent="."]
 position = Vector2(16, 5)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetector"]
 shape = SubResource("RectangleShape2D_ivps1")
@@ -793,8 +903,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_dx0e4")
 
-[node name="HealthBar1" type="TextureProgressBar" parent="Control"]
-layout_mode = 0
+[node name="CoyoteTime" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="JumpHeightTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="PlayerUseAbilityComponent" type="Node" parent="." groups=["Player"]]
+script = SubResource("GDScript_7lmhl")
+
+[node name="FireballTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="DashTimer" type="Timer" parent="."]
+
+[node name="HealthBar1" type="TextureProgressBar" parent="."]
 offset_left = -181.0
 offset_top = -99.0
 offset_right = -148.0
@@ -808,8 +937,7 @@ texture_under = ExtResource("11_jm5j8")
 texture_over = SubResource("CompressedTexture2D_waa4j")
 texture_progress = ExtResource("12_7hik5")
 
-[node name="HealthBar2" type="TextureProgressBar" parent="Control"]
-layout_mode = 0
+[node name="HealthBar2" type="TextureProgressBar" parent="."]
 offset_left = -166.0
 offset_top = -99.0
 offset_right = -126.0
@@ -821,8 +949,7 @@ texture_under = ExtResource("13_qtqh7")
 texture_over = ExtResource("14_2wuci")
 texture_progress = ExtResource("15_iruf7")
 
-[node name="HealthBar3" type="TextureProgressBar" parent="Control"]
-layout_mode = 0
+[node name="HealthBar3" type="TextureProgressBar" parent="."]
 offset_left = -136.0
 offset_top = -99.0
 offset_right = -96.0
@@ -834,8 +961,7 @@ texture_under = ExtResource("13_qtqh7")
 texture_over = ExtResource("14_2wuci")
 texture_progress = ExtResource("18_efrwb")
 
-[node name="HealthBar4" type="TextureProgressBar" parent="Control"]
-layout_mode = 0
+[node name="HealthBar4" type="TextureProgressBar" parent="."]
 offset_left = -106.0
 offset_top = -99.0
 offset_right = -66.0
@@ -847,8 +973,7 @@ texture_under = ExtResource("13_qtqh7")
 texture_over = ExtResource("16_j5n4i")
 texture_progress = ExtResource("17_634y6")
 
-[node name="Manabar1" type="TextureProgressBar" parent="Control"]
-layout_mode = 0
+[node name="Manabar1" type="TextureProgressBar" parent="."]
 offset_left = -145.0
 offset_top = -87.0
 offset_right = -105.0
@@ -858,8 +983,7 @@ texture_under = ExtResource("22_ek41f")
 texture_over = ExtResource("23_khis8")
 texture_progress = ExtResource("24_b88wv")
 
-[node name="Manabar2" type="TextureProgressBar" parent="Control"]
-layout_mode = 0
+[node name="Manabar2" type="TextureProgressBar" parent="."]
 offset_left = -116.0
 offset_top = -87.0
 offset_right = -76.0
@@ -870,23 +994,11 @@ texture_under = ExtResource("20_tkwlq")
 texture_over = ExtResource("16_j5n4i")
 texture_progress = ExtResource("21_hl5qd")
 
-[node name="CoyoteTime" type="Timer" parent="."]
-wait_time = 0.15
-one_shot = true
-
-[node name="JumpBufferTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
-[node name="JumpHeightTimer" type="Timer" parent="."]
-wait_time = 0.15
-one_shot = true
-
-[node name="PlayerUseAbilityComponent" type="Node" parent="."]
-script = SubResource("GDScript_7lmhl")
+[node name="AttackCooldownTimer" type="Timer" parent="."]
 
 [connection signal="area_entered" from="HitDetector" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]
 [connection signal="timeout" from="CoyoteTime" to="." method="_on_coyote_time_timeout"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
 [connection signal="timeout" from="JumpHeightTimer" to="." method="_on_jump_height_timer_timeout"]
+[connection signal="timeout" from="FireballTimer" to="." method="_on_fireball_timer_timeout"]

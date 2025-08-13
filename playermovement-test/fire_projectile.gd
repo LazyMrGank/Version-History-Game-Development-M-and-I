@@ -1,35 +1,36 @@
 extends Node2D
 
-@export var speed: float = 200.0  # Fireball speed (pixels per second)
-@export var lifetime: float = 3.0  # Seconds before despawn
-var direction: Vector2 = Vector2(1, 0)  # Default: move right
+@onready var area_2d = $Area2D
+@onready var animated_sprite = $AnimatedSprite2D
 
-@onready var animated_sprite = $AnimatedSprite2D  # Reference to animation
-@onready var collision_area = $Area2D  # For collision detection
-var time_alive: float = 0.0
+var speed = 8.0
+var direction = 1.0  # 1 for right, -1 for left
+var is_exploding = false
 
 func _ready():
-	# Start animation (adjust name based on your AnimatedSprite2D setup)
-	if animated_sprite:
-		animated_sprite.play("Firebolt")  # Replace "default" with your animation name
+	animated_sprite.play("Firebolt")
+	animated_sprite.flip_h = direction < 0
+	area_2d.connect("body_entered", _on_body_entered)
+	animated_sprite.connect("animation_finished", _on_animation_finished)
 
 func _physics_process(delta):
-	# Move fireball
-	global_position += direction * speed * delta
-	
-	# Track lifetime
-	time_alive += delta
-	if time_alive >= lifetime:
-		queue_free()
-	
-	# Optional: Rotate sprite to match direction (if needed)
-	# animated_sprite.rotation = direction.angle()
+	if not is_exploding:
+		position.x += speed * direction
 
-func _on_area2d_body_entered(body):
-	# Handle collision (e.g., with enemies or walls)
-	if body.is_in_group("enemies"):
-		# Example: Deal damage to enemy (add your logic here)
-		print("Hit enemy:", body.name)
-		queue_free()
-	elif body.is_in_group("walls"):
-		queue_free()
+func _on_body_entered(body):
+	if body.is_in_group("enemies") and not is_exploding:
+		is_exploding = true
+		animated_sprite.play("Explosion")
+		# Stop movement
+		speed = 0
+		# Disable collision to prevent multiple hits
+		area_2d.set_deferred("monitoring", false)
+		area_2d.set_deferred("monitorable", false)
+		# Trigger enemy's hit animation and damage
+		if body.has_method("play_hit_animation"):
+			body.play_hit_animation()
+			print("Fireball hit enemy: ", body.name)
+
+func _on_animation_finished():
+	if is_exploding and animated_sprite.animation == "Explosion":
+		queue_free()  # Remove the fireball node after explosion animation
