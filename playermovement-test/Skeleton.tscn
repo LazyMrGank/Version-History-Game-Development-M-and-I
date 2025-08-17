@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://iqgaesrkljbm"]
 
-[ext_resource type="Script" uid="uid://j2sc3rwf4tcl" path="res://skeleton.gd" id="1_uaaco"]
+[ext_resource type="Script" uid="uid://j2sc3rwf4tcl" path="res://Skeleton.gd" id="1_uaaco"]
 [ext_resource type="Texture2D" uid="uid://b8opmckbrgppu" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Skeleton/Attack.png" id="2_uaaco"]
 [ext_resource type="Texture2D" uid="uid://o3ls6nku5a17" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Skeleton/Death.png" id="3_ymvsc"]
 [ext_resource type="Texture2D" uid="uid://d3gjdm5f5amje" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Skeleton/Walk.png" id="4_rwpf0"]
