@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+#Make cooldown for player
 @onready var fireball_timer = $FireballTimer
 @onready var hit_detector = $HitDetector
 @onready var animation_player: AnimationPlayer = $AnimationPlayer

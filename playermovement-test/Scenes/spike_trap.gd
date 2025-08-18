@@ -66,7 +66,7 @@ func _on_retract_timer_timeout() -> void:
 func _on_killzone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		print("Playing is going bombastic")
-		reset_level()
+		body.change_health(-10)
 
 func reset_level():
 	get_tree().reload_current_scene()
