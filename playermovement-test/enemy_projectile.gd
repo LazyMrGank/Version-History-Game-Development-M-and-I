@@ -4,7 +4,7 @@ extends Area2D
 @export var speed: float = 200.0
 
 # Reference to the player
-var player: CharacterBody2D
+var player: Node2D
 # Movement direction
 var direction: Vector2
 # State to track if animation is done
@@ -39,5 +39,6 @@ func _physics_process(delta):
 		
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		# Handle player hit (e.g., deal damage, destroy projectile)
+		$AnimatedSprite2D.play("hitting")
+		print("Hit")
 		queue_free()

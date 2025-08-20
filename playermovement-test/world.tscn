@@ -36,6 +36,6 @@ position = Vector2(498, 426)
 position = Vector2(786, 357)
 
 [node name="Enemy Projectile" parent="." instance=ExtResource("5_036b0")]
-position = Vector2(566, 380)
+position = Vector2(609, 325)
 
 [editable path="Player"]

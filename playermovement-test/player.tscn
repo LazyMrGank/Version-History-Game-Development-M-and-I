@@ -861,7 +861,7 @@ size = Vector2(16.5, 11.5)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_waa4j"]
 load_path = "res://.godot/imported/32x32 circle bar over-1.png.png-fdcf03df266bd6fefc1a2838774ca276.ctex"
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_4flbx")
