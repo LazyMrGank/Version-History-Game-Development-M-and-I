@@ -861,7 +861,7 @@ size = Vector2(16.5, 11.5)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_waa4j"]
 load_path = "res://.godot/imported/32x32 circle bar over-1.png.png-fdcf03df266bd6fefc1a2838774ca276.ctex"
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_4flbx")
@@ -996,6 +996,8 @@ texture_over = ExtResource("16_j5n4i")
 texture_progress = ExtResource("21_hl5qd")
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
 
 [connection signal="area_entered" from="HitDetector" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]
