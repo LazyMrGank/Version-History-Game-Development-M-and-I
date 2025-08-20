@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bg2o4s812lvqb"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

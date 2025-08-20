@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://dc4yxytc1ioxl"]
+
+[ext_resource type="Script" uid="uid://bi36ibk28sct4" path="res://Scripts/seesaw.gd" id="1_xyyoc"]
+[ext_resource type="Texture2D" uid="uid://bnh5ir5qyw5qw" path="res://Asset Packs/Legacy_Adventure_Pack/Assets/Assets.png" id="2_vtahb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c50uh"]
+size = Vector2(2, 9)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xyyoc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtahb"]
+size = Vector2(91, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_34i68"]
+size = Vector2(44, 6)
+
+[node name="Seesaw" type="Node2D"]
+
+[node name="Fulcrum" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fulcrum"]
+shape = SubResource("RectangleShape2D_c50uh")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Fulcrum"]
+node_a = NodePath("..")
+node_b = NodePath("../../Seesaw")
+
+[node name="Seesaw" type="RigidBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_xyyoc")
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 4
+script = ExtResource("1_xyyoc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw"]
+shape = SubResource("RectangleShape2D_vtahb")
+
+[node name="Sprite2D" type="Sprite2D" parent="Seesaw"]
+scale = Vector2(2, 1)
+texture = ExtResource("2_vtahb")
+region_enabled = true
+region_rect = Rect2(240, 256, 48, 8)
+
+[node name="Area2D" type="Area2D" parent="Seesaw"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/Area2D"]
+position = Vector2(-24, -7)
+shape = SubResource("RectangleShape2D_34i68")
+
+[node name="Area2D2" type="Area2D" parent="Seesaw"]
+position = Vector2(48, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/Area2D2"]
+position = Vector2(-24, -7)
+shape = SubResource("RectangleShape2D_34i68")
+
+[connection signal="body_entered" from="Seesaw/Area2D" to="Seesaw" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Seesaw/Area2D2" to="Seesaw" method="_on_area_2d_2_body_entered"]

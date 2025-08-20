@@ -1,88 +1,93 @@
 extends CharacterBody2D
 
-class_name SkeletonEnemy
+@onready var animation_player = $Visuals/AnimationPlayer
+@onready var chase_detector = $Visuals/ChaseDetector
+var is_moving_left: bool = true
+var gravity: float = 10.0
+var speed: float = 32.0
+var is_attacking: bool = false
+var is_hit: bool = false
+var health: int = 3
+var player: Node2D = null
+var chase_speed: float = 48.0
 
-const speed = 10
-var is_chase: bool = true
+func _ready() -> void:
+	$Visuals/AnimationPlayer.play("Walk")
+	$Visuals/PlayerDetector.body_entered.connect(_on_player_detector_body_entered)
+	$Visuals/PlayerDetector.body_exited.connect(_on_player_detector_body_exited)
+	$Visuals/AttackDetector.body_entered.connect(_on_attack_detector_body_entered)
+	$Visuals/AnimationPlayer.animation_finished.connect(_on_animation_finished)
+	add_to_group("enemies")
 
-var gravity = 900
-var health = 80
-var health_max = 80
-var health_min = 0
-
-var dead:bool = false
-var taking_damage: bool = false
-var damage_to_deal = 20
-var is_dealing_damage : bool = false
-
-var dir: Vector2
-var knockback_force = -200
-var is_roaming: bool = true
-
-var player: CharacterBody2D
-var player_in_area = false
-
-
-func _process(delta):
-	if !is_on_floor():
-		velocity.y += gravity * delta
+func _physics_process(_delta: float) -> void:
+	if is_hit or is_attacking or health <= 0:
 		velocity.x = 0
-	player = Global.playerBody
-	move(delta)
-	handle_animation()
+	else:
+		if player:
+			move_toward_player()
+		else:
+			move_character()
+			detect_turn_around()
+	velocity.y += gravity
 	move_and_slide()
 
-func handle_animation():
-	var anim_sprite = $AnimatedSprite2D
-	if !dead and !taking_damage and !is_dealing_damage:
-		anim_sprite.play("Walk")
-		if dir.x == -1:
-			anim_sprite.flip_h = true
-		elif dir.x == 1:
-			anim_sprite.flip_h = false
-	elif !dead and taking_damage and !is_dealing_damage:
-		anim_sprite.play("Hit")
-		await get_tree().create_timer(0.8).timeout
-		taking_damage = false
-	elif dead and is_roaming:
-		is_roaming = false
-		anim_sprite.play("Death")
-		await get_tree().create_timer(1.0).timeout
-		handle_death()
+func move_character() -> void:
+	velocity.x = speed if is_moving_left else -speed
 
-func handle_death():
-	self.queue_free()
+func move_toward_player() -> void:
+	if player and is_on_floor():
+		var direction = sign(player.global_position.x - global_position.x)
+		velocity.x = direction * chase_speed
+		if direction != 0:
+			scale.x = -1 if direction < 0 else 1
 
-func move(delta):
-	if !dead:
-		if !is_chase:
-			velocity += dir * speed * delta
-		elif is_chase and !taking_damage:
-			var dir_to_player = position.direction_to(player.position) * speed
-			velocity.x = dir_to_player.x
-			dir.x = abs(velocity.x) / velocity.x
-		elif taking_damage:
-			var knockback_dir = position.direction_to(player.position) * knockback_force
-			velocity.x = knockback_dir.x
-		is_roaming = true
-	elif dead:
+func detect_turn_around() -> void:
+	if not $Visuals/RayCast2D.is_colliding() and is_on_floor():
+		is_moving_left = !is_moving_left
+		scale.x = -scale.x
+
+func _on_player_detector_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player") and not is_attacking and not is_hit and health > 0:
+		is_attacking = true
+		$Visuals/AnimationPlayer.play("Attack")
+		$Visuals/AttackDetector.monitoring = true
+
+func _on_player_detector_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player") and is_attacking and not is_hit and health > 0:
+		is_attacking = false
+		$Visuals/AnimationPlayer.play("Walk")
+		$Visuals/AttackDetector.monitoring = false
+
+func _on_attack_detector_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player") and is_attacking:
+		if body.has_method("play_hit_animation"):
+			body.play_hit_animation()
+			print("Enemy hit player: ", body.name)
+
+func _on_animation_finished(anim_name: String) -> void:
+	if anim_name == "Attack" and not is_hit and health > 0:
+		is_attacking = false
+		$Visuals/AnimationPlayer.play("Walk")
+		$Visuals/AttackDetector.monitoring = false
+	elif anim_name == "hit" and health > 0:
+		is_hit = false
+		is_attacking = false
+		$Visuals/AnimationPlayer.play("Walk")
+		$Visuals/AttackDetector.monitoring = false
+	elif anim_name == "Death":
+		queue_free()
+
+func play_hit_animation():
+	if animation_player.has_animation("hit") and not is_hit and health > 0:
+		is_hit = true
+		is_attacking = false
+		$Visuals/AttackDetector.monitoring = false
+		health -= 1
 		velocity.x = 0
-	
-	
-func _on_direction_timer_timeout() -> void:
-	$DirectionTimer.wait_time = choose([1.5, 2.0, 2.5])
-	if !is_chase:
-		dir = choose([Vector2.RIGHT, Vector2.LEFT])
-		velocity.x = 0
-
-func choose(array):
-	array.shuffle()
-	return array.front()
-	
-	
-	
-
-
-#func _on_skeleton_hitbox_area_entered(area: Area2D) -> void:
-	#var damage = Global.playerDamageAmount
-	
+		if health <= 0:
+			animation_player.play("Death")
+		else:
+			animation_player.play("hit")
+		print("Enemy hit, health reduced to: ", health)
+	else:
+		print("Error: 'hit' animation not found or already playing or enemy is dead")
