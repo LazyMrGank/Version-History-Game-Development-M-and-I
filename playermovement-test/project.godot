@@ -28,6 +28,9 @@ enabled=PackedStringArray("res://addons/AS2P/plugin.cfg")
 Hit=""
 Enemy=""
 Player=""
+projectile=""
+skeleton=""
+goblin=""
 
 [input]
 

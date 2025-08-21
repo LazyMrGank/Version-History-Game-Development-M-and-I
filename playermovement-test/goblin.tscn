@@ -469,7 +469,7 @@ size = Vector2(23.75, 6.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eyhpr"]
 size = Vector2(20, 43.5)
 
-[node name="Goblin" type="CharacterBody2D" groups=["Enemy"]]
+[node name="Goblin" type="CharacterBody2D" groups=["Enemy", "goblin"]]
 scale = Vector2(0.5, 0.5)
 collision_layer = 3
 collision_mask = 3

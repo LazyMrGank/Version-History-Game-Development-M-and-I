@@ -337,7 +337,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5nrdo"]
 size = Vector2(13, 29.75)
 
-[node name="Skeleton" type="CharacterBody2D" groups=["Enemy"]]
+[node name="Skeleton" type="CharacterBody2D" groups=["Enemy", "skeleton"]]
 script = ExtResource("1_uaaco")
 
 [node name="Visuals" type="Node2D" parent="."]

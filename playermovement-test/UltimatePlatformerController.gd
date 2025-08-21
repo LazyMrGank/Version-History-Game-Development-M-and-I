@@ -268,6 +268,24 @@ func play_hit_animation():
 	else:
 		print("Error: 'hit' animation not found, already playing, or dashing")
 
+func play_hit_animation2():
+	if animation_player.has_animation("hit") and not is_hit and not is_dashing:
+		is_hit = true
+		hit_timer = hit_duration
+		velocity.x = 0
+		change_health(-20)
+	else:
+		print("Error: 'hit' animation not found, already playing, or dashing")
+		
+func play_hit_animatiom3():
+	if animation_player.has_animation("hit") and not is_hit and not is_dashing:
+		is_hit = true
+		hit_timer = hit_duration
+		velocity.x = 0
+		change_health(-30)
+	else:
+		print("Error: 'hit' animation not found, already playing, or dashing")
+
 func _process(delta):
 	# Charges mana
 	if Input.is_action_just_pressed("Charge"):

@@ -169,7 +169,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rujtk")
 }],
-"loop": true,
+"loop": false,
 "name": &"creation",
 "speed": 10.0
 }, {
@@ -195,7 +195,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wg0mp")
 }],
-"loop": true,
+"loop": false,
 "name": &"hitting",
 "speed": 12.0
 }, {
@@ -242,7 +242,7 @@ script = ExtResource("1_howdh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qfdvx")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["projectile"]]
 sprite_frames = SubResource("SpriteFrames_ff34o")
 animation = &"hitting"
 

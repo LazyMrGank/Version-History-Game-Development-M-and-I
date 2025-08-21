@@ -875,7 +875,6 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_b26j0")
 animation = &"hit"
 autoplay = "idle"
-frame = 5
 speed_scale = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -996,8 +995,6 @@ texture_over = ExtResource("16_j5n4i")
 texture_progress = ExtResource("21_hl5qd")
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
-
-[node name="Area2D" type="Area2D" parent="."]
 
 [connection signal="area_entered" from="HitDetector" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]
