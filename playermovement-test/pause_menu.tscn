@@ -12,6 +12,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hdmo1")
 
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 647.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 180.0
+offset_top = 61.0
+offset_right = 285.0
+offset_bottom = 84.0
+scale = Vector2(7.97201, 2.48095)
+text = "Paused Menu"
+
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -19,20 +33,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -64.0
-offset_right = 35.0
-offset_bottom = 64.0
+offset_left = -79.0
+offset_top = -173.0
+offset_right = -9.0
+offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(2, 2)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "Paused Menu"
 
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
