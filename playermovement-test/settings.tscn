@@ -27,9 +27,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -81.0
-offset_top = -62.5
+offset_top = -74.5
 offset_right = 81.0
-offset_bottom = 62.5
+offset_bottom = 125.5
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -56,8 +56,13 @@ layout_mode = 2
 layout_mode = 2
 text = "Toggle Fullscreen"
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Back To Main Menu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Main Menu"
+
+[node name="Resume" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Resume"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_3ykye")
@@ -83,3 +88,5 @@ horizontal_alignment = 1
 [connection signal="value_changed" from="VBoxContainer/Ambient Sound" to="." method="_on_volume_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/SFX" to="." method="_on_sfx_value_changed"]
 [connection signal="toggled" from="VBoxContainer/Fullscreen" to="." method="_on_mute_toggled"]
+[connection signal="pressed" from="VBoxContainer/Back To Main Menu" to="." method="_on_back_to_main_menu_pressed"]
+[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
