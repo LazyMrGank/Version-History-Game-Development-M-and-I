@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://ce62denx6bolx" path="res://Necromancer_creativekind-Sheet.png" id="1_wloix"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wkbwq"]
-height = 52.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ws556"]
 atlas = ExtResource("1_wloix")
@@ -184,8 +183,8 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wb418")
 }],
-"loop": true,
-"name": &"Attack",
+"loop": false,
+"name": &"attack",
 "speed": 10.0
 }, {
 "frames": [{
@@ -205,7 +204,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_bfc14")
 }],
 "loop": false,
-"name": &"Hit",
+"name": &"hit",
 "speed": 10.0
 }, {
 "frames": [{
@@ -234,7 +233,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ghmrv")
 }],
 "loop": true,
-"name": &"Idle",
+"name": &"idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -263,12 +262,12 @@ animations = [{
 "texture": SubResource("AtlasTexture_nxgg6")
 }],
 "loop": true,
-"name": &"Walking",
+"name": &"walk",
 "speed": 10.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wkbwq"]
-radius = 278.289
+radius = 202.01
 
 [node name="Projectile Enemy" type="CharacterBody2D"]
 script = ExtResource("1_wkbwq")
@@ -276,13 +275,17 @@ script = ExtResource("1_wkbwq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wkbwq")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(2, -28)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Enemy"]]
+position = Vector2(0, -16)
+scale = Vector2(0.5625, 0.5625)
 sprite_frames = SubResource("SpriteFrames_vncs1")
-animation = &"Walking"
-frame_progress = 0.759424
+animation = &"hit"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="DetectionArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_wkbwq")
+
+[node name="SpellSpawn" type="Marker2D" parent="."]
+position = Vector2(1, -42)
