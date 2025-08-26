@@ -3432,7 +3432,7 @@ position = Vector2(1140, 560)
 position = Vector2(1778, 536)
 
 [node name="Player" parent="." instance=ExtResource("8_hte5h")]
-position = Vector2(105, 521)
+position = Vector2(-35, 483)
 
 [node name="Death Zones" type="Node2D" parent="."]
 
@@ -3476,7 +3476,7 @@ script = ExtResource("9_hte5h")
 script = ExtResource("11_41r3s")
 
 [node name="Checkpoint" parent="CheckPointManager" instance=ExtResource("12_xqohd")]
-position = Vector2(228, 611)
+position = Vector2(232, 549)
 
 [connection signal="body_entered" from="Death Zones/Global World Death Barrier" to="Death Zones/Global World Death Barrier/CollisionShape2D" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Death Zones/Death Barrier" to="Death Zones/Death Barrier/CollisionShape2D" method="_on_area_2d_body_entered"]

@@ -1,6 +1,6 @@
 extends Node2D
 
-var last_location
+@export var last_location: Vector2
 var player
 
 func _ready() -> void:

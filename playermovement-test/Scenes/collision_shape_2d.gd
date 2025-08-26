@@ -1,13 +1,12 @@
 extends CollisionShape2D
 
-var last_location
 var checkpoint_manager
 var player
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	checkpoint_manager = get_parent().get_node("CheckPointManager")
-	player = get_parent().get_node("Player")
+	checkpoint_manager = $"../../../CheckPointManager"
+	player = $"../../../Player"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
