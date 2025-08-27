@@ -15,9 +15,14 @@ var is_triggered: bool = false
 var is_moving_up: bool = false
 var original_position: Vector2
 var target_position: Vector2
+var checkpoint_manager
+var player
+
 
 func _ready():
 	print("wo")
+	checkpoint_manager = $"../../../CheckPointManager"
+	player = $"../../../Player"
 
 	original_position = animated_sprite_2d.position
 	target_position = original_position - Vector2(0, spike_move_distance)
@@ -66,10 +71,16 @@ func _on_retract_timer_timeout() -> void:
 func _on_killzone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		print("Playing is going bombastic")
-		reset_level()
+		killPlayer()
 
+
+func killPlayer():
+	player.position = checkpoint_manager.last_location
+	
+	
 func reset_level():
-	get_tree().reload_current_scene()
+	pass
+	#get_tree().reload_current_scene()
 
 
 func _on_thorns_barrier_2_body_entered(body: Node2D) -> void:
