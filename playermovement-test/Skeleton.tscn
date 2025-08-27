@@ -10,7 +10,7 @@
 radius = 13.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uaaco"]
-size = Vector2(29.9375, 6.75)
+size = Vector2(25.9375, 6.75)
 
 [sub_resource type="Animation" id="Animation_ymvsc"]
 resource_name = "Attack"
@@ -135,8 +135,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_vqc8v"]
-length = 0.8
-loop_mode = 1
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -144,7 +143,7 @@ tracks/0/path = NodePath("Visuals/AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
@@ -329,7 +328,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_srww6")
 }],
-"loop": true,
+"loop": false,
 "name": &"hit",
 "speed": 5.0
 }]
@@ -338,6 +337,8 @@ animations = [{
 size = Vector2(13, 29.75)
 
 [node name="Skeleton" type="CharacterBody2D" groups=["Enemy", "skeleton"]]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_uaaco")
 
 [node name="Visuals" type="Node2D" parent="."]
@@ -360,7 +361,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/PlayerDetector"]
 light_mask = 3
-position = Vector2(-11.9688, 6)
+position = Vector2(-13.9688, 6)
 shape = SubResource("RectangleShape2D_uaaco")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals"]
@@ -373,10 +374,14 @@ libraries = {
 position = Vector2(0, 10)
 scale = Vector2(0.48, 0.48)
 sprite_frames = SubResource("SpriteFrames_s0cfw")
-animation = &"Attack"
+animation = &"hit"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 8.875)
 shape = SubResource("RectangleShape2D_5nrdo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[connection signal="body_entered" from="Visuals/AttackDetector" to="." method="_on_attack_detector_body_entered"]
+[connection signal="body_entered" from="Visuals/PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="Visuals/PlayerDetector" to="." method="_on_player_detector_body_exited"]

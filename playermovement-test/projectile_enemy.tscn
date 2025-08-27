@@ -1,9 +1,7 @@
-[gd_scene load_steps=40 format=3 uid="uid://c3gspjylwolhl"]
+[gd_scene load_steps=49 format=3 uid="uid://c3gspjylwolhl"]
 
 [ext_resource type="Script" uid="uid://bs86ydpuxs243" path="res://projectile_enemy.gd" id="1_wkbwq"]
 [ext_resource type="Texture2D" uid="uid://ce62denx6bolx" path="res://Necromancer_creativekind-Sheet.png" id="1_wloix"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wkbwq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ws556"]
 atlas = ExtResource("1_wloix")
@@ -56,6 +54,38 @@ region = Rect2(1760, 256, 160, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_wb418"]
 atlas = ExtResource("1_wloix")
 region = Rect2(1920, 256, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb537"]
+atlas = ExtResource("1_wloix")
+region = Rect2(0, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpouc"]
+atlas = ExtResource("1_wloix")
+region = Rect2(160, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aa83k"]
+atlas = ExtResource("1_wloix")
+region = Rect2(320, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay16b"]
+atlas = ExtResource("1_wloix")
+region = Rect2(480, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_daqof"]
+atlas = ExtResource("1_wloix")
+region = Rect2(640, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40y08"]
+atlas = ExtResource("1_wloix")
+region = Rect2(800, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jojhs"]
+atlas = ExtResource("1_wloix")
+region = Rect2(960, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7xih"]
+atlas = ExtResource("1_wloix")
+region = Rect2(1120, 768, 160, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wloix"]
 atlas = ExtResource("1_wloix")
@@ -189,6 +219,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_cb537")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpouc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aa83k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ay16b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_daqof")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40y08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jojhs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7xih")
+}],
+"loop": true,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_wloix")
 }, {
 "duration": 1.0,
@@ -266,26 +325,38 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wkbwq"]
-radius = 202.01
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkbwq"]
+size = Vector2(377, 20)
 
-[node name="Projectile Enemy" type="CharacterBody2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wkbwq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ws556"]
+
+[node name="Projectile Enemy" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_wkbwq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_wkbwq")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Enemy"]]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 scale = Vector2(0.5625, 0.5625)
 sprite_frames = SubResource("SpriteFrames_vncs1")
 animation = &"hit"
+frame = 4
+frame_progress = 1.0
 
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2(0, 1)
-shape = SubResource("CircleShape2D_wkbwq")
+shape = SubResource("RectangleShape2D_wkbwq")
 
 [node name="SpellSpawn" type="Marker2D" parent="."]
 position = Vector2(1, -42)
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_wkbwq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ws556")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

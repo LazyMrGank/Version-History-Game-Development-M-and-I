@@ -253,8 +253,6 @@ func _on_fireball_timer_timeout() -> void:
 
 func _on_hit_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy") and is_attacking:
-		if body.has_method("take_damage"):
-			body.take_damage(10, -last_direction)
 		print("Hit enemy: ", body.name)
 		body.play_hit_animation()
 		change_mana(+10)

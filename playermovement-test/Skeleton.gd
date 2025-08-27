@@ -60,8 +60,8 @@ func _on_player_detector_body_exited(body: Node2D) -> void:
 
 func _on_attack_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player") and is_attacking:
-		if body.has_method("play_hit_animation2"):
-			body.play_hit_animation2()
+		if body.has_method("play_hit_animation"):
+			body.play_hit_animation()
 			print("Enemy hit player: ", body.name)
 
 func _on_animation_finished(anim_name: String) -> void:
