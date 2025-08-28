@@ -242,7 +242,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b7xih")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 8.0
 }, {
@@ -325,28 +325,29 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkbwq"]
-size = Vector2(377, 20)
+[sub_resource type="CircleShape2D" id="CircleShape2D_wkbwq"]
+radius = 174.233
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wkbwq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ws556"]
 
 [node name="Projectile Enemy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_wkbwq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 scale = Vector2(0.5625, 0.5625)
 sprite_frames = SubResource("SpriteFrames_vncs1")
-animation = &"hit"
-frame = 4
-frame_progress = 1.0
+animation = &"death"
 
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-shape = SubResource("RectangleShape2D_wkbwq")
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_wkbwq")
 
 [node name="SpellSpawn" type="Marker2D" parent="."]
 position = Vector2(1, -42)

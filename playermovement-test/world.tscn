@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfmrs6ln2gkia"]
+[gd_scene load_steps=9 format=3 uid="uid://dfmrs6ln2gkia"]
 
 [ext_resource type="PackedScene" uid="uid://b6c1e44urb6x5" path="res://player.tscn" id="1_f3sb7"]
 [ext_resource type="PackedScene" uid="uid://bd83jts7yjijh" path="res://enemy.tscn" id="2_fj7yv"]
-[ext_resource type="PackedScene" uid="uid://ccqpx8qhvqsh" path="res://summoner.tscn" id="4_036b0"]
 [ext_resource type="PackedScene" uid="uid://cx5tc7a7do4lp" path="res://enemy_projectile.tscn" id="5_036b0"]
 [ext_resource type="PackedScene" uid="uid://c3gspjylwolhl" path="res://projectile_enemy.tscn" id="5_dwbse"]
 [ext_resource type="PackedScene" uid="uid://iqgaesrkljbm" path="res://Skeleton.tscn" id="6_dwbse"]
@@ -54,9 +53,6 @@ shape = SubResource("RectangleShape2D_fj7yv")
 
 [node name="Enemy" parent="." groups=["Hit"] instance=ExtResource("2_fj7yv")]
 position = Vector2(588, 418)
-
-[node name="CharacterBody2D" parent="." instance=ExtResource("4_036b0")]
-position = Vector2(786, 357)
 
 [node name="Enemy Projectile" parent="." instance=ExtResource("5_036b0")]
 position = Vector2(609, 325)

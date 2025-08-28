@@ -1,5 +1,5 @@
 extends CharacterBody2D
-#Make cooldown for player
+# Make cooldown for player
 @onready var fireball_timer = $FireballTimer
 @onready var hit_detector = $HitDetector
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -8,9 +8,11 @@ extends CharacterBody2D
 @onready var jump_buffer_timer = $JumpBufferTimer
 @onready var jump_height_timer = $JumpHeightTimer
 @onready var attack_cooldown_timer = $AttackCooldownTimer
+@onready var dash_cooldown_timer = $DashCooldownTimer
 var fireball_scene = preload("res://Fireball.tscn")
 var can_shoot = true
 var can_attack = true
+var can_dash: bool = true
 @export var move_speed: float = 200.0
 @export var acceleration: float = 1500.0
 @export var deceleration: float = 4000.0
@@ -68,6 +70,9 @@ func _ready():
 	attack_cooldown_timer.wait_time = 1.0
 	attack_cooldown_timer.one_shot = true
 	attack_cooldown_timer.connect("timeout", _on_attack_cooldown_timer_timeout)
+	dash_cooldown_timer.wait_time = 1.5
+	dash_cooldown_timer.one_shot = true
+	dash_cooldown_timer.connect("timeout", _on_dash_cooldown_timer_timeout)
 	hit_detector.body_entered.connect(_on_hit_detector_body_entered)
 	health_bar1.min_value = 0
 	health_bar1.max_value = 30
@@ -123,11 +128,13 @@ func _physics_process(delta: float) -> void:
 			jump_count += 1
 			velocity.y = -jump_velocity
 				
-		if Input.is_action_just_pressed("dash") and not is_on_floor() and not is_dashing and not is_attacking:
+		if Input.is_action_just_pressed("dash") and not is_on_floor() and not is_dashing and not is_attacking and can_dash:
 			is_dashing = true
 			dash_timer = dash_duration
 			velocity.y = 0
 			velocity.x = last_direction * dash_speed
+			can_dash = false
+			dash_cooldown_timer.start()
 		
 		if Input.is_action_just_pressed("attack") and is_on_floor() and not is_dashing and can_attack:
 			is_attacking = true
@@ -192,10 +199,13 @@ func _on_jump_height_timer_timeout() -> void:
 func _on_attack_cooldown_timer_timeout() -> void:
 	can_attack = true
 
+func _on_dash_cooldown_timer_timeout() -> void:
+	can_dash = true
+
 func update_animations() -> void:
 	if is_hit:
 		animation_player.play("hit")
-	elif is_attacking and is_on_floor():
+	elif is_attacking and is_on_floor(): 
 		animation_player.play("attack")
 	elif is_dashing:
 		animation_player.play("dash")
