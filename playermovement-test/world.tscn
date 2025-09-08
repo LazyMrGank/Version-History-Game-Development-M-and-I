@@ -22,7 +22,7 @@ position = Vector2(558, 527)
 shape = SubResource("RectangleShape2D_fj7yv")
 
 [node name="Player" parent="." instance=ExtResource("1_f3sb7")]
-position = Vector2(929, 549)
+position = Vector2(534, 341)
 
 [node name="Control" parent="Player" index="5"]
 metadata/_edit_use_anchors_ = true
@@ -58,7 +58,7 @@ position = Vector2(588, 418)
 position = Vector2(609, 325)
 
 [node name="Projectile Enemy" parent="." instance=ExtResource("5_dwbse")]
-position = Vector2(1202, 585)
+position = Vector2(1271, 568)
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
 position = Vector2(955.625, 350)

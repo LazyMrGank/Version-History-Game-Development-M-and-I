@@ -471,7 +471,7 @@ size = Vector2(20, 43.5)
 
 [node name="Goblin" type="CharacterBody2D" groups=["Enemy", "goblin"]]
 scale = Vector2(0.5, 0.5)
-collision_layer = 3
+collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_vu5tg")
 
@@ -485,7 +485,7 @@ libraries = {
 }
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
-position = Vector2(-14.5, -7.5)
+position = Vector2(-26.5, -3.5)
 sprite_frames = SubResource("SpriteFrames_opsqu")
 animation = &"Attack"
 
