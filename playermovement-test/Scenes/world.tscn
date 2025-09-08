@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://dfmrs6ln2gkia"]
+
+[ext_resource type="PackedScene" uid="uid://b6c1e44urb6x5" path="res://player.tscn" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://bd83jts7yjijh" path="res://enemy.tscn" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://cx5tc7a7do4lp" path="res://enemy_projectile.tscn" id="5_036b0"]
+[ext_resource type="PackedScene" uid="uid://c3gspjylwolhl" path="res://Scenes/projectile_enemy.tscn" id="5_dwbse"]
+[ext_resource type="PackedScene" uid="uid://iqgaesrkljbm" path="res://Scenes/Skeleton.tscn" id="6_dwbse"]
+[ext_resource type="PackedScene" uid="uid://g8emckfudhmx" path="res://goblin.tscn" id="7_pkg7o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fj7yv"]
+size = Vector2(368.75, 178)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_036b0"]
+size = Vector2(1991.5, 121)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(558, 527)
+shape = SubResource("RectangleShape2D_fj7yv")
+
+[node name="Player" parent="." instance=ExtResource("1_f3sb7")]
+position = Vector2(534, 341)
+
+[node name="Control" parent="Player" index="5"]
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthBar1" parent="Player" index="12"]
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthBar2" parent="Player" index="13"]
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthBar3" parent="Player" index="14"]
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthBar4" parent="Player" index="15"]
+metadata/_edit_use_anchors_ = true
+
+[node name="Manabar1" parent="Player" index="16"]
+metadata/_edit_use_anchors_ = true
+
+[node name="Manabar2" parent="Player" index="17"]
+metadata/_edit_use_anchors_ = true
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(955.625, 350)
+shape = SubResource("RectangleShape2D_fj7yv")
+
+[node name="Enemy" parent="." groups=["Hit"] instance=ExtResource("2_fj7yv")]
+position = Vector2(588, 418)
+
+[node name="Enemy Projectile" parent="." instance=ExtResource("5_036b0")]
+position = Vector2(609, 325)
+
+[node name="Projectile Enemy" parent="." instance=ExtResource("5_dwbse")]
+position = Vector2(1271, 568)
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(955.625, 350)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(781.625, 317.5)
+shape = SubResource("RectangleShape2D_036b0")
+
+[node name="Skeleton" parent="." instance=ExtResource("6_dwbse")]
+position = Vector2(440, 392)
+
+[node name="Goblin" parent="." instance=ExtResource("7_pkg7o")]
+position = Vector2(654, 390)
+
+[editable path="Player"]
