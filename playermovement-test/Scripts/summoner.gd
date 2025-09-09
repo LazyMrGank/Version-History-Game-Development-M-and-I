@@ -55,7 +55,7 @@ func _attack() -> void:
 	can_attack = false
 	velocity.x = 0
 	animation_player.play("attack")
-
+	
 func _spawn_monster() -> void:
 	if monster_scene:
 		var monster = monster_scene.instantiate()

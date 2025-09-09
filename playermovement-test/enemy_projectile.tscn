@@ -244,6 +244,6 @@ shape = SubResource("CircleShape2D_qfdvx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["projectile"]]
 sprite_frames = SubResource("SpriteFrames_ff34o")
-animation = &"hitting"
+animation = &"creation"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

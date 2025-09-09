@@ -516,8 +516,7 @@ shape = SubResource("CapsuleShape2D_5wisl")
 position = Vector2(1.43051e-06, 2)
 scale = Vector2(0.544, 0.544)
 sprite_frames = SubResource("SpriteFrames_41s2j")
-animation = &"attack"
-frame_progress = 0.604003
+animation = &"attack2"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimatedSprite2D")
