@@ -34,8 +34,9 @@ func _physics_process(delta: float) -> void:
 		position += velocity * delta
 
 func _on_body_entered(body: Node2D) -> void:
-	if not is_exploding and body.is_in_group("player"):  # Assuming the player is in a group called "player"
+	if not is_exploding and body.is_in_group("Player"):  # Assuming the player is in a group called "player"
 		explode()
+		body.play_hit_animation3()
 
 func _on_explosion_timer_timeout() -> void:
 	explode()
@@ -51,4 +52,5 @@ func explode() -> void:
 	monitorable = false
 	# Wait for animation to finish then free the node
 	await animated_sprite.animation_finished
+	
 	queue_free()

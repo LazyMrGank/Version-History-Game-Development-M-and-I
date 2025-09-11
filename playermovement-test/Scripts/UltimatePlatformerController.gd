@@ -285,7 +285,7 @@ func play_hit_animation2():
 	else:
 		print("Error: 'hit' animation not found, already playing, or dashing")
 		
-func play_hit_animatiom3():
+func play_hit_animation3():
 	if animation_player.has_animation("hit") and not is_hit and not is_dashing:
 		is_hit = true
 		hit_timer = hit_duration

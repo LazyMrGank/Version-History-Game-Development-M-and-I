@@ -998,6 +998,12 @@ texture_progress = ExtResource("21_hl5qd")
 
 [node name="DashCooldownTimer" type="Timer" parent="."]
 
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(16, 5)
+color = Color(0.949718, 0.934624, 2.31028e-06, 1)
+energy = 0.4
+max_distance = 100.0
+
 [connection signal="area_entered" from="HitDetector" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]
 [connection signal="timeout" from="CoyoteTime" to="." method="_on_coyote_time_timeout"]

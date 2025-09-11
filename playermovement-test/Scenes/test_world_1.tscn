@@ -3390,7 +3390,6 @@ shadow_filter = 2
 shadow_filter_smooth = 64.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.24371, 0.2795, 0.39755, 1)
 
 [node name="Falling Platform" parent="." instance=ExtResource("6_xqohd")]
