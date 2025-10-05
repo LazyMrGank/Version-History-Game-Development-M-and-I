@@ -157,9 +157,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 0
 	sprite.scale.x = last_direction
 	hit_detector.position.x = abs(hit_detector.position.x) * last_direction
-	
 	update_animations()
-
 	jump()
 	move_and_slide()
 	if was_on_floor && !is_on_floor() && velocity.y >= 0:
@@ -332,7 +330,8 @@ func update_bars():
 func change_health(amount: float):
 	health = clamp(health + amount, 0, max_health)
 	update_bars()
-
+	if health <= 0:
+		get_tree().change_scene_to_file("res://death_screen.tscn")
 func change_mana(amount: float):
 	mana = clamp(mana + amount, 0, max_mana)
 	update_bars()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=104 format=3 uid="uid://b6c1e44urb6x5"]
 
-[ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://Scripts/UltimatePlatformerController.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://Scripts/MainPlayer.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dc8rxs8qupdqj" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_attack.png" id="2_b26j0"]
 [ext_resource type="Texture2D" uid="uid://44fcqcmy8s1b" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_rest.png" id="2_dw050"]
 [ext_resource type="Texture2D" uid="uid://prembyavqvgq" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_hit.png" id="2_dx0e4"]
@@ -278,6 +278,11 @@ region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b26j0"]
 animations = [{
+"frames": [],
+"loop": false,
+"name": &"Death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ny14h")
@@ -873,7 +878,7 @@ shape = SubResource("CapsuleShape2D_sh265")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_b26j0")
-animation = &"Hit"
+animation = &"Death"
 autoplay = "idle"
 speed_scale = 2.0
 
