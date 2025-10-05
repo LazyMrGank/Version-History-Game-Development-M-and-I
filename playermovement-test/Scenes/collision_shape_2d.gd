@@ -86,3 +86,9 @@ func _on_area_2d_15_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):#HOLY CRAP PLAYER GOT TOUCHED FOR REALIES OMG")
 		print("god it was I")
 		killPlayer()
+
+
+func _on_area_2d_16_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):#HOLY CRAP PLAYER GOT TOUCHED FOR REALIES OMG")
+		print("god it was I")
+		killPlayer()
