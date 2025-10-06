@@ -38,13 +38,13 @@ func _process(delta: float):
 		kill_collision.position = animated_sprite_2d.position
 		if animated_sprite_2d.position == target_position:
 			is_moving_up = false
-			print("SPIKE HAS ERECTED")
+			print("SPIKE HAS up")
 			
 	elif not is_moving_up and animated_sprite_2d.position != original_position and not is_triggered:
 		animated_sprite_2d.position = animated_sprite_2d.position.move_toward(original_position, spike_move_speed * delta)
 		kill_collision.position = animated_sprite_2d.position
 		if animated_sprite_2d.position == original_position:
-			print("Spike is unerected")
+			print("Spike is down")
 
 func _on_trigger_area_body_entered(body: Node2D) -> void:
 	if is_triggered:
