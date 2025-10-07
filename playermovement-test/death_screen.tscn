@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ieyk5f8vchdy"]
+[gd_scene load_steps=0 format=3 uid="uid://ieyk5f8vchdy"]
 
 [node name="Death Screen" type="Control"]
 layout_mode = 3
