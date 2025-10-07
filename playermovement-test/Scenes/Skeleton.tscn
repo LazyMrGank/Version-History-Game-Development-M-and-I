@@ -338,7 +338,7 @@ size = Vector2(13, 29.75)
 
 [node name="Skeleton" type="CharacterBody2D" groups=["Enemy", "skeleton"]]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 2
 script = ExtResource("1_uaaco")
 
 [node name="Visuals" type="Node2D" parent="."]

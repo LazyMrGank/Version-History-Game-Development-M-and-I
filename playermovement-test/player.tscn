@@ -878,8 +878,9 @@ shape = SubResource("CapsuleShape2D_sh265")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_b26j0")
-animation = &"Death"
+animation = &"hit"
 autoplay = "idle"
+frame = 5
 speed_scale = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
