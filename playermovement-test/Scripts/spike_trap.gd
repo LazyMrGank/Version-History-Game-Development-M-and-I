@@ -15,9 +15,14 @@ var is_triggered: bool = false
 var is_moving_up: bool = false
 var original_position: Vector2
 var target_position: Vector2
+var checkpoint_manager
+var player
+
 
 func _ready():
 	print("wo")
+	checkpoint_manager = $"../../../CheckPointManager"
+	player = $"../../../Player"
 
 	original_position = animated_sprite_2d.position
 	target_position = original_position - Vector2(0, spike_move_distance)
@@ -33,13 +38,13 @@ func _process(delta: float):
 		kill_collision.position = animated_sprite_2d.position
 		if animated_sprite_2d.position == target_position:
 			is_moving_up = false
-			print("SPIKE HAS ERECTED")
+			print("SPIKE HAS up")
 			
 	elif not is_moving_up and animated_sprite_2d.position != original_position and not is_triggered:
 		animated_sprite_2d.position = animated_sprite_2d.position.move_toward(original_position, spike_move_speed * delta)
 		kill_collision.position = animated_sprite_2d.position
 		if animated_sprite_2d.position == original_position:
-			print("Spike is unerected")
+			print("Spike is down")
 
 func _on_trigger_area_body_entered(body: Node2D) -> void:
 	if is_triggered:
@@ -66,10 +71,16 @@ func _on_retract_timer_timeout() -> void:
 func _on_killzone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		print("Playing is going bombastic")
-		body.change_health(-10)
+		killPlayer()
 
+
+func killPlayer():
+	player.position = checkpoint_manager.last_location
+	
+	
 func reset_level():
-	get_tree().reload_current_scene()
+	pass
+	#get_tree().reload_current_scene()
 
 
 func _on_thorns_barrier_2_body_entered(body: Node2D) -> void:
