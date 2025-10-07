@@ -1,6 +1,6 @@
 [gd_scene load_steps=104 format=3 uid="uid://b6c1e44urb6x5"]
 
-[ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://UltimatePlatformerController.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://Scripts/MainPlayer.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dc8rxs8qupdqj" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_attack.png" id="2_b26j0"]
 [ext_resource type="Texture2D" uid="uid://44fcqcmy8s1b" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_rest.png" id="2_dw050"]
 [ext_resource type="Texture2D" uid="uid://prembyavqvgq" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_hit.png" id="2_dx0e4"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cqu4ag3yu3bqk" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_jump_land.png" id="4_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://bhs126ctg1afl" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_parry.png" id="6_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://0u60sguekji2" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_jump_start.png" id="6_b26j0"]
-[ext_resource type="Script" uid="uid://bp13i5nin6um3" path="res://healthbar.gd" id="10_dx0e4"]
+[ext_resource type="Script" uid="uid://bp13i5nin6um3" path="res://Scripts/healthbar.gd" id="10_dx0e4"]
 [ext_resource type="Texture2D" uid="uid://ciy2smylb0yal" path="res://32x32 circle bar under-1.png.png" id="11_jm5j8"]
 [ext_resource type="Texture2D" uid="uid://lijf5imq5um6" path="res://32x32 circle bar progress green-1.png-1.png.png" id="12_7hik5"]
 [ext_resource type="Texture2D" uid="uid://cwghkl0u6oukb" path="res://progress bar medium rounded under-1.png.png" id="13_qtqh7"]
@@ -278,6 +278,11 @@ region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b26j0"]
 animations = [{
+"frames": [],
+"loop": false,
+"name": &"Death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ny14h")
@@ -865,6 +870,7 @@ load_path = "res://.godot/imported/32x32 circle bar over-1.png.png-fdcf03df266bd
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_4flbx")
+dash_duration = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 shape = SubResource("CapsuleShape2D_sh265")
@@ -872,9 +878,8 @@ shape = SubResource("CapsuleShape2D_sh265")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_b26j0")
-animation = &"hit"
+animation = &"Death"
 autoplay = "idle"
-frame = 5
 speed_scale = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -995,6 +1000,14 @@ texture_over = ExtResource("16_j5n4i")
 texture_progress = ExtResource("21_hl5qd")
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(16, 5)
+color = Color(0.949718, 0.934624, 2.31028e-06, 1)
+energy = 0.4
+max_distance = 100.0
 
 [connection signal="area_entered" from="HitDetector" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]

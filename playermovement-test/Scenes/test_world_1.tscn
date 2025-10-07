@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://b6fkjevngidsu"]
+[gd_scene load_steps=16 format=4 uid="uid://b6fkjevngidsu"]
 
 [ext_resource type="Texture2D" uid="uid://c3p4aom2l5hyj" path="res://Asset Packs/Simple Torch/Simple Torch/Torch No Light Circle/Torch No Light Circle3.png" id="1_kjjgl"]
 [ext_resource type="Texture2D" uid="uid://bbp2cabq5m67b" path="res://Asset Packs/caveWalls/caveWall9.png" id="2_fi2fo"]
@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://b30jrvvj1w0ue" path="res://Scenes/moving_platform.tscn" id="4_rpo8j"]
 [ext_resource type="PackedScene" uid="uid://c0h30pgt33upq" path="res://Scenes/falling_platform.tscn" id="6_xqohd"]
 [ext_resource type="PackedScene" uid="uid://dc4yxytc1ioxl" path="res://Scenes/hinge_platform.tscn" id="7_rdxh8"]
-[ext_resource type="PackedScene" uid="uid://iqgaesrkljbm" path="res://Skeleton.tscn" id="8_fi2fo"]
+[ext_resource type="PackedScene" uid="uid://iqgaesrkljbm" path="res://Scenes/Skeleton.tscn" id="8_fi2fo"]
 [ext_resource type="PackedScene" uid="uid://b6c1e44urb6x5" path="res://player.tscn" id="8_hte5h"]
+[ext_resource type="PackedScene" uid="uid://c3gspjylwolhl" path="res://Scenes/projectile_enemy.tscn" id="9_hte5h"]
 
 [sub_resource type="Gradient" id="Gradient_1j5fa"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -3389,7 +3390,6 @@ shadow_filter = 2
 shadow_filter_smooth = 64.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.24371, 0.2795, 0.39755, 1)
 
 [node name="Falling Platform" parent="." instance=ExtResource("6_xqohd")]
@@ -3419,4 +3419,7 @@ position = Vector2(1140, 560)
 position = Vector2(1778, 536)
 
 [node name="Player" parent="." instance=ExtResource("8_hte5h")]
-position = Vector2(-66, 483)
+position = Vector2(80, 247)
+
+[node name="Projectile Enemy" parent="." instance=ExtResource("9_hte5h")]
+position = Vector2(227, 271)
