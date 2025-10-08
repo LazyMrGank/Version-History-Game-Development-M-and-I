@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://ieyk5f8vchdy"]
+
+[ext_resource type="Script" uid="uid://bmt76i8myjm5y" path="res://Scripts/death_screen.gd" id="1_if853"]
+
+[node name="Death Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_if853")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 651.0
+scale = Vector2(1.00366, 0.990904)
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 2
+offset_left = 446.0
+offset_top = 395.0
+offset_right = 701.0
+offset_bottom = 444.0
+text = "Quit Game"
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]

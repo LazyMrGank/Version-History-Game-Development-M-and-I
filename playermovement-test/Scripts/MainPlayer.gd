@@ -17,8 +17,8 @@ var can_dash: bool = true
 @export var acceleration: float = 1500.0
 @export var deceleration: float = 4000.0
 @export var jump_velocity: float = 300.0
-@export var dash_speed: float = 400.0
-@export var dash_duration: float = 0.2
+@export var dash_speed: float = 500.0
+@export var dash_duration: float = 0.5
 @export var attack_duration: float = 0.5
 @export var hit_duration: float = 0.5
 const jump_power = -300.0
@@ -29,7 +29,7 @@ var can_coyote_jump = false
 var jump_buffered = false
 const jump_height: float = -180
 const max_speed: float = 60
-const friction: float = 10
+const friction: float = 8
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction: float = 0.0
@@ -210,6 +210,7 @@ func _on_dash_cooldown_timer_timeout() -> void:
 func update_animations() -> void:
 	if is_hit:
 		animation_player.play("hit")
+		$AudioStreamPlayer2D2.play()
 	elif is_attacking and is_on_floor(): 
 		animation_player.play("attack")
 	elif is_dashing:
@@ -221,8 +222,11 @@ func update_animations() -> void:
 			animation_player.play("falling")
 	elif abs(velocity.x) > 10:
 		animation_player.play("run")
+		$AudioStreamPlayer2D.play()
 	else:
 		animation_player.play("idle")
+		$AudioStreamPlayer2D.stop()
+		$AudioStreamPlayer2D2.stop()
 
 func jump():
 	if Input.is_action_just_pressed("jump"):

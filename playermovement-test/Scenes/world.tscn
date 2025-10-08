@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://dfmrs6ln2gkia"]
 
-[ext_resource type="PackedScene" uid="uid://b6c1e44urb6x5" path="res://player.tscn" id="1_f3sb7"]
-[ext_resource type="PackedScene" uid="uid://bd83jts7yjijh" path="res://enemy.tscn" id="2_fj7yv"]
-[ext_resource type="PackedScene" uid="uid://cx5tc7a7do4lp" path="res://enemy_projectile.tscn" id="5_036b0"]
+[ext_resource type="PackedScene" uid="uid://b6c1e44urb6x5" path="res://Scenes/player.tscn" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://bd83jts7yjijh" path="res://Scenes/enemy.tscn" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://cx5tc7a7do4lp" path="res://Scenes/enemy_projectile.tscn" id="5_036b0"]
 [ext_resource type="PackedScene" uid="uid://iqgaesrkljbm" path="res://Scenes/Skeleton.tscn" id="6_dwbse"]
-[ext_resource type="PackedScene" uid="uid://bwguedt04uvtq" path="res://boss_spell1.tscn" id="7_o06y3"]
-[ext_resource type="PackedScene" uid="uid://g8emckfudhmx" path="res://goblin.tscn" id="7_pkg7o"]
+[ext_resource type="PackedScene" uid="uid://bwguedt04uvtq" path="res://Scenes/boss_spell1.tscn" id="7_o06y3"]
+[ext_resource type="PackedScene" uid="uid://g8emckfudhmx" path="res://Scenes/goblin.tscn" id="7_pkg7o"]
 [ext_resource type="PackedScene" uid="uid://ccqpx8qhvqsh" path="res://Scenes/summoner.tscn" id="8_5v1tr"]
-[ext_resource type="PackedScene" uid="uid://ba6bqig1pnwmf" path="res://boss_spell_2.tscn" id="8_k7acu"]
+[ext_resource type="PackedScene" uid="uid://ba6bqig1pnwmf" path="res://Scenes/boss_spell_2.tscn" id="8_k7acu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fj7yv"]
 size = Vector2(368.75, 178)

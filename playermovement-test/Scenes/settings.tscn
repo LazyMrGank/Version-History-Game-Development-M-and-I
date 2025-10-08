@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxn8k44q4y1uu"]
 
 [ext_resource type="Script" uid="uid://p7427vylyngc" path="res://Scripts/settings.gd" id="1_nkug2"]
-[ext_resource type="AudioStream" uid="uid://bsjmh3pecgild" path="res://cave-wind-10-76283.mp3" id="2_3ykye"]
+[ext_resource type="AudioStream" uid="uid://bsjmh3pecgild" path="res://Audio/cave-wind-10-76283.mp3" id="2_3ykye"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nkug2"]
 
