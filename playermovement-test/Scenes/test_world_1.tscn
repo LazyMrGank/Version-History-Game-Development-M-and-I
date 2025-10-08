@@ -4879,7 +4879,7 @@ position = Vector2(2241, 423)
 position = Vector2(2475, 415)
 
 [node name="Player" parent="." instance=ExtResource("8_hte5h")]
-position = Vector2(4446, 477)
+position = Vector2(1813, 668)
 
 [node name="Boss" parent="." instance=ExtResource("13_rdxh8")]
 position = Vector2(4591, 538)

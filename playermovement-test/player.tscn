@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cqu4ag3yu3bqk" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_jump_land.png" id="4_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://bhs126ctg1afl" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_parry.png" id="6_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://0u60sguekji2" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_jump_start.png" id="6_b26j0"]
-[ext_resource type="Script" uid="uid://bp13i5nin6um3" path="res://Scripts/healthbar.gd" id="10_dx0e4"]
+[ext_resource type="Script" path="res://Scripts/healthbar.gd" id="10_dx0e4"]
 [ext_resource type="Texture2D" uid="uid://ciy2smylb0yal" path="res://32x32 circle bar under-1.png.png" id="11_jm5j8"]
 [ext_resource type="Texture2D" uid="uid://lijf5imq5um6" path="res://32x32 circle bar progress green-1.png-1.png.png" id="12_7hik5"]
 [ext_resource type="Texture2D" uid="uid://cwghkl0u6oukb" path="res://progress bar medium rounded under-1.png.png" id="13_qtqh7"]

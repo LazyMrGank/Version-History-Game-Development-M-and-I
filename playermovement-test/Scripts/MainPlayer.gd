@@ -62,8 +62,14 @@ var is_holding_c: bool = false  # Tracks if charge key is held
 var c_hold_time: float = 0.0  # Duration C has been held
 var is_healing: bool = false  # Tracks if healing is active (after 2s)
 var is_holding_d: bool = false  # Tracks if D key is held
+var checkpoint_manager
+var player
+
+
 
 func _ready():
+	checkpoint_manager = $"../CheckPointManager"
+	player = $"."
 	fireball_timer.wait_time = 3.0
 	fireball_timer.one_shot = true
 	fireball_timer.connect("timeout", _on_fireball_timer_timeout)
@@ -88,6 +94,7 @@ func _ready():
 	mana_bar2.min_value = 50
 	mana_bar2.max_value = 100
 	update_bars()  # Initialize bars
+	
 
 func _physics_process(delta: float) -> void:
 	velocity += knockback_velocity
@@ -317,6 +324,14 @@ func _process(delta):
 		change_health(-10)
 	update_bars()
 
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		killPlayer()
+
+
+func killPlayer():
+	position = checkpoint_manager.last_location
+
 func update_bars():
 	# Update health bars
 	health_bar1.value = clamp(health, health_bar1.min_value, health_bar1.max_value)
@@ -331,7 +346,8 @@ func change_health(amount: float):
 	health = clamp(health + amount, 0, max_health)
 	update_bars()
 	if health <= 0:
-		get_tree().change_scene_to_file("res://death_screen.tscn")
+		killPlayer()
+		#get_tree().change_scene_to_file("res://death_screen.tscn")
 func change_mana(amount: float):
 	mana = clamp(mana + amount, 0, max_mana)
 	update_bars()
