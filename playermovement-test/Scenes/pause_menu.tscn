@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dxpolk4cohr1n"]
 
-[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_hdmo1"]
+[ext_resource type="Script" uid="uid://d0vuul8kny061" path="res://Scripts/pause_menu.gd" id="1_hdmo1"]
 
 [node name="Control" type="Control"]
 process_mode = 2
@@ -16,15 +16,6 @@ script = ExtResource("1_hdmo1")
 layout_mode = 0
 offset_right = 1153.0
 offset_bottom = 647.0
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 2
-offset_left = 180.0
-offset_top = 61.0
-offset_right = 285.0
-offset_bottom = 84.0
-scale = Vector2(7.97201, 2.48095)
-text = "Paused Menu"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -66,6 +57,15 @@ layout_mode = 2
 [node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 180.0
+offset_top = 61.0
+offset_right = 285.0
+offset_bottom = 84.0
+scale = Vector2(7.97201, 2.48095)
+text = "Paused Menu"
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Settings" to="." method="_on_button_2_pressed"]

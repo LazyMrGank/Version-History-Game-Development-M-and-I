@@ -1,6 +1,6 @@
 [gd_scene load_steps=46 format=3 uid="uid://g8emckfudhmx"]
 
-[ext_resource type="Script" uid="uid://dvyj7xm8q2elw" path="res://Scripts/goblin.gd" id="1_vu5tg"]
+[ext_resource type="Script" path="res://Scripts/goblin.gd" id="1_vu5tg"]
 [ext_resource type="Texture2D" uid="uid://n8tlbbt8265h" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Attack.png" id="2_macxp"]
 [ext_resource type="Texture2D" uid="uid://copls0xd07yao" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Run.png" id="3_eyhpr"]
 [ext_resource type="Texture2D" uid="uid://78pbhq4n0ro7" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Take Hit.png" id="3_macxp"]
@@ -173,7 +173,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_6nebt"]
-length = 0.8
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -181,7 +181,7 @@ tracks/0/path = NodePath("Visuals/AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
@@ -464,10 +464,10 @@ animations = [{
 radius = 11.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_macxp"]
-size = Vector2(23.75, 6.5)
+size = Vector2(21.875, 6.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eyhpr"]
-size = Vector2(20, 43.5)
+size = Vector2(27, 48.875)
 
 [node name="Goblin" type="CharacterBody2D" groups=["Enemy", "goblin"]]
 scale = Vector2(0.5, 0.5)
@@ -484,19 +484,20 @@ libraries = {
 }
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
-position = Vector2(-26.5, -3.5)
+position = Vector2(-24.5, -7.5)
+scale = Vector2(1.18, 1.18)
 sprite_frames = SubResource("SpriteFrames_opsqu")
 animation = &"Attack"
 
 [node name="RayCast2D" type="RayCast2D" parent="Visuals"]
-position = Vector2(15.5, -23.5)
+position = Vector2(15.5, -17.5)
 target_position = Vector2(1, 46)
 
 [node name="AttackDetector" type="Area2D" parent="Visuals"]
 position = Vector2(-18.5, -21.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/AttackDetector"]
-position = Vector2(14, 22)
+position = Vector2(18, 22)
 shape = SubResource("CircleShape2D_vu5tg")
 disabled = true
 
@@ -506,7 +507,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/PlayerDetector"]
 light_mask = 3
-position = Vector2(20.125, 2.75)
+position = Vector2(23.0625, 6)
 shape = SubResource("RectangleShape2D_macxp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

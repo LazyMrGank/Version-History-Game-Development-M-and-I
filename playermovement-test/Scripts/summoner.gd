@@ -32,10 +32,10 @@ extends CharacterBody2D
 @onready var attack_area: Area2D = $AttackArea
 @onready var floor_check: RayCast2D = $FloorCheck
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var projectile_scene: PackedScene = preload("res://enemy_projectile.tscn")
+@onready var projectile_scene: PackedScene = preload("res://Scenes/enemy_projectile.tscn")
 @onready var summon_scene: PackedScene = preload("res://Scenes/summon.tscn")
-@onready var spell_scene: PackedScene = preload("res://boss_spell1.tscn")
-@onready var spell2_scene: PackedScene = preload("res://boss_spell_2.tscn")
+@onready var spell_scene: PackedScene = preload("res://Scenes/boss_spell1.tscn")
+@onready var spell2_scene: PackedScene = preload("res://Scenes/boss_spell_2.tscn")
 
 enum State { PATROL, IDLE, CHASE, BACK_OFF, POST_BACK_OFF, SECOND_ATTACK, ATTACK3, HIT, TURN_PAUSE }
 var current_state: State = State.PATROL

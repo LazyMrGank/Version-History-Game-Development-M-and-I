@@ -9,7 +9,7 @@ extends CharacterBody2D
 @onready var jump_height_timer = $JumpHeightTimer
 @onready var attack_cooldown_timer = $AttackCooldownTimer
 @onready var dash_cooldown_timer = $DashCooldownTimer
-var fireball_scene = preload("res://Fireball.tscn")
+var fireball_scene = preload("res://Scenes/Fireball.tscn")
 var can_shoot = true
 var can_attack = true
 var can_dash: bool = true
@@ -18,7 +18,7 @@ var can_dash: bool = true
 @export var deceleration: float = 4000.0
 @export var jump_velocity: float = 300.0
 @export var dash_speed: float = 500.0
-@export var dash_duration: float = 0.5
+@export var dash_duration: float = 0.8
 @export var attack_duration: float = 0.5
 @export var hit_duration: float = 0.5
 const jump_power = -300.0
@@ -100,6 +100,7 @@ func _physics_process(delta: float) -> void:
 	velocity += knockback_velocity
 	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_friction * delta)
 	
+	
 	if Input.is_action_just_pressed("Fireball") and can_shoot:
 		shoot_fireball()
 	var was_on_floor = is_on_floor()
@@ -143,7 +144,7 @@ func _physics_process(delta: float) -> void:
 			can_dash = false
 			dash_cooldown_timer.start()
 		
-		if Input.is_action_just_pressed("attack") and is_on_floor() and not is_dashing and can_attack:
+		if Input.is_action_just_pressed("attack") and not is_dashing and can_attack:
 			is_attacking = true
 			attack_timer = attack_duration
 			can_attack = false
@@ -211,7 +212,7 @@ func update_animations() -> void:
 	if is_hit:
 		animation_player.play("hit")
 		$AudioStreamPlayer2D2.play()
-	elif is_attacking and is_on_floor(): 
+	elif is_attacking:
 		animation_player.play("attack")
 	elif is_dashing:
 		animation_player.play("dash")

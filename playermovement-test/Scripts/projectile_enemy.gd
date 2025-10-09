@@ -13,7 +13,7 @@ extends CharacterBody2D
 @onready var spell_spawn: Marker2D = $SpellSpawn  # Marker positioned above the enemy's head
 @onready var detection_area: Area2D = $DetectionArea  # Area2D for player detection
 @onready var hitbox: Area2D = $Hitbox  # Area2D for hit detection
-var spell_scene: PackedScene = preload("res://enemy_projectile.tscn")
+var spell_scene: PackedScene = preload("res://Scenes/enemy_projectile.tscn")
 
 var direction: int = 1  # 1 for right, -1 for left
 var player: Node2D = null

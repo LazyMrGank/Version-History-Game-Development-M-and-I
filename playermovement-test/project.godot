@@ -120,7 +120,7 @@ esc={
 
 [physics]
 
-2d/default_gravity=600.0
+2d/default_gravity=680.0
 
 [rendering]
 
