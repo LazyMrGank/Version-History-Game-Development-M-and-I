@@ -32,6 +32,7 @@ can_sleep = false
 contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_xyyoc")
+player_mass = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw"]
 shape = SubResource("RectangleShape2D_vtahb")

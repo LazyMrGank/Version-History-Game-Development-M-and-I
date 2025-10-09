@@ -37,8 +37,8 @@ func _physics_process(delta):
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	
-	add_constant_force(Vector2.UP * player_mass, body.global_position)
+	apply_impulse(Vector2.UP * player_mass, body.global_position)
+	#add_constant_force(Vector2.UP * player_mass, body.global_position)
 
 
 
@@ -46,4 +46,5 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _on_area_2d_2_body_entered(body: Node2D) -> void:
 	
-	add_constant_force(Vector2.DOWN * player_mass, body.global_position)
+	apply_impulse(Vector2.DOWN * player_mass, body.global_position)
+	#add_constant_force(Vector2.DOWN * player_mass, body.global_position)
