@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6gi6b0j3nm50"
-path="res://.godot/imported/AutoKey_AnimatedSpriteFrames.svg-8a9da5fd5aa876c0dfa7c34d3e3c65ad.ctex"
+uid="uid://cnkt1y0euanjs"
+path="res://.godot/imported/s4m_ur4i_dark_metroidvania_tileset.png-7dc52fa430edcdb72e91c5ac157e828e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://AutoKey_AnimatedSpriteFrames.svg"
-dest_files=["res://.godot/imported/AutoKey_AnimatedSpriteFrames.svg-8a9da5fd5aa876c0dfa7c34d3e3c65ad.ctex"]
+source_file="res://Asset Packs/EVil Wizard 2/EVil Wizard 2/Sprites/s4m_ur4i_dark_metroidvania_tileset.png"
+dest_files=["res://.godot/imported/s4m_ur4i_dark_metroidvania_tileset.png-7dc52fa430edcdb72e91c5ac157e828e.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

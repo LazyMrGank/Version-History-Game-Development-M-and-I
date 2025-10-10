@@ -214,6 +214,7 @@ func update_animations() -> void:
 		$AudioStreamPlayer2D2.play()
 	elif is_attacking:
 		animation_player.play("attack")
+		$AudioStreamPlayer2D3.play()
 	elif is_dashing:
 		animation_player.play("dash")
 	elif not is_on_floor():
@@ -326,7 +327,6 @@ func _process(delta):
 	# Handle D key input (health drain for testing)
 	if Input.is_action_just_pressed("Fireball"): 
 		change_mana(-10)
-		change_health(-10)
 	update_bars()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

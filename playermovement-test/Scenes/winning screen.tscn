@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://bx5j48t4fy2gn"]
+
+[ext_resource type="Script" uid="uid://hvx87wyjnbc5" path="res://Scenes/character_body_2d.gd" id="1_w4col"]
+[ext_resource type="Texture2D" uid="uid://oh2cjj14jey1" path="res://Asset Packs/EVil Wizard 2/EVil Wizard 2/Sprites/Death.png" id="2_4nuii"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1fi2"]
+atlas = ExtResource("2_4nuii")
+region = Rect2(0, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7d11h"]
+atlas = ExtResource("2_4nuii")
+region = Rect2(250, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbhwn"]
+atlas = ExtResource("2_4nuii")
+region = Rect2(500, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uu222"]
+atlas = ExtResource("2_4nuii")
+region = Rect2(750, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8u8h6"]
+atlas = ExtResource("2_4nuii")
+region = Rect2(1000, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvynv"]
+atlas = ExtResource("2_4nuii")
+region = Rect2(1250, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0lsf"]
+atlas = ExtResource("2_4nuii")
+region = Rect2(1500, 0, 250, 250)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wyqcj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1fi2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7d11h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbhwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uu222")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8u8h6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvynv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0lsf")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_me0c2"]
+height = 76.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 304.0
+offset_right = 718.0
+offset_bottom = 327.0
+text = "YOU WIN AND ESCAPE THE DUNGEON"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(554, 220)
+script = ExtResource("1_w4col")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+sprite_frames = SubResource("SpriteFrames_wyqcj")
+animation = &"Death"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_me0c2")

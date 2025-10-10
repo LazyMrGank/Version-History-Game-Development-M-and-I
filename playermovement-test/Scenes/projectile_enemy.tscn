@@ -1,7 +1,7 @@
 [gd_scene load_steps=49 format=3 uid="uid://c3gspjylwolhl"]
 
 [ext_resource type="Script" uid="uid://bs86ydpuxs243" path="res://Scripts/projectile_enemy.gd" id="1_wkbwq"]
-[ext_resource type="Texture2D" uid="uid://ce62denx6bolx" path="res://Necromancer_creativekind-Sheet.png" id="1_wloix"]
+[ext_resource type="Texture2D" uid="uid://ce62denx6bolx" path="res://Asset Packs/EVil Wizard 2/EVil Wizard 2/Sprites/Necromancer_creativekind-Sheet.png" id="1_wloix"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ws556"]
 atlas = ExtResource("1_wloix")

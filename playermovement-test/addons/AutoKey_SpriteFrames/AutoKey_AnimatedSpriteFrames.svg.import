@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba10biokyxf5j"
-path="res://.godot/imported/AutoKey_AnimatedSpriteFrames.png-03a3a4f46f7f1cfe6311ac0d48b8bed1.ctex"
+uid="uid://b6gi6b0j3nm50"
+path="res://.godot/imported/AutoKey_AnimatedSpriteFrames.svg-466c1928c3cee38d15b5b1e37a247194.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://AutoKey_AnimatedSpriteFrames.png"
-dest_files=["res://.godot/imported/AutoKey_AnimatedSpriteFrames.png-03a3a4f46f7f1cfe6311ac0d48b8bed1.ctex"]
+source_file="res://addons/AutoKey_SpriteFrames/AutoKey_AnimatedSpriteFrames.svg"
+dest_files=["res://.godot/imported/AutoKey_AnimatedSpriteFrames.svg-466c1928c3cee38d15b5b1e37a247194.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

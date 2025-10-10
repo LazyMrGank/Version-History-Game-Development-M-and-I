@@ -13,7 +13,6 @@ config_version=5
 config/name="Playermovement test"
 run/main_scene="uid://tv5k1ddy61hf"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c3p4aom2l5hyj" path="res://Asset Packs/Simple Torch/Simple Torch/Torch No Light Circle/Torch No Light Circle3.png" id="1_kjjgl"]
 [ext_resource type="Texture2D" uid="uid://bbp2cabq5m67b" path="res://Asset Packs/caveWalls/caveWall9.png" id="2_fi2fo"]
-[ext_resource type="Texture2D" uid="uid://cnkt1y0euanjs" path="res://Asset Packs/s4m_ur4i_dark_metroidvania_tileset.png" id="3_hte5h"]
+[ext_resource type="Texture2D" uid="uid://cnkt1y0euanjs" path="res://Asset Packs/EVil Wizard 2/EVil Wizard 2/Sprites/s4m_ur4i_dark_metroidvania_tileset.png" id="3_hte5h"]
 [ext_resource type="PackedScene" uid="uid://yj0igdalyly0" path="res://Scenes/spike_trap.tscn" id="3_rpo8j"]
 [ext_resource type="PackedScene" uid="uid://b30jrvvj1w0ue" path="res://Scenes/moving_platform.tscn" id="4_rpo8j"]
 [ext_resource type="PackedScene" uid="uid://c0h30pgt33upq" path="res://Scenes/falling_platform.tscn" id="6_xqohd"]
@@ -4471,14 +4471,6 @@ offset_bottom = -179.0
 scale = Vector2(0.235242, 0.391274)
 text = "BRuda, why you up here, go back, nothing this way"
 
-[node name="Button2" type="Button" parent="Texts and stuff"]
-offset_left = 1857.0
-offset_top = -41.0
-offset_right = 2023.0
-offset_bottom = -10.0
-scale = Vector2(0.628374, 2.1571)
-text = "DOn't Come Up PLzz"
-
 [node name="Button3" type="Button" parent="Texts and stuff"]
 offset_left = 2270.0
 offset_top = -211.0
@@ -4510,13 +4502,6 @@ offset_right = 2113.0
 offset_bottom = 667.0
 scale = Vector2(0.379387, 0.49209)
 text = "MUHAHA, WELCOME TO THE PATHS OF PAIN"
-
-[node name="Button7" type="Button" parent="Texts and stuff"]
-offset_left = 3849.0
-offset_top = 534.0
-offset_right = 3999.0
-offset_bottom = 565.0
-text = "All Paths End Here"
 
 [node name="PointLight2D" type="PointLight2D" parent="Texts and stuff"]
 position = Vector2(3924, 550)

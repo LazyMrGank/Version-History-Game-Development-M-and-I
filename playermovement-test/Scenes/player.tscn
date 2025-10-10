@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=3 uid="uid://b6c1e44urb6x5"]
+[gd_scene load_steps=107 format=3 uid="uid://b6c1e44urb6x5"]
 
 [ext_resource type="Script" uid="uid://biugqarjk4rwu" path="res://Scripts/MainPlayer.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dc8rxs8qupdqj" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_attack.png" id="2_b26j0"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cqu4ag3yu3bqk" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_jump_land.png" id="4_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://bhs126ctg1afl" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_parry.png" id="6_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://0u60sguekji2" path="res://s4m_ur4i_dark_metroidvania_character_animations_export/knight_jump_start.png" id="6_b26j0"]
-[ext_resource type="Script" path="res://Scripts/healthbar.gd" id="10_dx0e4"]
+[ext_resource type="Script" uid="uid://bp13i5nin6um3" path="res://Scripts/healthbar.gd" id="10_dx0e4"]
 [ext_resource type="Texture2D" uid="uid://ciy2smylb0yal" path="res://Health sprites/32x32 circle bar under-1.png.png" id="11_jm5j8"]
 [ext_resource type="Texture2D" uid="uid://lijf5imq5um6" path="res://Health sprites/32x32 circle bar progress green-1.png-1.png.png" id="12_7hik5"]
 [ext_resource type="Texture2D" uid="uid://cwghkl0u6oukb" path="res://Health sprites/progress bar medium rounded under-1.png.png" id="13_qtqh7"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://cq6o7p3xmpxtc" path="res://Health sprites/Mana Progress 1.png" id="24_b88wv"]
 [ext_resource type="AudioStream" uid="uid://4q4ilg7ck4rk" path="res://Audio/heavy-walking-footsteps-352771.mp3" id="25_7hik5"]
 [ext_resource type="AudioStream" uid="uid://4oth5e1gv6n4" path="res://Audio/classic_hurt.mp3" id="26_qtqh7"]
+[ext_resource type="AudioStream" uid="uid://cru6q4oucva2m" path="res://Audio/slash-21834.mp3" id="27_vfarp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 7.0
@@ -1017,6 +1018,9 @@ stream = ExtResource("25_7hik5")
 
 [node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("26_qtqh7")
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("27_vfarp")
 
 [connection signal="area_entered" from="HitDetector" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]

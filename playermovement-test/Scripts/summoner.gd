@@ -10,22 +10,22 @@ extends CharacterBody2D
 @export var close_distance: float = 40.0
 @export var health: int = 10
 @export var projectile_spawn_offsets: Array[Vector2] = [
-	Vector2(-50, -50), # Top-left
-	Vector2(50, -50),  # Top-right
-	Vector2(-50, 0),   # Left
-	Vector2(50, 0)     # Right
+	Vector2(-50, -50), 
+	Vector2(50, -50),  
+	Vector2(-50, 0),   
+	Vector2(50, 0)    
 ]
 @export var summon_spawn_offset: Vector2 = Vector2(0, -50)
 @export var spell_spawn_offset: float = 50.0
 @export var spell2_spawn_offsets: Array[Vector2] = [
-	Vector2(50, 20),   # Right, slightly below
-	Vector2(70, 30),   # Right, farther and lower
-	Vector2(-50, 20),  # Left, slightly below
-	Vector2(-70, 30)   # Left, farther and lower
+	Vector2(50, 20),   
+	Vector2(70, 30),   
+	Vector2(-50, 20),  
+	Vector2(-70, 30)   
 ]
-@export var attack_area_base_offset: Vector2 = Vector2(20, 0) # Default right-facing offset
-@export var floor_check_offset: Vector2 = Vector2(20, 10) # Offset for floor detection
-@export var floor_check_target: Vector2 = Vector2(10, 20) # Default right-facing raycast target
+@export var attack_area_base_offset: Vector2 = Vector2(20, 0) 
+@export var floor_check_offset: Vector2 = Vector2(20, 10) 
+@export var floor_check_target: Vector2 = Vector2(10, 20) 
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var area_2d: Area2D = $Area2D
@@ -33,7 +33,7 @@ extends CharacterBody2D
 @onready var floor_check: RayCast2D = $FloorCheck
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var projectile_scene: PackedScene = preload("res://Scenes/enemy_projectile.tscn")
-@onready var summon_scene: PackedScene = preload("res://Scenes/summon.tscn")
+@onready var summon_scene: PackedScene = preload("res://Scenes/goblin.tscn")
 @onready var spell_scene: PackedScene = preload("res://Scenes/boss_spell1.tscn")
 @onready var spell2_scene: PackedScene = preload("res://Scenes/boss_spell_2.tscn")
 
@@ -203,15 +203,11 @@ func _attack3_state(delta: float) -> void:
 	if is_hit:
 		return
 	if player:
-		# Stay still
 		velocity.x = 0
-		# Maintain locked facing direction
 		animated_sprite.flip_h = locked_facing_direction
 
 func _hit_state(delta: float) -> void:
-	# Stay still during hit
 	velocity.x = 0
-	# Maintain locked facing direction from when hit was triggered
 	animated_sprite.flip_h = locked_facing_direction
 
 func _turn_pause_state(delta: float) -> void:
@@ -220,10 +216,8 @@ func _turn_pause_state(delta: float) -> void:
 	# Stay still and play idle
 	velocity.x = 0
 	animation_player.play("idle")
-	# Count down pause timer
 	turn_pause_timer -= delta
 	if turn_pause_timer <= 0:
-		# Resume chase
 		current_state = State.CHASE
 
 func _on_body_entered(body: Node) -> void:
@@ -245,6 +239,7 @@ func play_hit_animation() -> void:
 		velocity.x = 0
 		if health <= 0:
 			animation_player.play("death")
+			get_tree().change_scene_to_file("res://Scenes/winning screen.tscn")
 		else:
 			animation_player.play("hit")
 		print("Boss hit, health reduced to: ", health)

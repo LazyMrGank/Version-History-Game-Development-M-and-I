@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnkt1y0euanjs"
-path="res://.godot/imported/s4m_ur4i_dark_metroidvania_tileset.png-9cc4a99a06d6cad41c97e6dc45d752f2.ctex"
+uid="uid://bgatqubb6oifq"
+path="res://.godot/imported/Spike_B.png-67276d542ea359072905298b0b5c7fed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asset Packs/s4m_ur4i_dark_metroidvania_tileset.png"
-dest_files=["res://.godot/imported/s4m_ur4i_dark_metroidvania_tileset.png-9cc4a99a06d6cad41c97e6dc45d752f2.ctex"]
+source_file="res://Asset Packs/EVil Wizard 2/EVil Wizard 2/Sprites/Spike_B.png"
+dest_files=["res://.godot/imported/Spike_B.png-67276d542ea359072905298b0b5c7fed.ctex"]
 
 [params]
 

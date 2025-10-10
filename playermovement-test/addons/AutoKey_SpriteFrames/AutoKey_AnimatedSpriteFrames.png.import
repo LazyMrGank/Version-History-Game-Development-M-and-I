@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgatqubb6oifq"
-path="res://.godot/imported/Spike_B.png-66f8f510710fc1380bd100449c9e65db.ctex"
+uid="uid://ba10biokyxf5j"
+path="res://.godot/imported/AutoKey_AnimatedSpriteFrames.png-16241f05c613a4cd20e36e22a7a3dd09.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asset Packs/Spike_B.png"
-dest_files=["res://.godot/imported/Spike_B.png-66f8f510710fc1380bd100449c9e65db.ctex"]
+source_file="res://addons/AutoKey_SpriteFrames/AutoKey_AnimatedSpriteFrames.png"
+dest_files=["res://.godot/imported/AutoKey_AnimatedSpriteFrames.png-16241f05c613a4cd20e36e22a7a3dd09.ctex"]
 
 [params]
 

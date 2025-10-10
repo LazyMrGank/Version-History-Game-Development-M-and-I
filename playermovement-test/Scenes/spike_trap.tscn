@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://yj0igdalyly0"]
 
-[ext_resource type="Texture2D" uid="uid://bgatqubb6oifq" path="res://Asset Packs/Spike_B.png" id="1_euutn"]
+[ext_resource type="Texture2D" uid="uid://bgatqubb6oifq" path="res://Asset Packs/EVil Wizard 2/EVil Wizard 2/Sprites/Spike_B.png" id="1_euutn"]
 [ext_resource type="Script" uid="uid://c51m7ohfbkjmt" path="res://Scripts/spike_trap.gd" id="1_u4nx7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u4nx7"]

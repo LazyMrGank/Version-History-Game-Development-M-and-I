@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://tv5k1ddy61hf"]
+[gd_scene load_steps=6 format=3 uid="uid://tv5k1ddy61hf"]
 
-[ext_resource type="Texture2D" uid="uid://8of1pfy887b0" path="res://background.webp" id="1_m625n"]
-[ext_resource type="Script" uid="uid://cmh6fnjnpy1l5" path="res://Scripts/main_menu.gd" id="1_wugcc"]
+[ext_resource type="Script" uid="uid://cmh6fnjnpy1l5" path="res://Scripts/main_menu.gd" id="1_rmbjf"]
+[ext_resource type="Texture2D" uid="uid://d13atfpilnd1r" path="res://components/Background image.jpg" id="2_b7rmo"]
+[ext_resource type="AudioStream" uid="uid://b7whv04iefchg" path="res://Audio/echo-dungeon-70538.mp3" id="3_b7rmo"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wugcc"]
-texture = ExtResource("1_m625n")
+texture = ExtResource("2_b7rmo")
 modulate_color = Color(0.448098, 0.478109, 0.547838, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gtid3"]
@@ -23,7 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_wugcc")
+script = ExtResource("1_rmbjf")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -80,13 +81,41 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -93.0
-offset_top = -117.0
-offset_right = 93.0
-offset_bottom = -94.0
+offset_left = -65.0
+offset_top = -116.0
+offset_right = 121.0
+offset_bottom = -93.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Glorbo Fruttodrillo"
+text = "Echo of the Abyss"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 699.0
+offset_top = 143.0
+offset_right = 1199.0
+offset_bottom = 582.0
+text = "Controls:
+
+A = Left
+
+D = Right
+
+F = Fireball
+
+C = Charge (Hold \"C\" to heal if player has Mana)
+
+Space = Jump (Can double jump once if pushed again)
+
+Q = Dash
+
+Left Mouth Button = Attack
+
+"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_b7rmo")
+volume_db = 0.05
 
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_options_pressed"]

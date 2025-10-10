@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dfmrs6ln2gkia"]
+[gd_scene load_steps=12 format=3 uid="uid://dfmrs6ln2gkia"]
 
 [ext_resource type="PackedScene" uid="uid://b6c1e44urb6x5" path="res://Scenes/player.tscn" id="1_f3sb7"]
-[ext_resource type="PackedScene" uid="uid://bd83jts7yjijh" path="res://Scenes/enemy.tscn" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://ibs5m1yt0anw" path="res://Scenes/summon.tscn" id="2_5v1tr"]
+[ext_resource type="PackedScene" uid="uid://bd83jts7yjijh" path="res://Scenes/Enemy.tscn" id="2_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://cx5tc7a7do4lp" path="res://Scenes/enemy_projectile.tscn" id="5_036b0"]
 [ext_resource type="PackedScene" uid="uid://iqgaesrkljbm" path="res://Scenes/Skeleton.tscn" id="6_dwbse"]
 [ext_resource type="PackedScene" uid="uid://bwguedt04uvtq" path="res://Scenes/boss_spell1.tscn" id="7_o06y3"]
@@ -24,7 +25,7 @@ position = Vector2(558, 527)
 shape = SubResource("RectangleShape2D_fj7yv")
 
 [node name="Player" parent="." instance=ExtResource("1_f3sb7")]
-position = Vector2(903, 557)
+position = Vector2(817, 214)
 
 [node name="Control" parent="Player" index="5"]
 metadata/_edit_use_anchors_ = true
@@ -46,6 +47,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Manabar2" parent="Player" index="17"]
 metadata/_edit_use_anchors_ = true
+
+[node name="Summon" parent="Player" instance=ExtResource("2_5v1tr")]
+position = Vector2(126, -24)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 

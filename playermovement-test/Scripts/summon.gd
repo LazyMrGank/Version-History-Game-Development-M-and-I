@@ -1,36 +1,53 @@
 extends CharacterBody2D
 
-const speed = 10
-var is_bat_chase: bool = true  # Set to true to enable chasing
-var player: Node  # Reference to the player node
+@export var speed: float = 100.0  # Speed at which the enemy follows the player
 
-func _ready():
-	# Find the player node (adjust the path or method as needed)
-	player = get_tree().get_first_node_in_group("Player")
-	if player == null:
-		print("Error: Player node not found!")
-		is_bat_chase = false  # Disable chasing if no player is found
+var player: Node2D  # Reference to the player
+var is_attacking: bool = false
 
-func _process(delta):
-	move(delta)
-	handle_animation()
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var detection_area: Area2D = $DetectionArea
 
-func move(delta):
-	if is_bat_chase and player != null:
-		# Calculate direction to the player
-		var direction = (player.global_position - global_position).normalized()
-		# Set velocity to move toward the player
-		velocity = direction * speed
+func _ready() -> void:
+	# Find the player node in the "player" group
+	var players = get_tree().get_nodes_in_group("player")
+	if players.size() > 0:
+		player = players[0]  # Assume the first node in the group is the player
 	else:
-		velocity = Vector2.ZERO  # Stop moving if not chasing or no player
-	move_and_slide()
+		print("Warning: No player found in group 'player'!")
+	
+	# Connect Area2D signals
+	detection_area.body_entered.connect(_on_detection_area_body_entered)
+	detection_area.body_exited.connect(_on_detection_area_body_exited)
+	
+	# Start with fly animation
+	animated_sprite.play("fly")
 
-func handle_animation():
-	var animated_sprite = $AnimatedSprite2D
-	animated_sprite.play("Fly")
-	if player != null and is_bat_chase:
-		# Flip sprite based on player's position
-		if player.global_position.x < global_position.x:
-			animated_sprite.flip_h = true
-		else:
-			animated_sprite.flip_h = false
+func _physics_process(delta: float) -> void:
+	if is_attacking or player == null:
+		velocity = Vector2.ZERO  # Stand still during attack
+		return
+	
+	# Calculate direction to player
+	var direction: Vector2 = (player.global_position - global_position).normalized()
+	
+	# Move towards player
+	velocity = direction * speed
+	move_and_slide()
+	
+	# Flip sprite based on direction (optional, for left/right facing)
+	if direction.x > 0:
+		animated_sprite.flip_h = false
+	elif direction.x < 0:
+		animated_sprite.flip_h = true
+
+func _on_detection_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		is_attacking = true
+		animated_sprite.play("attack")
+		# Optional: Add attack logic here, like dealing damage via a timer or signal
+
+func _on_detection_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		is_attacking = false
+		animated_sprite.play("fly")
