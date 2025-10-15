@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://ccqpx8qhvqsh"]
+[gd_scene load_steps=64 format=3 uid="uid://ccqpx8qhvqsh"]
 
 [ext_resource type="Script" uid="uid://m2yyuvf86pvh" path="res://Scripts/summoner.gd" id="1_w1dws"]
 [ext_resource type="Texture2D" uid="uid://bnshnis361qlr" path="res://Asset Packs/EVil Wizard 2/EVil Wizard 2/Sprites/Attack2.png" id="3_gqq7g"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://vqqxodhxlnvo" path="res://Asset Packs/EVil Wizard 2/EVil Wizard 2/Sprites/Run.png" id="5_18tv5"]
 [ext_resource type="Texture2D" uid="uid://oh2cjj14jey1" path="res://Asset Packs/EVil Wizard 2/EVil Wizard 2/Sprites/Death.png" id="5_lihvx"]
 [ext_resource type="Texture2D" uid="uid://cnct5ohbk88dg" path="res://Asset Packs/EVil Wizard 2/EVil Wizard 2/Sprites/Take hit.png" id="6_7csh5"]
+[ext_resource type="AudioStream" uid="uid://dgu6jbxe674ai" path="res://Audio/lighting-a-fire-14421.mp3" id="8_d8tt2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5wisl"]
 height = 38.0
@@ -655,6 +656,9 @@ disabled = true
 [node name="FloorCheck" type="RayCast2D" parent="."]
 position = Vector2(31, -20)
 collision_mask = 7
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_d8tt2")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

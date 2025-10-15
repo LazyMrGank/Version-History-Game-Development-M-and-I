@@ -182,6 +182,7 @@ func _post_back_off_state(delta: float) -> void:
 		if randf() < 0.5:
 			current_state = State.SECOND_ATTACK
 			animation_player.play("attack2")
+			$AudioStreamPlayer2D.play()
 		else:
 			current_state = State.CHASE
 

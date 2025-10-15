@@ -6,7 +6,6 @@ extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var coyote_timer = $CoyoteTime
 @onready var jump_buffer_timer = $JumpBufferTimer
-@onready var jump_height_timer = $JumpHeightTimer
 @onready var attack_cooldown_timer = $AttackCooldownTimer
 @onready var dash_cooldown_timer = $DashCooldownTimer
 var fireball_scene = preload("res://Scenes/Fireball.tscn")
@@ -16,18 +15,19 @@ var can_dash: bool = true
 @export var move_speed: float = 200.0
 @export var acceleration: float = 1500.0
 @export var deceleration: float = 4000.0
-@export var jump_velocity: float = 300.0
+@export var jump_strength: float = -130.0  # Replaces jump_velocity for variable jump
+@export var max_jump_time: float = 0.2  # Max time to hold jump for max height
 @export var dash_speed: float = 500.0
 @export var dash_duration: float = 0.8
 @export var attack_duration: float = 0.5
 @export var hit_duration: float = 0.5
-const jump_power = -300.0
 const wall_jump_pushback = 200
 const wall_slide_gravity = 100
 var is_wall_sliding = false
 var can_coyote_jump = false
 var jump_buffered = false
-const jump_height: float = -180
+var is_jumping: bool = false  # Tracks if player is in a jump
+var jump_time: float = 0.0  # Tracks how long jump is held
 const max_speed: float = 60
 const friction: float = 8
 
@@ -61,11 +61,8 @@ var knockback_friction = 500.0
 var is_holding_c: bool = false  # Tracks if charge key is held
 var c_hold_time: float = 0.0  # Duration C has been held
 var is_healing: bool = false  # Tracks if healing is active (after 2s)
-var is_holding_d: bool = false  # Tracks if D key is held
 var checkpoint_manager
 var player
-
-
 
 func _ready():
 	checkpoint_manager = $"../CheckPointManager"
@@ -94,12 +91,10 @@ func _ready():
 	mana_bar2.min_value = 50
 	mana_bar2.max_value = 100
 	update_bars()  # Initialize bars
-	
 
 func _physics_process(delta: float) -> void:
 	velocity += knockback_velocity
 	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_friction * delta)
-	
 	
 	if Input.is_action_just_pressed("Fireball") and can_shoot:
 		shoot_fireball()
@@ -120,22 +115,32 @@ func _physics_process(delta: float) -> void:
 		if hit_timer <= 0:
 			is_hit = false
 	
-	# Handle input and movement
-	if not is_dashing and not is_hit:
-		if not is_on_floor() && (can_coyote_jump == false):
-			velocity.y += gravity * delta
-			if velocity.y > 500:
-				velocity.y = 500
+	# Apply gravity when not on floor and not jumping
+	if not is_on_floor() and not is_jumping:
+		velocity.y += gravity * delta
+		if velocity.y > 500:
+			velocity.y = 500
+	else:
+		jump_count = 0
+	
+	# Handle variable jump
+	if Input.is_action_pressed("jump") and is_jumping:
+		if jump_time < max_jump_time:
+			velocity.y = jump_strength
+			jump_time += delta
 		else:
-			jump_count = 0
-		if Input.is_action_just_pressed("jump") and is_on_floor() and not is_attacking:
-			velocity.y = -jump_velocity
-			jump_height_timer.start()
+			is_jumping = false
+	
+	# Handle movement and other actions
+	if not is_dashing and not is_hit:
+		if Input.is_action_just_pressed("jump") and (is_on_floor() or can_coyote_jump or is_on_wall()) and not is_attacking:
 			jump()
-		if Input.is_action_just_pressed("jump") and jump_count < 2:
+		elif Input.is_action_just_pressed("jump") and jump_count < 2:
 			jump_count += 1
-			velocity.y = -jump_velocity
-				
+			is_jumping = true
+			jump_time = 0.0
+			velocity.y = jump_strength
+		
 		if Input.is_action_just_pressed("dash") and not is_on_floor() and not is_dashing and not is_attacking and can_dash:
 			is_dashing = true
 			dash_timer = dash_duration
@@ -166,13 +171,13 @@ func _physics_process(delta: float) -> void:
 	sprite.scale.x = last_direction
 	hit_detector.position.x = abs(hit_detector.position.x) * last_direction
 	update_animations()
-	jump()
 	move_and_slide()
 	if was_on_floor && !is_on_floor() && velocity.y >= 0:
 		can_coyote_jump = true
 		coyote_timer.start()
 
 	if !was_on_floor && is_on_floor():
+		is_jumping = false
 		if jump_buffered:
 			jump_buffered = false
 			print("buffered jump")
@@ -187,20 +192,11 @@ func _on_coyote_time_timeout() -> void:
 
 func _input(event):
 	if event.is_action_released("jump"):
-		if velocity.y < 0.0:
-			velocity.y *= 0.5
+		is_jumping = false
 
 func _on_jump_buffer_timer_timeout() -> void:
 	jump_buffered = false
 	print("Jump buffered false")
-
-func _on_jump_height_timer_timeout() -> void:
-	if !Input.is_action_pressed("jump"):
-		if velocity.y < -100:
-			velocity.y = 0
-			print("Cow")
-	else:
-		print("high jump")
 
 func _on_attack_cooldown_timer_timeout() -> void:
 	can_attack = true
@@ -233,13 +229,20 @@ func update_animations() -> void:
 func jump():
 	if Input.is_action_just_pressed("jump"):
 		if is_on_wall() and Input.is_action_pressed("move_right"):
-			velocity.y = jump_power
+			is_jumping = true
+			jump_time = 0.0
+			velocity.y = jump_strength
 			velocity.x = -wall_jump_pushback
-		if is_on_wall() and Input.is_action_pressed("move_left"):
-			velocity.y = jump_power
-		if is_on_floor() || can_coyote_jump:
+		elif is_on_wall() and Input.is_action_pressed("move_left"):
+			is_jumping = true
+			jump_time = 0.0
+			velocity.y = jump_strength
+			velocity.x = wall_jump_pushback
+		elif is_on_floor() || can_coyote_jump:
+			is_jumping = true
+			jump_time = 0.0
+			velocity.y = jump_strength
 			if can_coyote_jump:
-				velocity.y = jump_velocity
 				can_coyote_jump = false
 				print("coyote")
 		else:
@@ -333,7 +336,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		killPlayer()
 
-
 func killPlayer():
 	position = checkpoint_manager.last_location
 
@@ -352,7 +354,6 @@ func change_health(amount: float):
 	update_bars()
 	if health <= 0:
 		killPlayer()
-		#get_tree().change_scene_to_file("res://death_screen.tscn")
 func change_mana(amount: float):
 	mana = clamp(mana + amount, 0, max_mana)
 	update_bars()

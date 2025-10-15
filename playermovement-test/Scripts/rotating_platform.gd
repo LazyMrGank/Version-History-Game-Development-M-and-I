@@ -14,3 +14,4 @@ func _process(delta):
 	if is_rotating:
 		rotation += rotation_speed * delta
 		$Platform.rotation -= rotation_speed * delta
+		$AudioStreamPlayer2D.play()

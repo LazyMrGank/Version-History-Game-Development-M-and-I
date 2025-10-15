@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://b6fkjevngidsu"]
+[gd_scene load_steps=64 format=4 uid="uid://b6fkjevngidsu"]
 
 [ext_resource type="Texture2D" uid="uid://c3p4aom2l5hyj" path="res://Asset Packs/Simple Torch/Simple Torch/Torch No Light Circle/Torch No Light Circle3.png" id="1_kjjgl"]
 [ext_resource type="Texture2D" uid="uid://bbp2cabq5m67b" path="res://Asset Packs/caveWalls/caveWall9.png" id="2_fi2fo"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://pxii8jmp4h14" path="res://Scenes/checkpoint.tscn" id="12_xqohd"]
 [ext_resource type="PackedScene" uid="uid://c3gspjylwolhl" path="res://Scenes/projectile_enemy.tscn" id="13_nbci4"]
 [ext_resource type="PackedScene" uid="uid://ccqpx8qhvqsh" path="res://Scenes/summoner.tscn" id="13_rdxh8"]
+[ext_resource type="AudioStream" uid="uid://lgrssqntkv4d" path="res://Audio/mysterious-cinematic-ambient-156465.mp3" id="16_nbci4"]
 
 [sub_resource type="Gradient" id="Gradient_1j5fa"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -4435,7 +4436,6 @@ shadow_filter = 2
 shadow_filter_smooth = 64.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.24371, 0.2795, 0.39755, 1)
 
 [node name="Falling Platform" parent="." instance=ExtResource("6_xqohd")]
@@ -4902,7 +4902,12 @@ position = Vector2(3370, 422)
 position = Vector2(2501, 224)
 
 [node name="Player" parent="." instance=ExtResource("8_hte5h")]
-position = Vector2(2840, 787)
+position = Vector2(-72, 471)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_nbci4")
+volume_db = 0.05
+autoplay = true
 
 [connection signal="body_entered" from="Death Zones/Global World Death Barrier" to="Death Zones/Global World Death Barrier/CollisionShape2D" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Death Zones/Death Barrier" to="Death Zones/Death Barrier/CollisionShape2D" method="_on_area_2d_body_entered"]
