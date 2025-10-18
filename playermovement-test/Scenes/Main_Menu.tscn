@@ -42,10 +42,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -93.0
-offset_top = -62.0
-offset_right = 93.0
-offset_bottom = 62.0
+offset_left = -372.0
+offset_top = -40.0
+offset_right = -186.0
+offset_bottom = 84.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 7
@@ -81,20 +81,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -65.0
-offset_top = -116.0
-offset_right = 121.0
-offset_bottom = -93.0
+offset_left = -370.0
+offset_top = -107.0
+offset_right = -184.0
+offset_bottom = -84.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.30056, 1.50035)
 text = "Echo of the Abyss"
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
-offset_left = 699.0
-offset_top = 143.0
-offset_right = 1199.0
-offset_bottom = 582.0
+offset_left = 601.0
+offset_top = 101.0
+offset_right = 1101.0
+offset_bottom = 566.0
 text = "Controls:
 
 A = Left
@@ -105,13 +106,23 @@ F = Fireball
 
 C = Charge (Hold \"C\" to heal if player has Mana)
 
-Space = Jump (Can double jump once if pushed again)
+Space = Variable Jump (Can double jump once if pushed again)
 
 Q = Dash
 
 Left Mouth Button = Attack
 
-"
+A Blue Flower is a Checkpoint
+Small Gold Blocks Indicate enemies are nearby!"
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 615.0
+offset_right = 745.0
+offset_bottom = 1054.0
+scale = Vector2(0.740169, 1.03054)
+text = "Setting's menu is currently disconnected due to bugs allowing too much power to the player... :V"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_b7rmo")

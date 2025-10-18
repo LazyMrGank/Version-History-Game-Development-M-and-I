@@ -16,8 +16,8 @@ var can_dash: bool = true
 @export var acceleration: float = 1500.0
 @export var deceleration: float = 4000.0
 @export var jump_strength: float = -130.0  # Replaces jump_velocity for variable jump
-@export var max_jump_time: float = 0.2  # Max time to hold jump for max height
-@export var dash_speed: float = 500.0
+@export var max_jump_time: float = 0.3  # Max time to hold jump for max height
+@export var dash_speed: float = 600.0
 @export var dash_duration: float = 0.8
 @export var attack_duration: float = 0.5
 @export var hit_duration: float = 0.5
@@ -353,7 +353,9 @@ func change_health(amount: float):
 	health = clamp(health + amount, 0, max_health)
 	update_bars()
 	if health <= 0:
+		change_health(+100)
 		killPlayer()
+
 func change_mana(amount: float):
 	mana = clamp(mana + amount, 0, max_mana)
 	update_bars()

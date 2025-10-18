@@ -1,6 +1,6 @@
 [gd_scene load_steps=46 format=3 uid="uid://g8emckfudhmx"]
 
-[ext_resource type="Script" path="res://Scripts/goblin.gd" id="1_vu5tg"]
+[ext_resource type="Script" uid="uid://dvyj7xm8q2elw" path="res://Scripts/goblin.gd" id="1_vu5tg"]
 [ext_resource type="Texture2D" uid="uid://n8tlbbt8265h" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Attack.png" id="2_macxp"]
 [ext_resource type="Texture2D" uid="uid://copls0xd07yao" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Run.png" id="3_eyhpr"]
 [ext_resource type="Texture2D" uid="uid://78pbhq4n0ro7" path="res://Monsters_Creatures_Fantasy/Monsters_Creatures_Fantasy/Mushroom/Take Hit.png" id="3_macxp"]
