@@ -433,7 +433,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_krsk7"]
-loop_mode = 1
+length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -441,7 +441,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
@@ -460,7 +460,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_d8tt2"]
-length = 1.6
+length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -468,7 +468,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
@@ -613,8 +613,8 @@ size = Vector2(501, 20)
 size = Vector2(28, 56)
 
 [node name="Boss" type="CharacterBody2D" groups=["Enemy"]]
-collision_layer = 7
-collision_mask = 7
+collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_w1dws")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -625,7 +625,8 @@ shape = SubResource("CapsuleShape2D_5wisl")
 position = Vector2(1.00001, 1)
 scale = Vector2(0.544, 0.544)
 sprite_frames = SubResource("SpriteFrames_41s2j")
-animation = &"hit"
+animation = &"attack3"
+frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimatedSprite2D")

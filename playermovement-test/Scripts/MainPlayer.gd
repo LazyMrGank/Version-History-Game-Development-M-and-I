@@ -15,9 +15,9 @@ var can_dash: bool = true
 @export var move_speed: float = 200.0
 @export var acceleration: float = 1500.0
 @export var deceleration: float = 4000.0
-@export var jump_strength: float = -130.0  # Replaces jump_velocity for variable jump
-@export var max_jump_time: float = 0.3  # Max time to hold jump for max height
-@export var dash_speed: float = 600.0
+@export var jump_strength: float = -400.0
+@export var max_jump_time: float = 0.25
+@export var dash_speed: float = 500.0
 @export var dash_duration: float = 0.8
 @export var attack_duration: float = 0.5
 @export var hit_duration: float = 0.5
@@ -26,14 +26,14 @@ const wall_slide_gravity = 100
 var is_wall_sliding = false
 var can_coyote_jump = false
 var jump_buffered = false
-var is_jumping: bool = false  # Tracks if player is in a jump
-var jump_time: float = 0.0  # Tracks how long jump is held
+var is_jumping: bool = false
+var jump_time: float = 0.0
 const max_speed: float = 60
 const friction: float = 8
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction: float = 0.0
-var last_direction: float = 1.0  # Default facing right
+var last_direction: float = 1.0
 var is_dashing: bool = false
 var dash_timer: float = 0.0
 var is_attacking: bool = false
@@ -44,23 +44,23 @@ var jump_count = 0
 var knockback_velocity = Vector2.ZERO
 var knockback_friction = 500.0
 
-@export var max_health: float = 100.0  
-@export var health: float = 100.0  # Current health
-@export var max_mana: float = 100.0  
-@export var mana: float = 100.0  # Current mana
-@export var mana_drain_rate: float = 15.0  # Mana decrease per second when holding C
-@export var health_gain_rate: float = 10.0  # Health increase per second after 2s hold
+@export var max_health: float = 100.0
+@export var health: float = 100.0
+@export var max_mana: float = 100.0
+@export var mana: float = 100.0
+@export var mana_drain_rate: float = 15.0
+@export var health_gain_rate: float = 10.0
 
-@onready var health_bar1 = $HealthBar1 
-@onready var health_bar2 = $HealthBar2 
+@onready var health_bar1 = $HealthBar1
+@onready var health_bar2 = $HealthBar2
 @onready var health_bar3 = $HealthBar3
-@onready var health_bar4 = $HealthBar4 
-@onready var mana_bar1 = $Manabar1 
-@onready var mana_bar2 = $Manabar2  
+@onready var health_bar4 = $HealthBar4
+@onready var mana_bar1 = $Manabar1
+@onready var mana_bar2 = $Manabar2
 
-var is_holding_c: bool = false  # Tracks if charge key is held
-var c_hold_time: float = 0.0  # Duration C has been held
-var is_healing: bool = false  # Tracks if healing is active (after 2s)
+var is_holding_c: bool = false
+var c_hold_time: float = 0.0
+var is_healing: bool = false
 var checkpoint_manager
 var player
 
@@ -85,12 +85,11 @@ func _ready():
 	health_bar3.max_value = 80
 	health_bar4.min_value = 80
 	health_bar4.max_value = 100
-	# Initialize mana bar ranges
 	mana_bar1.min_value = 0
 	mana_bar1.max_value = 50
 	mana_bar2.min_value = 50
 	mana_bar2.max_value = 100
-	update_bars()  # Initialize bars
+	update_bars()
 
 func _physics_process(delta: float) -> void:
 	velocity += knockback_velocity
@@ -115,12 +114,14 @@ func _physics_process(delta: float) -> void:
 		if hit_timer <= 0:
 			is_hit = false
 	
-	# Apply gravity when not on floor and not jumping
+	# Apply gravity when not jumping
 	if not is_on_floor() and not is_jumping:
 		velocity.y += gravity * delta
 		if velocity.y > 500:
 			velocity.y = 500
-	else:
+	
+	# Reset jump count when on floor
+	if is_on_floor():
 		jump_count = 0
 	
 	# Handle variable jump
@@ -135,7 +136,7 @@ func _physics_process(delta: float) -> void:
 	if not is_dashing and not is_hit:
 		if Input.is_action_just_pressed("jump") and (is_on_floor() or can_coyote_jump or is_on_wall()) and not is_attacking:
 			jump()
-		elif Input.is_action_just_pressed("jump") and jump_count < 2:
+		elif Input.is_action_just_pressed("jump") and jump_count == 1 and not is_on_floor() and not is_on_wall():
 			jump_count += 1
 			is_jumping = true
 			jump_time = 0.0
@@ -233,11 +234,13 @@ func jump():
 			jump_time = 0.0
 			velocity.y = jump_strength
 			velocity.x = -wall_jump_pushback
+			jump_count = 1  # Allow one double jump after wall jump
 		elif is_on_wall() and Input.is_action_pressed("move_left"):
 			is_jumping = true
 			jump_time = 0.0
 			velocity.y = jump_strength
 			velocity.x = wall_jump_pushback
+			jump_count = 1  # Allow one double jump after wall jump
 		elif is_on_floor() || can_coyote_jump:
 			is_jumping = true
 			jump_time = 0.0
@@ -245,6 +248,7 @@ func jump():
 			if can_coyote_jump:
 				can_coyote_jump = false
 				print("coyote")
+			jump_count = 1  # Allow one double jump after ground/coyote jump
 		else:
 			if !jump_buffered:
 				jump_buffered = true
@@ -255,7 +259,7 @@ func wall_slide(delta):
 	if is_on_wall() and !is_on_floor():
 		if Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left"):
 			is_wall_sliding = true
-		else: 
+		else:
 			is_wall_sliding = false
 	else:
 		is_wall_sliding = false
@@ -298,7 +302,7 @@ func play_hit_animation2():
 		change_health(-20)
 	else:
 		print("Error: 'hit' animation not found, already playing, or dashing")
-		
+
 func play_hit_animation3():
 	if animation_player.has_animation("hit") and not is_hit and not is_dashing:
 		is_hit = true
@@ -309,7 +313,6 @@ func play_hit_animation3():
 		print("Error: 'hit' animation not found, already playing, or dashing")
 
 func _process(delta):
-	# Charges mana
 	if Input.is_action_just_pressed("Charge"):
 		is_holding_c = true
 		c_hold_time = 0.0
@@ -327,8 +330,7 @@ func _process(delta):
 			is_healing = true
 			health = clamp(health + health_gain_rate * delta, 0, max_health)
 	
-	# Handle D key input (health drain for testing)
-	if Input.is_action_just_pressed("Fireball"): 
+	if Input.is_action_just_pressed("Fireball"):
 		change_mana(-10)
 	update_bars()
 
@@ -340,20 +342,17 @@ func killPlayer():
 	position = checkpoint_manager.last_location
 
 func update_bars():
-	# Update health bars
 	health_bar1.value = clamp(health, health_bar1.min_value, health_bar1.max_value)
 	health_bar2.value = clamp(health, health_bar2.min_value, health_bar2.max_value) if health > health_bar2.min_value else health_bar2.min_value
 	health_bar3.value = clamp(health, health_bar3.min_value, health_bar3.max_value) if health > health_bar3.min_value else health_bar3.min_value
 	health_bar4.value = clamp(health, health_bar4.min_value, health_bar4.max_value) if health > health_bar4.min_value else health_bar4.min_value
-	# Update mana bars
 	mana_bar1.value = clamp(mana, mana_bar1.min_value, mana_bar1.max_value)
 	mana_bar2.value = clamp(mana, mana_bar2.min_value, mana_bar2.max_value) if mana > mana_bar2.min_value else mana_bar2.min_value
-	# Changes mana and health bars visually
+
 func change_health(amount: float):
 	health = clamp(health + amount, 0, max_health)
 	update_bars()
 	if health <= 0:
-		change_health(+100)
 		killPlayer()
 
 func change_mana(amount: float):

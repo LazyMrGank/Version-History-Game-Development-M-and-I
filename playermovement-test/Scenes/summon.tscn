@@ -386,7 +386,7 @@ script = ExtResource("1_sugye")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5, -2)
 sprite_frames = SubResource("SpriteFrames_rruea")
-animation = &"Hit"
+animation = &"fly"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ov2ce")

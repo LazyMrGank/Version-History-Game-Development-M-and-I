@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 @export var patrol_speed: float = 60.0
-@export var chase_speed: float = 75.0
-@export var back_off_speed: float = 70.0
-@export var back_off_duration: float = 1.0
+@export var chase_speed: float = 70.0
+@export var back_off_speed: float = 65.0
+@export var back_off_duration: float = 0.7
 @export var post_back_off_duration: float = 1.0
 @export var idle_time_min: float = 1.0
 @export var idle_time_max: float = 3.0
@@ -15,13 +15,13 @@ extends CharacterBody2D
 	Vector2(-50, 0),   
 	Vector2(50, 0)    
 ]
-@export var summon_spawn_offset: Vector2 = Vector2(0, -50)
+@export var summon_spawn_offset: Vector2 = Vector2(0, 30)
 @export var spell_spawn_offset: float = 50.0
 @export var spell2_spawn_offsets: Array[Vector2] = [
-	Vector2(50, 20),   
-	Vector2(70, 30),   
-	Vector2(-50, 20),  
-	Vector2(-70, 30)   
+	Vector2(70, -10),   
+	Vector2(100, -10),   
+	Vector2(-70, -10),  
+	Vector2(-100, -10)   
 ]
 @export var attack_area_base_offset: Vector2 = Vector2(20, 0) 
 @export var floor_check_offset: Vector2 = Vector2(20, 10) 
@@ -57,7 +57,7 @@ func _ready() -> void:
 	animation_player.animation_finished.connect(_on_animation_finished)
 	animated_sprite.flip_h = false
 	animation_player.play("walk")
-	chase_attack_timer = randf_range(7.0, 8.0)
+	chase_attack_timer = randf_range(3.0, 3.5)
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity

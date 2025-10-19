@@ -4982,7 +4982,7 @@ position = Vector2(3707, 500)
 
 [node name="Player" parent="." instance=ExtResource("8_hte5h")]
 position = Vector2(4437, 458)
-jump_strength = -130.0
+jump_strength = -400.0
 max_jump_time = 0.2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

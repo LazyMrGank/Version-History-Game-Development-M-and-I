@@ -1,0 +1,142 @@
+[gd_scene load_steps=21 format=3 uid="uid://ba76plc28kyd7"]
+
+[ext_resource type="Script" uid="uid://byvdndrfnf7c1" path="res://Scripts/boss_spell_3.gd" id="1_nii0s"]
+[ext_resource type="Texture2D" uid="uid://c6d46s3u7n6st" path="res://Asset Packs/Dark VFX 01 - 02/Dark VFX 1/Dark VFX 1 (40x32).png" id="2_pv0iv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1f58w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4f2d5"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(0, 32, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yg4i8"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(40, 32, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i50t2"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(80, 32, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yaj7c"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(120, 32, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mvfd"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(160, 32, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00gsi"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(200, 32, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87xx7"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(0, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvebf"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(40, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bu7h5"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(80, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6aw8"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(120, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otd6p"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(160, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3hb3"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(200, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8ew8"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(240, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prt4a"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(280, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1lew"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(320, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wo4gf"]
+atlas = ExtResource("2_pv0iv")
+region = Rect2(360, 0, 40, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d1r2r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4f2d5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yg4i8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i50t2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yaj7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mvfd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00gsi")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87xx7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvebf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bu7h5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6aw8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otd6p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3hb3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8ew8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prt4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1lew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wo4gf")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 10.0
+}]
+
+[node name="Boss_spell3" type="Area2D"]
+script = ExtResource("1_nii0s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1f58w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, -1)
+sprite_frames = SubResource("SpriteFrames_d1r2r")
+animation = &"explosion"
